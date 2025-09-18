@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://l3og62b40map"]
+[gd_scene load_steps=7 format=3 uid="uid://l3og62b40map"]
 
 [ext_resource type="Texture2D" uid="uid://dtvqt81f7l1p8" path="res://icon.svg" id="1_ur1aj"]
+[ext_resource type="Script" uid="uid://bpyvfsygeb62s" path="res://scenes/Agent/agent.gd" id="1_wkksa"]
+[ext_resource type="PackedScene" uid="uid://dd326c0klutaa" path="res://scenes/Components/direction_component.tscn" id="3_r6ke8"]
+[ext_resource type="PackedScene" uid="uid://bgoyoxox63kja" path="res://scenes/Components/velocity_component.tscn" id="4_eh18i"]
+[ext_resource type="PackedScene" uid="uid://wa8mjno70epw" path="res://scenes/Components/pathfinding_component.tscn" id="5_eh18i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wkksa"]
 
-[node name="Agent" type="CharacterBody2D"]
+[node name="Agent" type="CharacterBody2D" node_paths=PackedStringArray("direction_component", "velocity_component", "pathfinding_component")]
+script = ExtResource("1_wkksa")
+direction_component = NodePath("DirectionComponent")
+velocity_component = NodePath("VelocityComponent")
+pathfinding_component = NodePath("PathfindingComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_ur1aj")
@@ -12,3 +20,10 @@ texture = ExtResource("1_ur1aj")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(6.3, 6.3)
 shape = SubResource("RectangleShape2D_wkksa")
+
+[node name="DirectionComponent" parent="." instance=ExtResource("3_r6ke8")]
+
+[node name="VelocityComponent" parent="." instance=ExtResource("4_eh18i")]
+friction = 1000.0
+
+[node name="PathfindingComponent" parent="." instance=ExtResource("5_eh18i")]
