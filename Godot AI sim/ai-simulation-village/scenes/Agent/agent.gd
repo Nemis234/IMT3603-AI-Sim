@@ -3,11 +3,15 @@ extends CharacterBody2D
 @export var direction_component: DirectionComponent
 @export var velocity_component: VelocityComponent
 @export var pathfinding_component: PathfindingComponent 
+@export var animation_component: AnimationComponent
+
+#Testing purposes
+@export var move_to_target: Vector2
 
 func _physics_process(delta: float) -> void:
 	#Decide target, target could be an entity in the game
 	#This way we could let the LLM decide where to go without querying every direction
-	pathfinding_component.set_target(Vector2(400,300)) #Example
+	pathfinding_component.set_target(move_to_target) #Example
 
 	#Use the pathfinding function to get the next direction towards target
 	#From current direction
@@ -22,3 +26,6 @@ func _physics_process(delta: float) -> void:
 	
 	#Move the agent
 	move_and_slide()
+	
+	#Let the animation_component handle animations
+	animation_component.update_animation(velocity)
