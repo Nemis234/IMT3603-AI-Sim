@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://t6oxthatfx7e"]
+
+[ext_resource type="PackedScene" uid="uid://l3og62b40map" path="res://scenes/Agent/agent.tscn" id="1_o4ah8"]
+[ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
+
+[node name="LevelManager" type="Node2D"]
+
+[node name="Map" parent="." instance=ExtResource("2_rl3ic")]
+
+[node name="Agent" parent="." instance=ExtResource("1_o4ah8")]
