@@ -1,20 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfj3ogpugehuu"]
+[gd_scene load_steps=4 format=3 uid="uid://cfj3ogpugehuu"]
 
 [ext_resource type="Script" uid="uid://7pd2rcyxs0i2" path="res://scenes/GameRoot/game_root.gd" id="1_edqsi"]
 [ext_resource type="PackedScene" uid="uid://b8wxfyhgu5wfj" path="res://scenes/UI/MainMenu/main_menu.tscn" id="1_mj3kt"]
+[ext_resource type="PackedScene" uid="uid://t6oxthatfx7e" path="res://scenes/LevelManager/level_manager.tscn" id="3_2xrc6"]
 
 [node name="GameRoot" type="Node2D"]
 script = ExtResource("1_edqsi")
 
+[node name="MainMenu" parent="." instance=ExtResource("1_mj3kt")]
+
+[node name="LevelManager" parent="." instance=ExtResource("3_2xrc6")]
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MainMenu" parent="UI" instance=ExtResource("1_mj3kt")]
-layout_mode = 1
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
