@@ -14,16 +14,17 @@ grow_vertical = 2
 script = ExtResource("1_iy2v4")
 metadata/_edit_group_ = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -34,28 +35,28 @@ theme_override_constants/margin_top = 70
 theme_override_constants/margin_right = 120
 theme_override_constants/margin_bottom = 70
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="GameTitle" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="GameTitle" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 75
 text = "AI Sim Village"
 
-[node name="MenuOptions" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="MenuOptions" type="VBoxContainer" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="StartGame" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
+[node name="StartGame" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -63,27 +64,27 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 35
 text = "Play"
 
-[node name="Settings" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
+[node name="Settings" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
 text = "Settings"
 
-[node name="Quit" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
+[node name="Quit" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
 text = "Quit"
 
-[node name="VersionLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="VersionLabel" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "ver 0.01"
 label_settings = SubResource("LabelSettings_yj5a8")
 
-[node name="GameImageContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer"]
+[node name="GameImageContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/StartGame" to="." method="_on_start_game_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]
