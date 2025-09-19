@@ -176,7 +176,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wkksa"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_73sdf"]
+radius = 7.67231
 
 [node name="Agent" type="CharacterBody2D" node_paths=PackedStringArray("direction_component", "velocity_component", "pathfinding_component", "animation_component")]
 script = ExtResource("1_wkksa")
@@ -184,15 +185,16 @@ direction_component = NodePath("DirectionComponent")
 velocity_component = NodePath("VelocityComponent")
 pathfinding_component = NodePath("PathfindingComponent")
 animation_component = NodePath("AnimationComponent")
-move_to_target = Vector2(200, 200)
+move_to_target = Vector2(800, 600)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t5yjd")
 animation = &"walk_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(6.3, 6.3)
-shape = SubResource("RectangleShape2D_wkksa")
+position = Vector2(0.749999, 0.75)
+scale = Vector2(0.95, 0.95)
+shape = SubResource("CircleShape2D_73sdf")
 
 [node name="DirectionComponent" parent="." instance=ExtResource("3_r6ke8")]
 
