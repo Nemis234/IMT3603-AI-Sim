@@ -85,4 +85,5 @@ label_settings = SubResource("LabelSettings_yj5a8")
 [node name="GameImageContainer" type="CenterContainer" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
 
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/StartGame" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/MenuOptions/Quit" to="." method="_on_quit_pressed"]

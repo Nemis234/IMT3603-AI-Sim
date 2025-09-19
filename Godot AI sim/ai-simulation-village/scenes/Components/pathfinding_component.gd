@@ -15,8 +15,8 @@ func get_direction(current_position: Vector2) -> Vector2:
 		return Vector2.ZERO
 	
 	var dir = target_position - current_position
-	if dir.length() < 1.0: #Target reached
+	if dir.length() < 2.0: #Target reached #Increase this if agent overshoot and bounces
 		is_moving = false
 		return Vector2.ZERO
-	
+
 	return dir.normalized()
