@@ -7,6 +7,8 @@
 atlas = ExtResource("2_c38wu")
 region = Rect2(0, 0, 1408, 800)
 
+[sub_resource type="LabelSettings" id="LabelSettings_yj5a8"]
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c38wu"]
 bg_color = Color(0.454902, 0.67451, 0.262745, 0.854902)
 border_width_left = 8
@@ -29,8 +31,6 @@ bg_color = Color(0.14902, 0.14902, 0.14902, 0.870588)
 border_color = Color(0.14902, 0.14902, 0.14902, 0.870588)
 border_blend = true
 
-[sub_resource type="LabelSettings" id="LabelSettings_yj5a8"]
-
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -52,6 +52,21 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_lwpty")
 expand_mode = 3
+
+[node name="VersionLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "version 0.01"
+label_settings = SubResource("LabelSettings_yj5a8")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -109,11 +124,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 35
 text = "Quit"
-
-[node name="VersionLabel" type="Label" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "ver 0.01"
-label_settings = SubResource("LabelSettings_yj5a8")
 
 [node name="GameImageContainer" type="CenterContainer" parent="CanvasLayer/MarginContainer/HBoxContainer"]
 layout_mode = 2
