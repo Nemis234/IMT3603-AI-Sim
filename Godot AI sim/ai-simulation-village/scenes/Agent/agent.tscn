@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://l3og62b40map"]
+[gd_scene load_steps=31 format=3 uid="uid://l3og62b40map"]
 
 [ext_resource type="Script" uid="uid://bpyvfsygeb62s" path="res://scenes/Agent/agent.gd" id="1_wkksa"]
 [ext_resource type="Texture2D" uid="uid://csw5pr0ep6cpx" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Idle.png" id="2_eh18i"]
@@ -179,13 +179,15 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_73sdf"]
 radius = 7.67231
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_tktjb"]
+
 [node name="Agent" type="CharacterBody2D" node_paths=PackedStringArray("direction_component", "velocity_component", "pathfinding_component", "animation_component")]
 script = ExtResource("1_wkksa")
 direction_component = NodePath("DirectionComponent")
 velocity_component = NodePath("VelocityComponent")
 pathfinding_component = NodePath("PathfindingComponent")
 animation_component = NodePath("AnimationComponent")
-move_to_target = Vector2(500, 480)
+move_to_target = Vector2(490, 600)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t5yjd")
@@ -205,3 +207,11 @@ friction = 1000.0
 
 [node name="AnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("6_s81vc")]
 animated_sprite = NodePath("../AnimatedSprite2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_tktjb")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
