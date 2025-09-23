@@ -2077,7 +2077,7 @@ tile_map_data = PackedByteArray("AAAAAP//AAAAAAwAAAAGAP//AAACAAwAAAABAP//AAABAAw
 tile_set = SubResource("TileSet_0h42k")
 
 [node name="KitchenBenchTop" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAFAP7/AAABAAUAAAAFAP//AAABAAYAAAAHAP7/AAACAAUAAAAHAP//AAACAAYAAAAGAP7/AAABAAUAAAAGAP//AAABAAYAAAAHAAAAAAACAAcAAAAHAAEAAAACAAcAAAAHAAIAAAACAAcAAAAHAAMAAAACAAcAAAAHAAQAAAACAAgAAAAEAP//AAABAAYAAAAEAP7/AAABAAUAAAAGAAQAAAABAAgAAAAFAAQAAAABAAgAAAA=")
+tile_map_data = PackedByteArray("AAAHAP7/AAACAAUAAAAHAP//AAACAAYAAAAGAP7/AAABAAUAAAAGAP//AAABAAYAAAAHAAAAAAACAAcAAAAHAAEAAAACAAcAAAAHAAIAAAACAAcAAAAHAAMAAAACAAcAAAAHAAQAAAACAAgAAAAGAAQAAAABAAgAAAAFAAQAAAABAAgAAAAFAP7/AAABAAUAAAAFAP//AAABAAYAAAAEAP//AAABAAYAAAAEAP7/AAABAAUAAAA=")
 tile_set = SubResource("TileSet_gmrls")
 
 [node name="Ceiling" type="TileMapLayer" parent="."]
@@ -2085,7 +2085,7 @@ tile_map_data = PackedByteArray("AAD///7/AAAGAAIAAAD/////AAAIAAAAAAD//wAAAAAIAAA
 tile_set = SubResource("TileSet_mapfg")
 
 [node name="BookShelf" parent="." instance=ExtResource("2_0h42k")]
-position = Vector2(32, 48)
+position = Vector2(48, 72)
 
 [node name="Bed" parent="." instance=ExtResource("3_305y2")]
 position = Vector2(0, -8)
