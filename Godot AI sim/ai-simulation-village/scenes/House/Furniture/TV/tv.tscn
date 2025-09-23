@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0l3uyf8sm2cu"]
+
+[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_yo64d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yo64d"]
+atlas = ExtResource("1_yo64d")
+region = Rect2(38, 395, 21, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx2lo"]
+atlas = ExtResource("1_yo64d")
+region = Rect2(8, 239, 19, 11)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5e1a5"]
+atlas = ExtResource("1_yo64d")
+region = Rect2(38, 395, 21, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yo64d"]
+size = Vector2(22, 14)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yo64d"]
+
+[node name="TV" type="StaticBody2D"]
+
+[node name="Off" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_yo64d")
+
+[node name="Off_screen" type="Sprite2D" parent="Off"]
+texture = SubResource("AtlasTexture_nx2lo")
+
+[node name="On" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_5e1a5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_yo64d")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.93, 1.93)
+shape = SubResource("CircleShape2D_yo64d")
