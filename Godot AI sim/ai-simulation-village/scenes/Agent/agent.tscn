@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dd326c0klutaa" path="res://scenes/Components/direction_component.tscn" id="3_r6ke8"]
 [ext_resource type="PackedScene" uid="uid://bgoyoxox63kja" path="res://scenes/Components/velocity_component.tscn" id="4_eh18i"]
 [ext_resource type="PackedScene" uid="uid://wa8mjno70epw" path="res://scenes/Components/pathfinding_component.tscn" id="5_eh18i"]
-[ext_resource type="PackedScene" uid="uid://b78xossil7diu" path="res://scenes/Components/animation_component.tscn" id="6_s81vc"]
+[ext_resource type="PackedScene" uid="uid://b78xossil7diu" path="res://scenes/Components/walking_animation_component.tscn" id="6_s81vc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s81vc"]
 atlas = ExtResource("2_eh18i")
@@ -181,13 +181,13 @@ radius = 7.67231
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tktjb"]
 
-[node name="Agent" type="CharacterBody2D" node_paths=PackedStringArray("direction_component", "velocity_component", "pathfinding_component", "animation_component")]
+[node name="Agent" type="CharacterBody2D" node_paths=PackedStringArray("direction_component", "velocity_component", "pathfinding_component", "walking_animation_component")]
 script = ExtResource("1_wkksa")
 direction_component = NodePath("DirectionComponent")
 velocity_component = NodePath("VelocityComponent")
 pathfinding_component = NodePath("PathfindingComponent")
-animation_component = NodePath("AnimationComponent")
-move_to_target = Vector2(430, 450)
+walking_animation_component = NodePath("WalkingAnimationComponent")
+move_to_target = Vector2(586, 505)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t5yjd")
@@ -205,7 +205,7 @@ friction = 1000.0
 
 [node name="PathfindingComponent" parent="." instance=ExtResource("5_eh18i")]
 
-[node name="AnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("6_s81vc")]
+[node name="WalkingAnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("6_s81vc")]
 animated_sprite = NodePath("../AnimatedSprite2D")
 
 [node name="Area2D" type="Area2D" parent="."]

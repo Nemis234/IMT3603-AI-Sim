@@ -3,7 +3,7 @@ extends CharacterBody2D
 @export var direction_component: DirectionComponent
 @export var velocity_component: VelocityComponent
 @export var pathfinding_component: PathfindingComponent 
-@export var animation_component: AnimationComponent
+@export var walking_animation_component: WalkingAnimationComponent
 
 #Testing purposes
 @export var move_to_target: Vector2
@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	#Let the animation_component handle animations
-	animation_component.update_animation(velocity)
+	walking_animation_component.update_animation(velocity)
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#TODO under work
@@ -65,5 +65,5 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.pressed and event.keycode == 69:
 			for entities in allBodiesWithinRange:
 				if entities.is_in_group("interactable"):
-					print(entities)
+					entities.change_state()
 			

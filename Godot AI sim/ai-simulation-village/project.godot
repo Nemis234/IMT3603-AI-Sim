@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[global_group]
+
+interactable="Interactable objects/entities in game world"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

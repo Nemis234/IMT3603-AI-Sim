@@ -30,4 +30,3 @@ func change_state() -> void:
 	match currentState:
 		State.CLOSED: nextState = State.OPEN; collisionArea.disabled = false
 		_: nextState = State.CLOSED; collisionArea.disabled = true
-	

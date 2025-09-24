@@ -1,5 +1,5 @@
 extends Node
-class_name AnimationComponent
+class_name WalkingAnimationComponent
 
 @export var animated_sprite: AnimatedSprite2D
 
