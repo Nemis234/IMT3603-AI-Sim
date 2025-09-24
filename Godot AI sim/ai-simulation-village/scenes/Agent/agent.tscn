@@ -187,7 +187,7 @@ direction_component = NodePath("DirectionComponent")
 velocity_component = NodePath("VelocityComponent")
 pathfinding_component = NodePath("PathfindingComponent")
 animation_component = NodePath("AnimationComponent")
-move_to_target = Vector2(490, 600)
+move_to_target = Vector2(430, 450)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t5yjd")
