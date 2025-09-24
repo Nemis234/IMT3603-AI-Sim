@@ -8,6 +8,9 @@ extends CharacterBody2D
 #Testing purposes
 @export var move_to_target: Vector2
 
+#List of entities/objects within range
+var allBodiesWithinRange: Array = []
+
 #Pathfinding, check if something is blocking the agent on x-axis or y-axis
 var collision_axis: String = ""
 
@@ -44,12 +47,23 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Vertical collision
 		if dir.y > 0:
 			collision_axis = "Y"
-	
-
-
+			
+	#Store all the bodies within interactable range
+	allBodiesWithinRange.append(body)
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	#TODO underwork
 	collision_axis = ""
-
 	
+	#Remove the bodies within interactable range
+	allBodiesWithinRange.erase(body)
+
+
+#testing
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed and event.keycode == 69:
+			for entities in allBodiesWithinRange:
+				if entities.is_in_group("interactable"):
+					print(entities)
+			

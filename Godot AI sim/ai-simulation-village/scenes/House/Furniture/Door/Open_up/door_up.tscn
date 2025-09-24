@@ -16,7 +16,7 @@ size = Vector2(18, 28)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a74pe"]
 
-[node name="DoorUp" type="StaticBody2D"]
+[node name="DoorUp" type="StaticBody2D" groups=["interactable"]]
 script = ExtResource("1_vvahc")
 
 [node name="OpenSprite" type="Sprite2D" parent="."]
