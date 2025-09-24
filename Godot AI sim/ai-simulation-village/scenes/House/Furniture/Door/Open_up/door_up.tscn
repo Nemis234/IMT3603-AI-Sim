@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://g3gulgno0lgb"]
+[gd_scene load_steps=7 format=3 uid="uid://g3gulgno0lgb"]
 
 [ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_i13rp"]
+[ext_resource type="Script" uid="uid://dahsc2fqq8dha" path="res://scenes/House/Furniture/Door/Open_up/door_up.gd" id="1_vvahc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a74pe"]
 atlas = ExtResource("1_i13rp")
@@ -16,6 +17,7 @@ size = Vector2(18, 28)
 [sub_resource type="CircleShape2D" id="CircleShape2D_a74pe"]
 
 [node name="DoorUp" type="StaticBody2D"]
+script = ExtResource("1_vvahc")
 
 [node name="OpenSprite" type="Sprite2D" parent="."]
 visible = false
@@ -34,3 +36,6 @@ shape = SubResource("RectangleShape2D_a74pe")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(2.19, 2.19)
 shape = SubResource("CircleShape2D_a74pe")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

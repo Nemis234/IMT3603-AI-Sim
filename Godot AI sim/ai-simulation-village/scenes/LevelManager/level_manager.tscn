@@ -8,7 +8,7 @@
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
-[node name="Agent" parent="." instance=ExtResource("1_o4ah8")]
-
 [node name="House" parent="." instance=ExtResource("3_rl3ic")]
 position = Vector2(383, 360)
+
+[node name="Agent" parent="." instance=ExtResource("1_o4ah8")]

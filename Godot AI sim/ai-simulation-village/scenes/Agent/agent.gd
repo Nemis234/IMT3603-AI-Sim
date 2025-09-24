@@ -33,8 +33,8 @@ func _physics_process(delta: float) -> void:
 	#Let the animation_component handle animations
 	animation_component.update_animation(velocity)
 
-
 func _on_area_2d_body_entered(body: Node2D) -> void:
+	#TODO under work
 	var dir = body.global_position - global_position
 	if abs(dir.x) > abs(dir.y):
 		# Horizontal collision
@@ -44,7 +44,12 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Vertical collision
 		if dir.y > 0:
 			collision_axis = "Y"
+	
+
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
+	#TODO underwork
 	collision_axis = ""
+
+	
