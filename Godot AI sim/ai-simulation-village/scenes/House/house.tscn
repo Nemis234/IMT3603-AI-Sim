@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://dx0maj81n6txs"]
+[gd_scene load_steps=22 format=4 uid="uid://dx0maj81n6txs"]
 
 [ext_resource type="Texture2D" uid="uid://ddvg0egxfg0qj" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="1_2whkc"]
 [ext_resource type="PackedScene" uid="uid://cdcb75dc601v" path="res://scenes/House/Furniture/Bookshelf/book_shelf.tscn" id="2_0h42k"]
@@ -9,8 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://g3gulgno0lgb" path="res://scenes/House/Furniture/Door/Open_up/door_up.tscn" id="6_gmrls"]
 [ext_resource type="PackedScene" uid="uid://byb115aoflo4m" path="res://scenes/House/Furniture/Door/Open_right/door_right.tscn" id="7_3gohj"]
 [ext_resource type="PackedScene" uid="uid://dppt6jagq4nmy" path="res://scenes/House/Furniture/Window/Bedroom/bedroom_window.tscn" id="9_yt0su"]
+[ext_resource type="PackedScene" uid="uid://cv1y8cix8lcgd" path="res://scenes/House/Furniture/Carpet/Carpet.tscn" id="10_f5rgy"]
 [ext_resource type="PackedScene" uid="uid://bl0rpx6oputde" path="res://scenes/House/Furniture/Table/Table.tscn" id="10_vlyct"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House/Furniture/TV/tv.tscn" id="11_c7jn4"]
+[ext_resource type="PackedScene" uid="uid://rc5bi8fv2m2l" path="res://scenes/House/Furniture/Closet/Closet.tscn" id="13_grmpy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0h42k"]
 texture = ExtResource("1_2whkc")
@@ -2110,7 +2112,7 @@ visible = true
 position = Vector2(128, -16)
 
 [node name="BookShelf" parent="." instance=ExtResource("2_0h42k")]
-position = Vector2(160, 136)
+position = Vector2(112, 136)
 
 [node name="Bed" parent="." instance=ExtResource("3_305y2")]
 position = Vector2(8, 16)
@@ -2118,8 +2120,20 @@ position = Vector2(8, 16)
 [node name="Fridge" parent="." instance=ExtResource("5_pgi2r")]
 position = Vector2(184, 0)
 
+[node name="Carpet2" parent="." instance=ExtResource("10_f5rgy")]
+position = Vector2(248, 176)
+
 [node name="Table" parent="." instance=ExtResource("10_vlyct")]
-position = Vector2(248, 160)
+position = Vector2(248, 176)
 
 [node name="TV" parent="." instance=ExtResource("11_c7jn4")]
 position = Vector2(248, 128)
+
+[node name="Carpet" parent="." instance=ExtResource("10_f5rgy")]
+position = Vector2(56, 24)
+
+[node name="Carpet3" parent="." instance=ExtResource("10_f5rgy")]
+position = Vector2(24, 224)
+
+[node name="Closet" parent="." instance=ExtResource("13_grmpy")]
+position = Vector2(88, -8)
