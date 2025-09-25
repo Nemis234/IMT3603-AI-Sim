@@ -9,8 +9,8 @@
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
 [node name="House" parent="." instance=ExtResource("3_rl3ic")]
-position = Vector2(53, -25)
+position = Vector2(1730, 48)
 
 [node name="AgentV2" parent="." instance=ExtResource("4_hbnk6")]
 position = Vector2(109, 64)
-target = Vector2(400, 300)
+target = Vector2(1064, 486)
