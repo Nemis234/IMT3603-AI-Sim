@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity_component.get_velocity()
 	
 	#Move the agent
-	move_and_slide()
+	#move_and_slide()
 	
 	#Let the animation_component handle animations
 	walking_animation_component.update_animation(velocity)
@@ -56,14 +56,17 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	collision_axis = ""
 	
 	#Remove the bodies within interactable range
+	print("Deleted from list ",body)
 	allBodiesWithinRange.erase(body)
 
 
 #testing
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey:
-		if event.pressed and event.keycode == 69:
+		if event.is_released() and event.keycode == 69:
 			for entities in allBodiesWithinRange:
+				print(entities)
 				if entities.is_in_group("interactable"):
 					entities.change_state()
+
 			

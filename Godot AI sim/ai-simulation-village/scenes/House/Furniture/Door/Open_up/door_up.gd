@@ -31,3 +31,4 @@ func change_state() -> void:
 		State.CLOSED: nextState = State.OPEN; collisionArea.disabled = false
 		_: nextState = State.CLOSED; collisionArea.disabled = true
 	
+	print(currentState, nextState)
