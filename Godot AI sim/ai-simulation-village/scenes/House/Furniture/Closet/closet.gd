@@ -27,4 +27,4 @@ func change_state() -> void:
 		_: nextState = State.INACTIVE
 
 	if currentState == 1:
-		print("Bookshelf is in use.")
+		print("Closet is in use.")

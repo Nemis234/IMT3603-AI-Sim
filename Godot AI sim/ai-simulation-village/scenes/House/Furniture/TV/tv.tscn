@@ -1,6 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0l3uyf8sm2cu"]
+[gd_scene load_steps=10 format=3 uid="uid://b0l3uyf8sm2cu"]
 
+[ext_resource type="Script" uid="uid://hr42is3jpnm" path="res://scenes/House/Furniture/TV/tv.gd" id="1_5e1a5"]
 [ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_yo64d"]
+[ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="3_k5se8"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="4_h2nya"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo64d"]
 atlas = ExtResource("1_yo64d")
@@ -19,7 +22,10 @@ size = Vector2(22, 14)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yo64d"]
 
-[node name="TV" type="StaticBody2D"]
+[node name="TV" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component", "change_state_sprite")]
+script = ExtResource("1_5e1a5")
+state_handler_component = NodePath("StateHandlerComponent")
+change_state_sprite = NodePath("ChangeStateSprite")
 
 [node name="Off" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_yo64d")
@@ -39,3 +45,9 @@ shape = SubResource("RectangleShape2D_yo64d")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(1.93, 1.93)
 shape = SubResource("CircleShape2D_yo64d")
+
+[node name="ChangeStateSprite" parent="." node_paths=PackedStringArray("sprite_1", "sprite_2") instance=ExtResource("3_k5se8")]
+sprite_1 = NodePath("../Off")
+sprite_2 = NodePath("../On")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("4_h2nya")]

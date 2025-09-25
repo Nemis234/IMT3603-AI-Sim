@@ -5,15 +5,15 @@ extends StaticBody2D
 
 #States of the furniture
 enum State {
-	INACTIVE = 0, 
-	ACTIVE = 1
+	CLOSED = 0, 
+	OPEN = 1
 	}
 	
 #Current state of the entity
-var currentState = State.INACTIVE
+var currentState = State.CLOSED
 
 #Next state
-var nextState = State.ACTIVE
+var nextState = State.OPEN
 
 func change_state() -> void:
 	currentState = state_handler_component.change_state(nextState, currentState)
@@ -23,8 +23,8 @@ func change_state() -> void:
 		return
 
 	match currentState:
-		State.INACTIVE: nextState = State.ACTIVE
-		_: nextState = State.INACTIVE
+		State.CLOSED: nextState = State.OPEN
+		_: nextState = State.CLOSED
 
 	if currentState == 1:
-		print("Bookshelf is in use.")
+		print("Fridge is in use.")

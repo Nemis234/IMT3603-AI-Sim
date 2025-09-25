@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://rc5bi8fv2m2l"]
+[gd_scene load_steps=7 format=3 uid="uid://rc5bi8fv2m2l"]
 
+[ext_resource type="Script" uid="uid://bibf7g2n0gg3n" path="res://scenes/House/Furniture/Closet/closet.gd" id="1_eeg5i"]
 [ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_r2qmo"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="2_jp5f0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jp5f0"]
 atlas = ExtResource("1_r2qmo")
@@ -11,7 +13,8 @@ size = Vector2(28, 39)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_r2qmo"]
 
-[node name="Closet" type="StaticBody2D"]
+[node name="Closet" type="StaticBody2D" groups=["interactable"]]
+script = ExtResource("1_eeg5i")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_jp5f0")
@@ -25,3 +28,5 @@ shape = SubResource("RectangleShape2D_r2qmo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(3.015, 3.015)
 shape = SubResource("CircleShape2D_r2qmo")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("2_jp5f0")]

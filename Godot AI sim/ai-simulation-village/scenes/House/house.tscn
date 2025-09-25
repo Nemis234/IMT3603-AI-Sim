@@ -2126,7 +2126,7 @@ position = Vector2(248, 176)
 [node name="Table" parent="." instance=ExtResource("10_vlyct")]
 position = Vector2(248, 176)
 
-[node name="TV" parent="." instance=ExtResource("11_c7jn4")]
+[node name="TV" parent="." groups=["interactable"] instance=ExtResource("11_c7jn4")]
 position = Vector2(248, 128)
 
 [node name="Carpet" parent="." instance=ExtResource("10_f5rgy")]
