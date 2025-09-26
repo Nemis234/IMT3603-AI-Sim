@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bl0rpx6oputde" path="res://scenes/House/Furniture/Table/Table.tscn" id="10_vlyct"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House/Furniture/TV/tv.tscn" id="11_c7jn4"]
 [ext_resource type="PackedScene" uid="uid://rc5bi8fv2m2l" path="res://scenes/House/Furniture/Closet/Closet.tscn" id="13_grmpy"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="14_var57"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0h42k"]
 texture = ExtResource("1_2whkc")
@@ -2074,8 +2075,6 @@ texture = ExtResource("1_2whkc")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_305y2")
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_grmpy"]
-
 [node name="House" type="Node2D" groups=["House"]]
 
 [node name="Floor" type="TileMapLayer" parent="."]
@@ -2140,11 +2139,5 @@ position = Vector2(24, 224)
 [node name="Closet" parent="." instance=ExtResource("13_grmpy")]
 position = Vector2(88, -8)
 
-[node name="EntranceArea" type="Area2D" parent="."]
-position = Vector2(24, 232)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntranceArea"]
-shape = SubResource("CircleShape2D_grmpy")
-
-[node name="EntrancePosition" type="Marker2D" parent="."]
+[node name="Entrance" parent="." instance=ExtResource("14_var57")]
 position = Vector2(24, 232)

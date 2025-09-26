@@ -10,7 +10,6 @@ region = Rect2(115, 391, 25, 20)
 size = Vector2(26, 20)
 
 [node name="KitchenWindow" type="StaticBody2D"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_pgi2r")

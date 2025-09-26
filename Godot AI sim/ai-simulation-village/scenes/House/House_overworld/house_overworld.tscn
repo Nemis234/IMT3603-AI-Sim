@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dluw3ibpx76d7"]
+[gd_scene load_steps=7 format=3 uid="uid://dluw3ibpx76d7"]
 
 [ext_resource type="Script" uid="uid://dxbgcny2qy2x4" path="res://scenes/House/House_overworld/house_overworld.gd" id="1_5utur"]
 [ext_resource type="Texture2D" uid="uid://qxndqondid45" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_y4hv5"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/house.tscn" id="3_m4in0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5utur"]
 atlas = ExtResource("1_y4hv5")
@@ -28,3 +29,6 @@ shape = SubResource("RectangleShape2D_y4hv5")
 position = Vector2(0, 15.000001)
 scale = Vector2(1.015, 1.015)
 shape = SubResource("CircleShape2D_y4hv5")
+
+[node name="House" parent="." instance=ExtResource("3_m4in0")]
+position = Vector2(1710, -70)
