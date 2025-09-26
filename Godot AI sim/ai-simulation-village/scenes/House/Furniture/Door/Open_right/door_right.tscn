@@ -1,9 +1,15 @@
+<<<<<<< HEAD
 [gd_scene load_steps=9 format=3 uid="uid://byb115aoflo4m"]
 
 [ext_resource type="Script" uid="uid://bkel047nl3f2f" path="res://scenes/House/Furniture/Door/Open_right/door_right.gd" id="1_1thpm"]
 [ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_eff5l"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="2_h82f3"]
 [ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="3_1thpm"]
+=======
+[gd_scene load_steps=6 format=3 uid="uid://byb115aoflo4m"]
+
+[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_eff5l"]
+>>>>>>> 0d6f73533fed8a39984c35caf85e172b0284ee21
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_eff5l"]
 atlas = ExtResource("1_eff5l")
@@ -18,10 +24,14 @@ size = Vector2(4, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_eff5l"]
 
+<<<<<<< HEAD
 [node name="DoorRight" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component", "change_state_sprite") groups=["interactable"]]
 script = ExtResource("1_1thpm")
 state_handler_component = NodePath("StateHandlerComponent")
 change_state_sprite = NodePath("ChangeStateSprite")
+=======
+[node name="DoorRight" type="StaticBody2D"]
+>>>>>>> 0d6f73533fed8a39984c35caf85e172b0284ee21
 
 [node name="ClosedSprite" type="Sprite2D" parent="."]
 rotation = 1.5708
@@ -40,9 +50,12 @@ shape = SubResource("RectangleShape2D_eff5l")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(1.715, 1.715)
 shape = SubResource("CircleShape2D_eff5l")
+<<<<<<< HEAD
 
 [node name="StateHandlerComponent" parent="." instance=ExtResource("2_h82f3")]
 
 [node name="ChangeStateSprite" parent="." node_paths=PackedStringArray("sprite_1", "sprite_2") instance=ExtResource("3_1thpm")]
 sprite_1 = NodePath("../ClosedSprite")
 sprite_2 = NodePath("../OpenSprite")
+=======
+>>>>>>> 0d6f73533fed8a39984c35caf85e172b0284ee21
