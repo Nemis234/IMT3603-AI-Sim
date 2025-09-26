@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ghrmboylr8js"]
+
+[ext_resource type="Script" uid="uid://bclm5y10u22yv" path="res://scenes/Components/change_state_sprite.gd" id="1_ut1jo"]
+
+[node name="ChangeStateSprite" type="Node"]
+script = ExtResource("1_ut1jo")

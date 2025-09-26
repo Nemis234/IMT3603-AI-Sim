@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://ctd0q6jqgsgw1"]
+
+[ext_resource type="Texture2D" uid="uid://d30ru33lmb22v" path="res://assets/SERENE_VILLAGE_REVAMPED/Animated stuff/campfire_16x16.png" id="1_1r7l4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p0h64"]
+atlas = ExtResource("1_1r7l4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3jrq"]
+atlas = ExtResource("1_1r7l4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fq0u0"]
+atlas = ExtResource("1_1r7l4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5sgd"]
+atlas = ExtResource("1_1r7l4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fk1x8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p0h64")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3jrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fq0u0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5sgd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.5
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1r7l4"]
+radius = 9.0
+
+[node name="CampFire" type="StaticBody2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_fk1x8")
+frame = 1
+frame_progress = 0.227933
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_1r7l4")
