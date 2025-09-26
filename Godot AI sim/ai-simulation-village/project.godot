@@ -23,6 +23,8 @@ version_control/autoload_on_startup=true
 [global_group]
 
 interactable="Interactable objects/entities in game world"
+Houses_Main_Map="Houses that are in the overworld."
+House="Groups of all the houses. "
 
 [rendering]
 
