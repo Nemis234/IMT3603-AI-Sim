@@ -8,3 +8,4 @@ extends StaticBody2D
 func change_state() -> void:
 	state_handler_component.change_state(0,collisionArea, change_state_sprite)
 	
+ 

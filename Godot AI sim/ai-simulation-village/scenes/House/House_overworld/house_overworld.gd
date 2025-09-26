@@ -13,5 +13,5 @@ func _ready() -> void:
 	
 	for houses in get_tree().get_nodes_in_group("House"):
 		print(houses)
-		if houses.name == "House":
-			entrance_position = houses.get_node("EntrancePosition").get_global_position()
+		#if houses.name == "House":
+			#entrance_position = houses.get_node("Entrance").get_child("EntrancePosition").get_global_position()
