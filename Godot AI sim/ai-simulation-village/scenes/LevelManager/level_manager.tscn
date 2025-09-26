@@ -1,18 +1,36 @@
 [gd_scene load_steps=5 format=3 uid="uid://t6oxthatfx7e"]
 
+<<<<<<< HEAD
 [ext_resource type="PackedScene" uid="uid://l3og62b40map" path="res://scenes/Agent/agent.tscn" id="1_o4ah8"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/house.tscn" id="3_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="4_hbnk6"]
+=======
+[ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/house.tscn" id="3_rl3ic"]
+[ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House/House_overworld/house_overworld.tscn" id="4_byoxf"]
+[ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 [node name="LevelManager" type="Node2D"]
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
 [node name="House" parent="." instance=ExtResource("3_rl3ic")]
+<<<<<<< HEAD
 position = Vector2(383, 360)
 
 [node name="Agent" parent="." instance=ExtResource("1_o4ah8")]
 
 [node name="Player" parent="." instance=ExtResource("4_hbnk6")]
 position = Vector2(1067, 481)
+=======
+position = Vector2(2049, -162)
+
+[node name="HouseOverworld" parent="." instance=ExtResource("4_byoxf")]
+position = Vector2(716, 449)
+
+[node name="AgentV2" parent="." instance=ExtResource("4_hbnk6")]
+position = Vector2(109, 64)
+target = Vector2(1064, 486)
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92

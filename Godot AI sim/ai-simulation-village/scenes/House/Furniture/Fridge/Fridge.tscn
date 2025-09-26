@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 [gd_scene load_steps=5 format=3 uid="uid://c0wtuqyrj21np"]
 
 [ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_o6bno"]
+=======
+[gd_scene load_steps=7 format=3 uid="uid://c0wtuqyrj21np"]
+
+[ext_resource type="Script" uid="uid://bo4fn21ho16s8" path="res://scenes/House/Furniture/Fridge/fridge.gd" id="1_lc0vj"]
+[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_o6bno"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="3_skfbg"]
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6bno"]
 atlas = ExtResource("1_o6bno")
@@ -11,7 +19,13 @@ region = Rect2(32, 296, 16, 30)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o6bno"]
 size = Vector2(16, 32)
 
+<<<<<<< HEAD
 [node name="Fridge" type="StaticBody2D"]
+=======
+[node name="Fridge" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component") groups=["interactable"]]
+script = ExtResource("1_lc0vj")
+state_handler_component = NodePath("StateHandlerComponent")
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_o6bno")
@@ -25,3 +39,8 @@ shape = SubResource("CircleShape2D_o6bno")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_o6bno")
+<<<<<<< HEAD
+=======
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("3_skfbg")]
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92

@@ -3,11 +3,21 @@ extends CharacterBody2D
 @export var direction_component: DirectionComponent
 @export var velocity_component: VelocityComponent
 @export var pathfinding_component: PathfindingComponent 
+<<<<<<< HEAD
 @export var animation_component: AnimationComponent
+=======
+@export var walking_animation_component: WalkingAnimationComponent
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 #Testing purposes
 @export var move_to_target: Vector2
 
+<<<<<<< HEAD
+=======
+#List of entities/objects within range
+var allBodiesWithinRange: Array = []
+
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 #Pathfinding, check if something is blocking the agent on x-axis or y-axis
 var collision_axis: String = ""
 
@@ -28,10 +38,17 @@ func _physics_process(delta: float) -> void:
 	velocity = velocity_component.get_velocity()
 	
 	#Move the agent
+<<<<<<< HEAD
 	move_and_slide()
 	
 	#Let the animation_component handle animations
 	animation_component.update_animation(velocity)
+=======
+	#move_and_slide()
+	
+	#Let the animation_component handle animations
+	walking_animation_component.update_animation(velocity)
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	#TODO under work
@@ -44,12 +61,37 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		# Vertical collision
 		if dir.y > 0:
 			collision_axis = "Y"
+<<<<<<< HEAD
 	
 
 
+=======
+			
+	#Store all the bodies within interactable range
+	allBodiesWithinRange.append(body)
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	#TODO underwork
 	collision_axis = ""
+<<<<<<< HEAD
 
 	
+=======
+	
+	#Remove the bodies within interactable range
+	print("Deleted from list ",body)
+	allBodiesWithinRange.erase(body)
+
+
+#testing
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.is_released() and event.keycode == 69:
+			for entities in allBodiesWithinRange:
+				print(entities)
+				if entities.is_in_group("interactable"):
+					entities.change_state()
+
+			
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92

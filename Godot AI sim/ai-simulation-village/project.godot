@@ -12,7 +12,11 @@ config_version=5
 
 config/name="AI Simulation Village"
 run/main_scene="uid://cfj3ogpugehuu"
+<<<<<<< HEAD
 config/features=PackedStringArray("4.4", "GL Compatibility")
+=======
+config/features=PackedStringArray("4.5", "GL Compatibility")
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 config/icon="res://icon.svg"
 
 [editor]
@@ -20,6 +24,7 @@ config/icon="res://icon.svg"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+<<<<<<< HEAD
 [input]
 
 walk_left={
@@ -42,6 +47,13 @@ walk_down={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":83,"key_label":0,"unicode":115,"location":0,"echo":false,"script":null)
 ]
 }
+=======
+[global_group]
+
+interactable="Interactable objects/entities in game world"
+Houses_Main_Map="Houses that are in the overworld."
+House="Groups of all the houses. "
+>>>>>>> 552d9b9bf194833acc1d4cb8620e0391df3a1c92
 
 [rendering]
 
