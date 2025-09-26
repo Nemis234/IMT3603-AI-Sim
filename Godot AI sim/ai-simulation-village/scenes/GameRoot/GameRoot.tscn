@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b8wxfyhgu5wfj" path="res://scenes/UI/MainMenu/main_menu.tscn" id="1_mj3kt"]
 [ext_resource type="PackedScene" uid="uid://t6oxthatfx7e" path="res://scenes/LevelManager/level_manager.tscn" id="3_2xrc6"]
 
+
 [node name="GameRoot" type="Node2D"]
 script = ExtResource("1_edqsi")
 
