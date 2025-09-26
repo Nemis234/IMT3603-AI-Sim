@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://g3gulgno0lgb"]
 
-[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_i13rp"]
+[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_i13rp"]
 [ext_resource type="Script" uid="uid://dahsc2fqq8dha" path="res://scenes/House/Furniture/Door/Open_up/door_up.gd" id="1_vvahc"]
-[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="3_lg3w3"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_lg3w3"]
 [ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="4_3ty0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a74pe"]
@@ -32,12 +32,12 @@ texture = SubResource("AtlasTexture_a74pe")
 [node name="ClosedSprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_g0alp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DoorCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_a74pe")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Interractable" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="EffectArea" type="CollisionShape2D" parent="Interractable"]
 scale = Vector2(2.19, 2.19)
 shape = SubResource("CircleShape2D_a74pe")
 
@@ -47,5 +47,5 @@ shape = SubResource("CircleShape2D_a74pe")
 sprite_1 = NodePath("../ClosedSprite")
 sprite_2 = NodePath("../OpenSprite")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="Interractable" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Interractable" to="." method="_on_area_2d_body_exited"]

@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://b0l3uyf8sm2cu"]
 
 [ext_resource type="Script" uid="uid://hr42is3jpnm" path="res://scenes/House/Furniture/TV/tv.gd" id="1_5e1a5"]
-[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_yo64d"]
+[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_yo64d"]
 [ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="3_k5se8"]
-[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="4_h2nya"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="4_h2nya"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yo64d"]
 atlas = ExtResource("1_yo64d")
@@ -40,9 +40,9 @@ texture = SubResource("AtlasTexture_5e1a5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yo64d")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Interractable" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="EffectArea" type="CollisionShape2D" parent="Interractable"]
 scale = Vector2(1.93, 1.93)
 shape = SubResource("CircleShape2D_yo64d")
 
