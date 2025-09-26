@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	#TODO
-	navigationNode.target_position = this_guys_house.get_node("Area2D").get_global_position()
+	navigationNode.target_position = this_guys_house.get_node("Entrance").get_node("EntrancePosition").get_global_position()
 	
 	if !navigationNode.is_target_reached():
 		var direciton = to_local(navigationNode.get_next_path_position()).normalized()

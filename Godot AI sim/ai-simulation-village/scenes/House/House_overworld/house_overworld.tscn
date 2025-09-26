@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dxbgcny2qy2x4" path="res://scenes/House/House_overworld/house_overworld.gd" id="1_5utur"]
 [ext_resource type="Texture2D" uid="uid://vajvywhcvexb" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_y4hv5"]
-[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/house_interior.tscn" id="3_m4in0"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/House_interior/house_interior.tscn" id="3_m4in0"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="3_rvl6e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5utur"]
 atlas = ExtResource("1_y4hv5")
@@ -10,8 +11,6 @@ region = Rect2(7, 404, 67, 55)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
 size = Vector2(68, 44)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_y4hv5"]
 
 [node name="HouseOverworld" type="StaticBody2D" groups=["Houses_Main_Map"]]
 script = ExtResource("1_5utur")
@@ -23,12 +22,8 @@ texture = SubResource("AtlasTexture_5utur")
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_y4hv5")
 
-[node name="Entrance" type="Area2D" parent="."]
-
-[node name="EntranceCollision" type="CollisionShape2D" parent="Entrance"]
+[node name="Entrance" parent="." instance=ExtResource("3_rvl6e")]
 position = Vector2(0, 15)
-scale = Vector2(1.015, 1.015)
-shape = SubResource("CircleShape2D_y4hv5")
 
 [node name="HouseInterior" parent="." instance=ExtResource("3_m4in0")]
 position = Vector2(1710, -70)
