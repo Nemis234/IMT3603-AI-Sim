@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://b78xossil7diu"]
+[gd_scene load_steps=2 format=3 uid="uid://cf37v4t5636x7"]
 
 [ext_resource type="Script" uid="uid://cwu1j4ohbvvx1" path="res://scenes/Components/walking_animation_component.gd" id="1_qghjf"]
 
