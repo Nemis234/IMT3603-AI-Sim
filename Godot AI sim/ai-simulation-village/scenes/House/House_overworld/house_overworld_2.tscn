@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://0hiclgkilrth"]
+[gd_scene load_steps=7 format=3 uid="uid://0hiclgkilrth"]
 
+[ext_resource type="Script" uid="uid://bq1hw81fuqvtu" path="res://scenes/House/House_overworld/house_overworld_2.gd" id="1_7p88q"]
 [ext_resource type="Texture2D" uid="uid://vajvywhcvexb" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_fanja"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="2_v0brm"]
+[ext_resource type="PackedScene" uid="uid://cvcwpn07kgern" path="res://scenes/House/House_interior/house_interior_2.tscn" id="3_gapod"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0brm"]
 atlas = ExtResource("1_fanja")
@@ -11,6 +13,7 @@ region = Rect2(2, 344, 43, 51)
 size = Vector2(43, 41)
 
 [node name="HouseOverworld2" type="StaticBody2D" groups=["Houses_Main_Map"]]
+script = ExtResource("1_7p88q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_v0brm")
@@ -21,3 +24,6 @@ shape = SubResource("RectangleShape2D_fanja")
 
 [node name="Entrance" parent="." instance=ExtResource("2_v0brm")]
 position = Vector2(0, 14)
+
+[node name="HouseInterior2" parent="." instance=ExtResource("3_gapod")]
+position = Vector2(2269, -1215)

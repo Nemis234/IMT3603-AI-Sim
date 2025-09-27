@@ -1,11 +1,10 @@
-
 [gd_scene load_steps=6 format=3 uid="uid://t6oxthatfx7e"]
-
 
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House/House_overworld/house_overworld.tscn" id="4_byoxf"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
+[ext_resource type="PackedScene" uid="uid://0hiclgkilrth" path="res://scenes/House/House_overworld/house_overworld_2.tscn" id="5_nkjjk"]
 
 [node name="LevelManager" type="Node2D"]
 
@@ -20,3 +19,6 @@ target = Vector2(1064, 486)
 
 [node name="Player" parent="." instance=ExtResource("5_byoxf")]
 position = Vector2(996, 481)
+
+[node name="HouseOverworld2" parent="." instance=ExtResource("5_nkjjk")]
+position = Vector2(40, 364)
