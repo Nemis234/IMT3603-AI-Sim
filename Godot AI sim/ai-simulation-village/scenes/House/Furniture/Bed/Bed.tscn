@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bopwtunhj8d6u"]
 
-[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4qapx"]
+[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4qapx"]
 [ext_resource type="Script" uid="uid://bipncg2lqccks" path="res://scenes/House/Furniture/Bed/bed.gd" id="1_5tc4r"]
-[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/state_handler_component.tscn" id="2_bv4ir"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="2_bv4ir"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4qapx"]
 atlas = ExtResource("1_4qapx")
@@ -28,9 +28,9 @@ texture = SubResource("AtlasTexture_4qapx")
 position = Vector2(0, -16)
 texture = SubResource("AtlasTexture_bv4ir")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Interractable" type="Area2D" parent="."]
 
-[node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
+[node name="EffectArea" type="CollisionShape2D" parent="Interractable"]
 position = Vector2(0, -4)
 scale = Vector2(2.6, 2.6)
 shape = SubResource("CircleShape2D_4qapx")

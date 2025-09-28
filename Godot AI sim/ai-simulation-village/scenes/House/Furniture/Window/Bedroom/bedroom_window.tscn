@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dppt6jagq4nmy"]
 
-[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_bl5vf"]
+[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_bl5vf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c72x3"]
 atlas = ExtResource("1_bl5vf")
@@ -11,8 +11,8 @@ size = Vector2(36, 26)
 
 [node name="BedroomWindow" type="StaticBody2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="WindowSprite" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_c72x3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="WindowCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bl5vf")
