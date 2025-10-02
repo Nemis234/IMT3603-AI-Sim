@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsobevf513w03"]
+
+[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7me0"]
+atlas = ExtResource("1_60suo")
+region = Rect2(15, 16, 65, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6wry"]
+atlas = ExtResource("1_60suo")
+region = Rect2(15, 64, 65, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7bv2"]
+size = Vector2(66, 32)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_60suo"]
+radius = 23.0
+height = 84.0
+
+[node name="Bathtub" type="StaticBody2D"]
+
+[node name="bathtub_empty" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_u7me0")
+
+[node name="bathtub_water" type="Sprite2D" parent="."]
+visible = false
+texture = SubResource("AtlasTexture_l6wry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_a7bv2")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_60suo")
