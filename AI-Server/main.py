@@ -61,13 +61,13 @@ class Agent:
             content = line.message.content
             if content:
                 complete_message += content
-            yield f'data: {{ "response":"{content or ''}" }}\n\n'
+            yield f'{content or ''}'
 
         self.add_message(participant, complete_message, role='assistant')
         print(complete_message)
 
 # Create an agent with a system prompt
-mary = Agent("Mary", system_prompt="You are a ray of sunshine and always provide cheerful and positive responses.")
+mary = Agent("Mary", system_prompt="Absolutely never use emojis. You are a ray of sunshine and always provide cheerful and positive responses.")
 
 
 if __name__ == "__main__":
