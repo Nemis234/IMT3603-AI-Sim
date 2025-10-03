@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
-[ext_resource type="Texture2D" uid="uid://csw5pr0ep6cpx" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Idle.png" id="1_4p1vs"]
-[ext_resource type="Texture2D" uid="uid://d0elcvuvt1434" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Run.png" id="2_3fu0x"]
+[ext_resource type="Texture2D" uid="uid://cg6e5t3lvmfyv" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Idle.png" id="1_4p1vs"]
+[ext_resource type="Texture2D" uid="uid://m2y633lmr6uw" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Run.png" id="2_3fu0x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s81vc"]
 atlas = ExtResource("1_4p1vs")
@@ -199,3 +199,4 @@ shape = SubResource("CircleShape2D_4p1vs")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 30.0
 path_postprocessing = 1
+debug_enabled = true

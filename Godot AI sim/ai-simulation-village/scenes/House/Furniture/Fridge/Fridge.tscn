@@ -1,12 +1,12 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0wtuqyrj21np"]
 
 [ext_resource type="Script" uid="uid://bo4fn21ho16s8" path="res://scenes/House/Furniture/Fridge/fridge.gd" id="1_lc0vj"]
-[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_o6bno"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_lc0vj"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_skfbg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6bno"]
-atlas = ExtResource("1_o6bno")
-region = Rect2(32, 296, 16, 30)
+atlas = ExtResource("2_lc0vj")
+region = Rect2(16, 174, 16, 32)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o6bno"]
 
