@@ -1,22 +1,22 @@
 extends Node
 class_name PathfindingComponent
 
-var target_position: Vector2 = Vector2.ZERO
-var is_moving: bool = false
+@export var navigationNode: NavigationAgent2D
+@export var movement_speed: float = 100.0
 
-#Call this to tell the agent where to go
-func set_target(position: Vector2) -> void:
-	target_position = position
-	is_moving = true
-	
-#Returns a normalized direction to move toward the target
-func get_direction(current_position: Vector2) -> Vector2:
-	if not is_moving:
-		return Vector2.ZERO
-	
-	var dir = target_position - current_position
-	if dir.length() < 2.0: #Target reached #Increase this if agent overshoot and bounces
-		is_moving = false
-		return Vector2.ZERO
+#The agent this component is bounded too
+var agent: CharacterBody2D
 
-	return dir.normalized()
+func _ready():
+	agent = get_parent() as CharacterBody2D
+
+func set_target(new_target: Vector2):
+	navigationNode.target_position = new_target
+
+func move_along_path(delta: float) -> void:
+	if !navigationNode.is_target_reached():
+		var direction = agent.to_local(navigationNode.get_next_path_position()).normalized()
+		agent.velocity = direction * movement_speed
+		agent.move_and_slide()
+	else:
+		agent.velocity = Vector2.ZERO

@@ -1,8 +1,9 @@
-[gd_scene load_steps=27 format=3 uid="uid://cvinojykw1akk"]
+[gd_scene load_steps=28 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
 [ext_resource type="Texture2D" uid="uid://cg6e5t3lvmfyv" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Idle.png" id="1_4p1vs"]
 [ext_resource type="Texture2D" uid="uid://m2y633lmr6uw" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Run.png" id="2_3fu0x"]
+[ext_resource type="PackedScene" uid="uid://dui2l08xih2aa" path="res://scenes/Components/pathfinding_component.tscn" id="4_uwfto"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s81vc"]
 atlas = ExtResource("1_4p1vs")
@@ -177,9 +178,9 @@ radius = 7.67231
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4p1vs"]
 
-[node name="AgentV2" type="CharacterBody2D"]
+[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent")]
 script = ExtResource("1_3fu0x")
-target = Vector2(1064, 484)
+pathfindingComponent = NodePath("PathfindingComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uwfto")
@@ -200,3 +201,6 @@ shape = SubResource("CircleShape2D_4p1vs")
 path_desired_distance = 30.0
 path_postprocessing = 1
 debug_enabled = true
+
+[node name="PathfindingComponent" parent="." node_paths=PackedStringArray("navigationNode") instance=ExtResource("4_uwfto")]
+navigationNode = NodePath("../NavigationAgent2D")
