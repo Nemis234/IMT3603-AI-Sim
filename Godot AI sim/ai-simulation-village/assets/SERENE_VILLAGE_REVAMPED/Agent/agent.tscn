@@ -5,9 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://m2y633lmr6uw" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Run.png" id="3_73sdf"]
 [ext_resource type="PackedScene" uid="uid://dd326c0klutaa" path="res://scenes/Components/direction_component.tscn" id="3_r6ke8"]
 [ext_resource type="PackedScene" uid="uid://bgoyoxox63kja" path="res://scenes/Components/velocity_component.tscn" id="4_eh18i"]
-[ext_resource type="PackedScene" uid="uid://wa8mjno70epw" path="res://scenes/Components/pathfinding_component.tscn" id="5_eh18i"]
+[ext_resource type="PackedScene" uid="uid://wa8mjno70epw" path="res://scenes/Components/pathfinding_component_old.tscn" id="5_eh18i"]
 [ext_resource type="PackedScene" uid="uid://b78xossil7diu" path="res://scenes/Components/animation_component.tscn" id="6_s81vc"]
-
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s81vc"]
 atlas = ExtResource("2_eh18i")
