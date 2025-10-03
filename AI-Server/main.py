@@ -94,20 +94,19 @@ async def chat_endpoint(request: Request):
         Expects a JSON payload with the following structure:
 
             {
-                "message": {
-                    "content": "Your message here"
-                },
-            "participant": "user_identifier"  # Optional, defaults to 'user'
+                "message": "Your message here",
+                "participant": "user_identifier"  # Optional, defaults to 'user'
             }
 
     """
+    print("Received request")
     data: dict = await request.json()
-    message = data.get("message", {})
+    print(f"Received data: {data}")
 
-    if not isinstance(message, dict) or not "content" in message or not isinstance(message["content"], str):
+    if not isinstance(data.get("message"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
     
-    content = message.get("content", "")
+    message = data.get("message", "")
     participant = data.get("participant", USER)
 
-    return StreamingResponse(mary.chat(participant, content), media_type="text/event-stream")
+    return StreamingResponse(mary.chat(participant, message), media_type="text/event-stream")
