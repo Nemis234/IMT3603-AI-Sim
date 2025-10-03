@@ -1,4 +1,6 @@
+from collections.abc import Iterator
 import ollama
+from ollama import ChatResponse
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import StreamingResponse
 from collections import defaultdict
@@ -52,7 +54,7 @@ class Agent:
         self.add_message(participant, message, role='user')
         history = self.get_memory(participant)
 
-        response = ollama.chat(model=self._name,messages=history, stream=stream)
+        response: Iterator[ChatResponse] = ollama.chat(model=self._name, messages=history, stream=stream)
 
         complete_message = ''
         for line in response:
@@ -64,7 +66,8 @@ class Agent:
         self.add_message(participant, complete_message, role='assistant')
         print(complete_message)
 
-agent = Agent("Mary", system_prompt="You are sarcastic")
+# Create an agent with a system prompt
+mary = Agent("Mary", system_prompt="You are a ray of sunshine and always provide cheerful and positive responses.")
 
 
 if __name__ == "__main__":
@@ -74,14 +77,30 @@ if __name__ == "__main__":
         if prompt.lower() == 'q':
             break
         else:
-            for response in agent.chat(USER,prompt):
-                print(response, end='', flush=True)
+            for response in mary.chat(USER,prompt):
+                pass
+                #print(response, end='', flush=True)
 
 
 chat_server = FastAPI()
 
 @chat_server.post("/chat")
 async def chat_endpoint(request: Request):
+    """ API endpoint \n
+        This endpoint allows users to send and receive messages from the chatbot.
+
+        The response is streamed back to the client as it is generated.
+
+        Expects a JSON payload with the following structure:
+
+            {
+                "message": {
+                    "content": "Your message here"
+                },
+            "participant": "user_identifier"  # Optional, defaults to 'user'
+            }
+
+    """
     data: dict = await request.json()
     message = data.get("message", {})
 
@@ -91,4 +110,4 @@ async def chat_endpoint(request: Request):
     content = message.get("content", "")
     participant = data.get("participant", USER)
 
-    return StreamingResponse(agent.chat(participant, content), media_type="text/event-stream")
+    return StreamingResponse(mary.chat(participant, content), media_type="text/event-stream")
