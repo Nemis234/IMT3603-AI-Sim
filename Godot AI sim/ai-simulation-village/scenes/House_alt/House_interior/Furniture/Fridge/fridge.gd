@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends interactable
 
 @export var state_handler_component: StateHandlerComponent
 @onready var collisionArea: CollisionShape2D = $CollisionShape2D

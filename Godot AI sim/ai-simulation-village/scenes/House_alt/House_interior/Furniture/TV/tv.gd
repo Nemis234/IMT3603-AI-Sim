@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends interactable
 
 @export var state_handler_component: StateHandlerComponent
 @export var change_state_sprite: ChangeStateSprite

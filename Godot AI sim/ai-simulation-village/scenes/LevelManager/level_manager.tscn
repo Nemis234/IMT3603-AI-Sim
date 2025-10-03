@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=9 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
-[ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House/House_overworld/house_overworld.tscn" id="4_byoxf"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
 [ext_resource type="PackedScene" uid="uid://0hiclgkilrth" path="res://scenes/House/House_overworld/house_overworld_2.tscn" id="5_nkjjk"]
@@ -15,7 +14,7 @@ script = ExtResource("1_r2lsa")
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
-[node name="HouseOverworld" parent="." instance=ExtResource("4_byoxf")]
+[node name="HouseOverworld" parent="." instance=ExtResource("6_nkjjk")]
 position = Vector2(513, 257)
 
 [node name="HouseOverworld2" parent="." instance=ExtResource("5_nkjjk")]
@@ -28,10 +27,10 @@ script = ExtResource("7_xo7uf")
 position = Vector2(676, 431)
 
 [node name="house_interior" parent="House" instance=ExtResource("7_4tw1x")]
-position = Vector2(1845, -388)
+position = Vector2(1890, -364)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
-position = Vector2(996, 481)
+position = Vector2(1094, 467)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)

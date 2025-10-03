@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bl0rpx6oputde" path="res://scenes/House_alt/House_interior/Furniture/Table/Table.tscn" id="11_h70wd"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House_alt/House_interior/Furniture/TV/tv.tscn" id="12_v6g4m"]
 [ext_resource type="PackedScene" uid="uid://rc5bi8fv2m2l" path="res://scenes/House_alt/House_interior/Furniture/Closet/Closet.tscn" id="13_5owok"]
-[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="14_1kdxc"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="14_1kdxc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0h42k"]
 texture = ExtResource("1_gs12g")
