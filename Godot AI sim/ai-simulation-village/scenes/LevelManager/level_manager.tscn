@@ -1,24 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=10 format=3 uid="uid://t6oxthatfx7e"]
 
+[ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House/House_overworld/house_overworld.tscn" id="4_byoxf"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
 [ext_resource type="PackedScene" uid="uid://0hiclgkilrth" path="res://scenes/House/House_overworld/house_overworld_2.tscn" id="5_nkjjk"]
+[ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="6_nkjjk"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House_alt/House_interior/house_interior.tscn" id="7_4tw1x"]
+[ext_resource type="Script" uid="uid://pkviwog7eb7w" path="res://scenes/House_alt/house.gd" id="7_xo7uf"]
 
 [node name="LevelManager" type="Node2D"]
+script = ExtResource("1_r2lsa")
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
 [node name="HouseOverworld" parent="." instance=ExtResource("4_byoxf")]
 position = Vector2(513, 257)
 
+[node name="HouseOverworld2" parent="." instance=ExtResource("5_nkjjk")]
+position = Vector2(458, 366)
+
+[node name="House" type="Node2D" parent="." groups=["House"]]
+script = ExtResource("7_xo7uf")
+
+[node name="house_exterior" parent="House" instance=ExtResource("6_nkjjk")]
+position = Vector2(676, 431)
+
+[node name="house_interior" parent="House" instance=ExtResource("7_4tw1x")]
+position = Vector2(1845, -388)
+
+[node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
+position = Vector2(996, 481)
+
+[node name="Camera2D" type="Camera2D" parent="Adam"]
+zoom = Vector2(2, 2)
+
 [node name="AgentV2" parent="." instance=ExtResource("4_hbnk6")]
 position = Vector2(125, 209)
 target = Vector2(1064, 486)
-
-[node name="Player" parent="." instance=ExtResource("5_byoxf")]
-position = Vector2(996, 481)
-
-[node name="HouseOverworld2" parent="." instance=ExtResource("5_nkjjk")]
-position = Vector2(458, 366)

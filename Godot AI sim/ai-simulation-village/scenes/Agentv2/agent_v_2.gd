@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var movement_speed = 5000
 @export var target: Vector2 
 
+'''
 #testing can delete later
 var this_guys_house
 func _ready() -> void:
@@ -34,3 +35,4 @@ func _unhandled_input(event: InputEvent) -> void:
 					self.position = entities.get_parent().entrance_position
 					navigationNode.target_position = entities.get_parent().entrance_position
 					print("Enters house")
+'''

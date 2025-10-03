@@ -23,3 +23,10 @@ static func is_movement_input() -> bool:
         return false
     else:
         return true
+
+static func is_interact_input():
+    if Input.is_action_just_pressed("interact"):
+        return true
+    
+    return false
+    
