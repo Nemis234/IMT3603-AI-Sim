@@ -9,5 +9,5 @@ script = ExtResource("1_xihx7")
 
 [node name="HouseExterior2" parent="." instance=ExtResource("2_7unys")]
 
-[node name="HouseInterior2" parent="." groups=["house_ext"] instance=ExtResource("3_7unys")]
+[node name="HouseInterior2" parent="." instance=ExtResource("3_7unys")]
 position = Vector2(1641, 894)

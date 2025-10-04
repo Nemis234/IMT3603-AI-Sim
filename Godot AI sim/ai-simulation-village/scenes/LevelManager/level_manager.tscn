@@ -25,5 +25,4 @@ zoom = Vector2(2, 2)
 
 [node name="AgentV2" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
 position = Vector2(125, 209)
-target = Vector2(1064, 486)
 house = NodePath("../House")
