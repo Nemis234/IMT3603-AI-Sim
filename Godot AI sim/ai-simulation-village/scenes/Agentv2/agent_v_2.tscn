@@ -1,9 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://cvinojykw1akk"]
+[gd_scene load_steps=29 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
 [ext_resource type="Texture2D" uid="uid://cg6e5t3lvmfyv" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Idle.png" id="1_4p1vs"]
 [ext_resource type="Texture2D" uid="uid://m2y633lmr6uw" path="res://assets/Test_Character/Mini Characters 3 - Free_1.1/Bandit/Bandit_Run.png" id="2_3fu0x"]
 [ext_resource type="PackedScene" uid="uid://dui2l08xih2aa" path="res://scenes/Components/pathfinding_component.tscn" id="4_uwfto"]
+[ext_resource type="PackedScene" uid="uid://dh6fjvy7x6bns" path="res://scenes/Components/random_vector_on_navigation_layer_component.tscn" id="5_nsq65"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s81vc"]
 atlas = ExtResource("1_4p1vs")
@@ -178,9 +179,10 @@ radius = 7.67231
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4p1vs"]
 
-[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent")]
+[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("pathfindingComponent", "randomVectorOnNavigationLayer") groups=["Agent"]]
 script = ExtResource("1_3fu0x")
 pathfindingComponent = NodePath("PathfindingComponent")
+randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uwfto")
@@ -198,9 +200,15 @@ scale = Vector2(1.3, 1.3)
 shape = SubResource("CircleShape2D_4p1vs")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 30.0
+path_desired_distance = 5.0
+path_max_distance = 10.0
 path_postprocessing = 1
+radius = 5.0
 debug_enabled = true
 
 [node name="PathfindingComponent" parent="." node_paths=PackedStringArray("navigationNode") instance=ExtResource("4_uwfto")]
 navigationNode = NodePath("../NavigationAgent2D")
+
+[node name="RandomVectorOnNavigationLayerComponent" parent="." instance=ExtResource("5_nsq65")]
+
+[connection signal="target_reached" from="PathfindingComponent" to="." method="_on_pathfinding_component_target_reached"]

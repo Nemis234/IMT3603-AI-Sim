@@ -12,7 +12,7 @@ config_version=5
 
 config/name="AI Simulation Village"
 run/main_scene="uid://cfj3ogpugehuu"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [editor]
@@ -28,6 +28,8 @@ House="Groups of all the houses. "
 house_ext=""
 house_int=""
 Player=""
+NavigationArea="Available tiles for Agents to navigate on."
+Agent="A group of all agents."
 
 [input]
 

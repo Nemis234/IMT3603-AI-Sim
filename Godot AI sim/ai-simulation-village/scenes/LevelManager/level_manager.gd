@@ -2,7 +2,6 @@ extends Node2D
 
 @onready var player = $Adam
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for node in get_children():
@@ -29,3 +28,8 @@ func _change_state(entity,interactable):
 
 	elif interactable.is_in_group("interactable"):
 		interactable.change_state()
+
+#Tell the Agents to start a new action/check if they finished their action
+func _on_agent_timer_timeout() -> void:
+	for agents in get_tree().get_nodes_in_group("Agent"):
+		agents.new_agent_action()
