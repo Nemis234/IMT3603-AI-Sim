@@ -1,11 +1,11 @@
 extends Node2D
 
-@onready var house_interior = $HouseExterior3
+@onready var house_interior = $Houseinterior3
 @onready var house_exterior = $HouseExterior3
 
 
 @onready var door_area: Area2D = house_exterior.get_node("Entrance")
-@onready var exit_area: Area2D = house_interior.get_node("Entrance")
+@onready var exit_area: Area2D = house_interior.get_node("main_floor/Entrance")
 
 
 

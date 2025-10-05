@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmyvbth8j1f07"]
 
-[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="1_4xsa4"]
-[ext_resource type="Script" uid="uid://dmi8dvwugn83l" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs.gd" id="1_xwkuv"]
+[ext_resource type="Script" uid="uid://dmi8dvwugn83l" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs.gd" id="1_cgtq4"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_i6kgi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_njjr8"]
-atlas = ExtResource("1_4xsa4")
+atlas = ExtResource("2_i6kgi")
 region = Rect2(48, 322, 32, 76)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4xsa4"]
@@ -13,8 +13,8 @@ size = Vector2(32, 76)
 [sub_resource type="CircleShape2D" id="CircleShape2D_njjr8"]
 radius = 21.023796
 
-[node name="StairsDown" type="StaticBody2D" groups=["interactable"]]
-script = ExtResource("1_xwkuv")
+[node name="StairsBottom" type="StaticBody2D" groups=["interactable"]]
+script = ExtResource("1_cgtq4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_njjr8")
@@ -25,5 +25,5 @@ shape = SubResource("RectangleShape2D_4xsa4")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, 30)
+position = Vector2(0, 38)
 shape = SubResource("CircleShape2D_njjr8")
