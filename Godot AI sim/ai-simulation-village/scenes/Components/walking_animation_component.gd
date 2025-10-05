@@ -2,22 +2,33 @@ extends Node
 class_name WalkingAnimationComponent
 
 @export var animated_sprite: AnimatedSprite2D
+var last_facing: String = "down"
 
-#Used to set the correct idle_facing animation
-var last_facing: String = "right"
+# Small threshold to ignore tiny movement jitter/animation flickering
+const MOVE_THRESHOLD := 10.0
 
 func update_animation(velocity: Vector2) -> void:
-	if velocity.length() > 1.0:
-		# Walking
-		if velocity.x < 0:
-			animated_sprite.play("walk_left")
-			last_facing = "left"
-		elif velocity.x > 0:
-			animated_sprite.play("walk_right")
-			last_facing = "right"
-	else:
-		# Idle based on last facing
-		if last_facing == "left":
-			animated_sprite.play("idle_left")
+	var speed = velocity.length()
+
+	if speed > MOVE_THRESHOLD:
+		# Determine dominant axis (whichever has larger magnitude)
+		if abs(velocity.x) > abs(velocity.y):
+			if velocity.x > 0:
+				set_facing("right")
+			else:
+				set_facing("left")
 		else:
-			animated_sprite.play("idle_right")
+			if velocity.y > 0:
+				set_facing("down")
+			else:
+				set_facing("up")
+
+		# Play walking animation in current facing
+		animated_sprite.play("walk_%s" % last_facing)
+	else:
+		# Idle animation based on last facing
+		animated_sprite.play("idle_%s" % last_facing)
+
+func set_facing(direction: String) -> void:
+	if last_facing != direction:
+		last_facing = direction

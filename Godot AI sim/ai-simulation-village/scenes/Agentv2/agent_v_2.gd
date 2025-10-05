@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var detectionArea: Area2D = $Area2D
 @export var movement_speed = 5000
 
+@export var movementAnimation: WalkingAnimationComponent
 @export var pathfindingComponent: PathfindingComponent
 @export var randomVectorOnNavigationLayer: RandomVectorOnNavigationLayerComponent
 @export var house: Node2D
@@ -19,6 +20,8 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	pathfindingComponent.move_along_path(delta)
+	movementAnimation.update_animation(velocity)
+	
 
 
 #For now set a new target upon reaching target
