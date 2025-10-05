@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=9 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
 [ext_resource type="PackedScene" uid="uid://dyfdc4wt5qjgj" path="res://scenes/House_alt/House_parent_node/house.tscn" id="5_4tw1x"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
+[ext_resource type="PackedScene" uid="uid://dqc3vecv8cfhm" path="res://scenes/House_alt/House_parent_node/house_3.tscn" id="5_r2lsa"]
 [ext_resource type="Script" uid="uid://bgl64mmyy1opy" path="res://scenes/LevelManager/agent_timer.gd" id="6_4tw1x"]
 [ext_resource type="PackedScene" uid="uid://c804odqsa3ufa" path="res://scenes/House_alt/House_parent_node/house2.tscn" id="6_nkjjk"]
 
@@ -17,6 +18,9 @@ script = ExtResource("1_r2lsa")
 
 [node name="House2" parent="." instance=ExtResource("6_nkjjk")]
 position = Vector2(494, 255)
+
+[node name="House3" parent="." instance=ExtResource("5_r2lsa")]
+position = Vector2(912, 200)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
 position = Vector2(1915, -172)

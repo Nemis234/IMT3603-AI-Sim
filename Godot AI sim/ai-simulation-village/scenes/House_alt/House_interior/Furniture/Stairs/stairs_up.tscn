@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1pt8cmc0e236"]
+[gd_scene load_steps=6 format=3 uid="uid://b1pt8cmc0e236"]
 
 [ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="1_20e86"]
+[ext_resource type="Script" uid="uid://dmi8dvwugn83l" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs.gd" id="1_t71om"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ed02x"]
 atlas = ExtResource("1_20e86")
@@ -12,7 +13,8 @@ size = Vector2(32, 28)
 [sub_resource type="CircleShape2D" id="CircleShape2D_qtoxe"]
 radius = 21.023796
 
-[node name="StairsUp" type="StaticBody2D"]
+[node name="StairsUp" type="StaticBody2D" groups=["interactable"]]
+script = ExtResource("1_t71om")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_ed02x")
