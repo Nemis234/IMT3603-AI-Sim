@@ -23,7 +23,7 @@ position = Vector2(494, 255)
 position = Vector2(912, 200)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
-position = Vector2(1915, -172)
+position = Vector2(578, 472)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)

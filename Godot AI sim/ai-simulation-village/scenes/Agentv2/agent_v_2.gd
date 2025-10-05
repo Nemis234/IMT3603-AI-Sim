@@ -1,21 +1,26 @@
 extends CharacterBody2D
 
+signal use_entrance(agent,interactable)
+
 @onready var detectionArea: Area2D = $Area2D
 @export var movement_speed = 5000
 
 @export var movementAnimation: WalkingAnimationComponent
 @export var pathfindingComponent: PathfindingComponent
 @export var randomVectorOnNavigationLayer: RandomVectorOnNavigationLayerComponent
-@export var house: Node2D
+@export var agentActions: AgentActionListComponent
 
+#Agents house related
+@export var house: Node2D
 var house_entrance
 
-#Agent actions related, might make a new component out of this later
-var agent_actions: Array = ["Wander", "Idle"]
-var agent_action_done: bool = true
+#Agents action related
+var current_action # Stores the agents current action 
+var in_building: bool = false #Bool for when agent is insie or outside
+@onready var agent_interact_area = $InteractArea
 
 func _ready() -> void:
-	house_entrance = house.get_node("house_exterior").get_node("Area2D")
+	house_entrance = house.get_node("house_exterior").get_node("Entrance")
 	
 
 func _physics_process(delta: float) -> void:
@@ -24,19 +29,43 @@ func _physics_process(delta: float) -> void:
 	
 
 
-#For now set a new target upon reaching target
+#Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
-	agent_action_done = true
-	#pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_main_map())
+	match current_action:
+		"Wander":
+			agentActions.agent_action_done = true
+		"GoHome":
+			if in_building == false:
+				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
+				use_entrance.emit(self, door_entrance)
+				in_building = true
+				agentActions.agent_action_done = true
+		_:
+			pass
 
 #Set a new action for agent, as for now its based on a time interval
 func new_agent_action():
-	var new_action = agent_actions.pick_random()
-
+	if !agentActions.agent_action_done:
+		return
+	
+	var new_action = agentActions.agent_actions.pick_random()
+	
+	while new_action == "GoHome" and in_building:
+		new_action = agentActions.agent_actions.pick_random()
+	
 	match new_action:
 		"Wander":
-			if agent_action_done:
+			if agentActions.agent_action_done and !in_building:
 				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_main_map())
-				agent_action_done = false
-		"Idle": pass
+				agentActions.agent_action_done = false
+			elif agentActions.agent_action_done and in_building:
+				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_in_building("House"))
+				agentActions.agent_action_done = false
+		"GoHome":
+			pathfindingComponent.set_target(house_entrance.get_global_position())
+			agentActions.agent_action_done = false
+		"Idle": 
+			pass
 		_:print("No such action")
+	
+	current_action = new_action

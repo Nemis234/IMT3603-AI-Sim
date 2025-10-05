@@ -7,6 +7,8 @@ func _ready() -> void:
 	for node in get_children():
 		if node.is_in_group("Player"):
 			node.interact.connect(_change_state)
+		if node.is_in_group("Agent"):
+			node.use_entrance.connect(_change_state)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -17,6 +19,7 @@ func _on_physics_process(delta: float) -> void:
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))
+	print(entity," interacts with: ", interactable)
 	if interactable.is_in_group("house_ext"):
 		var house = interactable.get_parent()
 		entity.position = house.exit_area.get_global_position()

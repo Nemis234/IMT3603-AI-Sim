@@ -2,10 +2,10 @@ extends Node2D
 
 func _ready():
 	var player = $Player
-	player.connect("interact", _on_player_interact)
-
-	$StairUp.connect("stair_used", _on_stair_used)
-	$StairDown.connect("stair_used", _on_stair_used)
+	#player.connect("interact", _on_player_interact)
+#
+	#$StairUp.connect("stair_used", _on_stair_used)
+	#$StairDown.connect("stair_used", _on_stair_used)
 
 func _on_player_interact(player, target):
 	if target.has_method("interact"):

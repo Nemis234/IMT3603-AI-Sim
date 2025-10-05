@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dluw3ibpx76d7"]
 
 [ext_resource type="Texture2D" uid="uid://vajvywhcvexb" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="2_jrt6s"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="2_ukx0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5utur"]
 atlas = ExtResource("2_jrt6s")
@@ -8,9 +9,6 @@ region = Rect2(7, 404, 67, 55)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
 size = Vector2(68, 43)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_y4hv5"]
-radius = 3.11554
 
 [node name="house_exterior" type="StaticBody2D" groups=["house_ext"]]
 
@@ -21,10 +19,5 @@ texture = SubResource("AtlasTexture_5utur")
 position = Vector2(1, -5.5)
 shape = SubResource("RectangleShape2D_y4hv5")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Entrance" parent="." instance=ExtResource("2_ukx0b")]
 position = Vector2(0, 18)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-1, 1)
-scale = Vector2(1.015, 1.015)
-shape = SubResource("CircleShape2D_y4hv5")

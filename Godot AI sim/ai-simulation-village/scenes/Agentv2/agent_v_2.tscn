@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://cvinojykw1akk"]
+[gd_scene load_steps=58 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
 [ext_resource type="Texture2D" uid="uid://dwifxpmr2i0h2" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="2_xqdgn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dui2l08xih2aa" path="res://scenes/Components/pathfinding_component.tscn" id="4_uwfto"]
 [ext_resource type="PackedScene" uid="uid://dh6fjvy7x6bns" path="res://scenes/Components/random_vector_on_navigation_layer_component.tscn" id="5_nsq65"]
 [ext_resource type="PackedScene" uid="uid://cf37v4t5636x7" path="res://scenes/Components/walking_animation_component.tscn" id="6_xqdgn"]
+[ext_resource type="PackedScene" uid="uid://b5g4betym4jw2" path="res://scenes/Components/agent_action_list_component.tscn" id="7_2krod"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0e6s"]
 atlas = ExtResource("2_xqdgn")
@@ -389,11 +390,12 @@ radius = 7.67231
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4p1vs"]
 
-[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer") groups=["Agent"]]
+[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "agentActions") groups=["Agent"]]
 script = ExtResource("1_3fu0x")
 movementAnimation = NodePath("WalkingAnimationComponent")
 pathfindingComponent = NodePath("PathfindingComponent")
 randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent")
+agentActions = NodePath("AgentActionListComponent")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uwfto")
@@ -404,9 +406,9 @@ position = Vector2(0.749999, 0.75)
 scale = Vector2(0.95, 0.95)
 shape = SubResource("CircleShape2D_nsq65")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="InteractArea" type="Area2D" parent="."]
 
-[node name="DetectionRange" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea"]
 scale = Vector2(1.3, 1.3)
 shape = SubResource("CircleShape2D_4p1vs")
 
@@ -424,5 +426,7 @@ navigationNode = NodePath("../NavigationAgent2D")
 
 [node name="WalkingAnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("6_xqdgn")]
 animated_sprite = NodePath("../AnimatedSprite2D")
+
+[node name="AgentActionListComponent" parent="." instance=ExtResource("7_2krod")]
 
 [connection signal="target_reached" from="PathfindingComponent" to="." method="_on_pathfinding_component_target_reached"]
