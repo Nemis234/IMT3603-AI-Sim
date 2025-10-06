@@ -34,6 +34,7 @@ house_int=""
 Player=""
 NavigationArea="Available tiles for Agents to navigate on."
 Agent="A group of all agents."
+Doors="This is mainly for agents."
 
 [input]
 

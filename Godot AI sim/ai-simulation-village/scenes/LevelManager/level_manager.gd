@@ -8,7 +8,7 @@ func _ready() -> void:
 		if node.is_in_group("Player"):
 			node.interact.connect(_change_state)
 		if node.is_in_group("Agent"):
-			node.use_entrance.connect(_change_state)
+			node.interact.connect(_change_state)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

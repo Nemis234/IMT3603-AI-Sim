@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-signal use_entrance(agent,interactable)
+signal interact(agent,interactable)
 
 @onready var detectionArea: Area2D = $Area2D
 @export var movement_speed = 5000
@@ -29,7 +29,6 @@ func _physics_process(delta: float) -> void:
 	movementAnimation.update_animation(velocity)
 	
 
-
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
 	match current_action:
@@ -38,13 +37,13 @@ func _on_pathfinding_component_target_reached() -> void:
 		"GoHome":
 			if in_building == false:
 				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
-				use_entrance.emit(self, door_entrance)
+				interact.emit(self, door_entrance)
 				in_building = true
 				agentActions.agent_action_done = true
 		"LeaveHome":
 			if in_building:
 				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
-				use_entrance.emit(self, door_entrance)
+				interact.emit(self, door_entrance)
 				in_building = false
 				agentActions.agent_action_done = true
 		_:
@@ -79,3 +78,17 @@ func new_agent_action():
 		_:print("No such action")
 	
 	current_action = new_action
+
+
+func _on_interact_area_area_entered(area: Area2D) -> void:
+	#Opens doors automatically whenever close to a door 
+	if area.get_parent().is_in_group("Doors"):
+		if area.get_parent().curr_state == 0:
+			area.get_parent().change_state()
+
+
+func _on_interact_area_area_exited(area: Area2D) -> void:
+	#Closing doors automatically whenever leaving door area 
+	if area.get_parent().is_in_group("Doors"):
+		if area.get_parent().curr_state == 1:
+			area.get_parent().change_state()

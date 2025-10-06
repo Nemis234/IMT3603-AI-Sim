@@ -20,7 +20,7 @@ size = Vector2(4, 18)
 [sub_resource type="CircleShape2D" id="CircleShape2D_eff5l"]
 radius = 7.58017
 
-[node name="DoorRight" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component", "change_state_sprite") groups=["interactable"]]
+[node name="DoorRight" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component", "change_state_sprite") groups=["Doors", "interactable"]]
 script = ExtResource("1_1thpm")
 state_handler_component = NodePath("StateHandlerComponent")
 change_state_sprite = NodePath("ChangeStateSprite")
