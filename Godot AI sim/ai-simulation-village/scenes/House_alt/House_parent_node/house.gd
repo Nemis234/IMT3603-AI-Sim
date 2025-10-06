@@ -18,11 +18,6 @@ func _ready() -> void:
 	exit_area.body_entered.connect(_on_doorstep_entered.bind("exit"))
 	exit_area.body_exited.connect(_on_doorstep_exited)
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _on_doorstep_entered(body,area):
 	if body.is_in_group("Player"):
 		if area=="door_step":
