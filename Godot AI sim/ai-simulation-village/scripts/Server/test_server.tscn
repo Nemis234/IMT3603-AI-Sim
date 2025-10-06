@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://vo3f86ta6yul"]
 
-[ext_resource type="Script" uid="uid://ddvig6hhr41sk" path="res://scripts/Server/server_connection.gd" id="1_5gbfo"]
+[ext_resource type="Script" uid="uid://ddvig6hhr41sk" path="res://scripts/Server/server_connection.gd" id="1_2qwrw"]
 
 [node name="Node" type="Node" node_paths=PackedStringArray("label_")]
-script = ExtResource("1_5gbfo")
+script = ExtResource("1_2qwrw")
 label_ = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]

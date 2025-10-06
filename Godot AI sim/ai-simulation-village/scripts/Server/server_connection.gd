@@ -23,12 +23,16 @@ func connect_client():
 	
 	assert(client.get_status() == HTTPClient.STATUS_CONNECTED)
 
-
+## Recicpiant is the AI agent that is being talked too. 
+## Will be an ENUM with all available agents. 
+## Requests a spesific agent using its url [code]"/chat/{recipiant}"[/code] [br]
+## Participant is whoever is talking to the AI agent.
+## Defaults to "user" [br]
 func post_message(message:String,recipiant:int=0,participant="user"):
 	var err = 0
-	var fields = { "message":message }
+	var fields = { "message":message, "participant":participant }
 	var query_string = JSON.stringify(fields)
-	var headers = [
+	var headers = [ #Not necessary
 		"User-Agent: Pirulo/1.0 (Godot)",
 		"Accept: */*"
 	]
