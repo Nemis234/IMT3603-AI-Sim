@@ -13,6 +13,7 @@ signal use_entrance(agent,interactable)
 #Agents house related
 @export var house: Node2D
 var house_entrance
+var house_exit
 
 #Agents action related
 var current_action # Stores the agents current action 
@@ -21,7 +22,7 @@ var in_building: bool = false #Bool for when agent is insie or outside
 
 func _ready() -> void:
 	house_entrance = house.get_node("house_exterior").get_node("Entrance")
-	
+	house_exit = house.get_node("house_interior").get_node("Entrance")
 
 func _physics_process(delta: float) -> void:
 	pathfindingComponent.move_along_path(delta)
@@ -40,6 +41,12 @@ func _on_pathfinding_component_target_reached() -> void:
 				use_entrance.emit(self, door_entrance)
 				in_building = true
 				agentActions.agent_action_done = true
+		"LeaveHome":
+			if in_building:
+				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
+				use_entrance.emit(self, door_entrance)
+				in_building = false
+				agentActions.agent_action_done = true
 		_:
 			pass
 
@@ -50,7 +57,7 @@ func new_agent_action():
 	
 	var new_action = agentActions.agent_actions.pick_random()
 	
-	while new_action == "GoHome" and in_building:
+	while agentActions.is_invalid_action(new_action, in_building):
 		new_action = agentActions.agent_actions.pick_random()
 	
 	match new_action:
@@ -63,6 +70,9 @@ func new_agent_action():
 				agentActions.agent_action_done = false
 		"GoHome":
 			pathfindingComponent.set_target(house_entrance.get_global_position())
+			agentActions.agent_action_done = false
+		"LeaveHome":
+			pathfindingComponent.set_target(house_exit.get_global_position())
 			agentActions.agent_action_done = false
 		"Idle": 
 			pass
