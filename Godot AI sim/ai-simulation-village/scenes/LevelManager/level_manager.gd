@@ -2,12 +2,13 @@ extends Node2D
 
 @onready var player = $Adam
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for node in get_children():
 		if node.is_in_group("Player"):
 			node.interact.connect(_change_state)
+		if node.is_in_group("Agent"):
+			node.use_entrance.connect(_change_state)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -18,6 +19,7 @@ func _on_physics_process(delta: float) -> void:
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))
+	print(entity," interacts with: ", interactable)
 	if interactable.is_in_group("house_ext"):
 		var house = interactable.get_parent()
 		entity.position = house.exit_area.get_global_position()
@@ -29,3 +31,8 @@ func _change_state(entity,interactable):
 
 	elif interactable.is_in_group("interactable"):
 		interactable.change_state()
+
+#Tell the Agents to start a new action/check if they finished their action
+func _on_agent_timer_timeout() -> void:
+	for agents in get_tree().get_nodes_in_group("Agent"):
+		agents.new_agent_action()

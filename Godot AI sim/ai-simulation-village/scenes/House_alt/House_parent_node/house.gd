@@ -4,7 +4,7 @@ extends Node2D
 @onready var house_exterior = $house_exterior
 
 
-@onready var door_area: Area2D = house_exterior.get_node("Area2D")
+@onready var door_area: Area2D = house_exterior.get_node("Entrance")
 @onready var exit_area: Area2D = house_interior.get_node("Entrance")
 
 
@@ -25,7 +25,6 @@ func _process(delta: float) -> void:
 
 func _on_doorstep_entered(body,area):
 	if body.is_in_group("Player"):
-		
 		if area=="door_step":
 			body.curr_interactable = self.house_exterior
 		elif area=="exit":
@@ -41,7 +40,3 @@ func _on_doorstep_exited(body):
 		else: #If you just walk out/leave of the area normally
 			body.curr_interactable = null
 		print(body.curr_interactable)
-
-
-	
-		

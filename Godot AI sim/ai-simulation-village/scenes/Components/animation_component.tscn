@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b78xossil7diu"]
 
-[ext_resource type="Script" uid="uid://cwu1j4ohbvvx1" path="res://scenes/Components/animation_component.gd" id="1_qghjf"]
+[ext_resource type="Script" uid="uid://cwu1j4ohbvvx1" path="res://scenes/Components/walking_animation_component.gd" id="1_qghjf"]
 
 [node name="AnimationComponent" type="Node"]
 script = ExtResource("1_qghjf")

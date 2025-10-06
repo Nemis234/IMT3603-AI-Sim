@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://pkviwog7eb7w" path="res://scenes/House_alt/House_parent_node/house.gd" id="1_nvriu"]
 [ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="2_wbe2g"]
-[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House_alt/House_interior/house_interior.tscn" id="3_yeq8h"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House/House_interior/house_interior.tscn" id="3_yeq8h"]
 
 [node name="House" type="Node2D" groups=["House"]]
 script = ExtResource("1_nvriu")

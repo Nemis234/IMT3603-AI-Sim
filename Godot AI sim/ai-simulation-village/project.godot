@@ -28,6 +28,8 @@ House="Groups of all the houses. "
 house_ext=""
 house_int=""
 Player=""
+NavigationArea="Available tiles for Agents to navigate on."
+Agent="A group of all agents."
 
 [input]
 

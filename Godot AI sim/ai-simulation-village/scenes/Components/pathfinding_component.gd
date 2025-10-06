@@ -1,6 +1,8 @@
 extends Node
 class_name PathfindingComponent
 
+signal target_reached
+
 @export var navigationNode: NavigationAgent2D
 @export var movement_speed: float = 100.0
 
@@ -20,3 +22,7 @@ func move_along_path(delta: float) -> void:
 		agent.move_and_slide()
 	else:
 		agent.velocity = Vector2.ZERO
+		target_reached.emit() #Emits signal that target is reached
+
+func get_target_reached() -> bool:
+	return navigationNode.is_target_reached()
