@@ -1,13 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqc3vecv8cfhm"]
+[gd_scene load_steps=2 format=3 uid="uid://dqc3vecv8cfhm"]
 
 [ext_resource type="Script" uid="uid://b45m060qpo82i" path="res://scenes/House_alt/House_parent_node/house_3.gd" id="1_ft3y5"]
-[ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="2_u3w8f"]
-[ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="3_gxqkh"]
 
 [node name="House3" type="Node2D" groups=["House"]]
 script = ExtResource("1_ft3y5")
-
-[node name="HouseExterior3" parent="." instance=ExtResource("2_u3w8f")]
-
-[node name="Houseinterior3" parent="." instance=ExtResource("3_gxqkh")]
-position = Vector2(1985, 222)

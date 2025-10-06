@@ -1,13 +1,19 @@
-[gd_scene load_steps=9 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=15 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
+[ext_resource type="PackedScene" uid="uid://dluw3ibpx76d7" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="4_xo7uf"]
 [ext_resource type="PackedScene" uid="uid://dyfdc4wt5qjgj" path="res://scenes/House_alt/House_parent_node/house.tscn" id="5_4tw1x"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House_alt/House_interior/house_interior.tscn" id="5_ofnrc"]
 [ext_resource type="PackedScene" uid="uid://dqc3vecv8cfhm" path="res://scenes/House_alt/House_parent_node/house_3.tscn" id="5_r2lsa"]
 [ext_resource type="Script" uid="uid://bgl64mmyy1opy" path="res://scenes/LevelManager/agent_timer.gd" id="6_4tw1x"]
 [ext_resource type="PackedScene" uid="uid://c804odqsa3ufa" path="res://scenes/House_alt/House_parent_node/house2.tscn" id="6_nkjjk"]
+[ext_resource type="PackedScene" uid="uid://covtk3i2t37no" path="res://scenes/House_alt/House_exterior/house_exterior_2.tscn" id="7_rlfer"]
+[ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
+[ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
+[ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_r2lsa")
@@ -16,11 +22,27 @@ script = ExtResource("1_r2lsa")
 
 [node name="House" parent="." instance=ExtResource("5_4tw1x")]
 
+[node name="house_exterior" parent="House" instance=ExtResource("4_xo7uf")]
+position = Vector2(671, 433)
+
+[node name="house_interior" parent="House" instance=ExtResource("5_ofnrc")]
+position = Vector2(2152, 209)
+
 [node name="House2" parent="." instance=ExtResource("6_nkjjk")]
 position = Vector2(494, 255)
 
+[node name="HouseExterior2" parent="House2" instance=ExtResource("7_rlfer")]
+
+[node name="HouseInterior2" parent="House2" instance=ExtResource("8_4jhem")]
+position = Vector2(2626, -992)
+
 [node name="House3" parent="." instance=ExtResource("5_r2lsa")]
 position = Vector2(912, 200)
+
+[node name="HouseExterior3" parent="House3" instance=ExtResource("10_b1ret")]
+
+[node name="Houseinterior3" parent="House3" instance=ExtResource("11_mpw1i")]
+position = Vector2(1841, 491)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
 position = Vector2(578, 472)
