@@ -28,7 +28,7 @@ func connect_client():
 ## Requests a spesific agent using its url [code]"/chat/{recipiant}"[/code] [br]
 ## Participant is whoever is talking to the AI agent.
 ## Defaults to "user" [br]
-func post_message(message:String,recipiant:int=0,participant="user"):
+func post_message(message:String,label_,recipiant:int=0,participant="user"):
 	var err = 0
 	var fields = { "message":message, "participant":participant }
 	var query_string = JSON.stringify(fields)
@@ -67,7 +67,3 @@ func post_message(message:String,recipiant:int=0,participant="user"):
 	print("bytes got: ", rb.size())
 	var text = rb.get_string_from_utf8()
 	print("Text: ", text)
-
-
-func _on_button_pressed() -> void:
-	post_message("Lets spread some happinesss :)")
