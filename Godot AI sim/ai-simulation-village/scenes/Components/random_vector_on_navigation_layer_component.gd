@@ -11,32 +11,26 @@ func _ready() -> void:
 		elif elements.name == "WalkAbleTilesHouse1":
 			house1Layer = elements
 
-#Get a random Vector from Main map
-func get_random_target_main_map() -> Vector2:
-	var cells = mainMapLayer.get_used_cells()
+#Get a random cell and convert to global pos from given tilemaplayer
+func _get_random_cell_and_convert(mapLayer:TileMapLayer) -> Vector2:
+	var cells = mapLayer.get_used_cells()
 	if cells.is_empty():
 		return Vector2.ZERO
 
 	var random_cell = cells.pick_random()
-	var local_pos = mainMapLayer.map_to_local(random_cell)
-	var world_pos = mainMapLayer.to_global(local_pos)
+	var local_pos = mapLayer.map_to_local(random_cell)
+	var world_pos = mapLayer.to_global(local_pos)
 	return world_pos
+
+#Get a random Vector from Main map
+func get_random_target_main_map() -> Vector2:
+	return _get_random_cell_and_convert(mainMapLayer)
 	
 #Get a random Vector from a given section, used for inside buildings
 func get_random_target_in_building(buildingName: String) -> Vector2:
 	match buildingName:
 		"House":
-			print("House called")
-			var cells = house1Layer.get_used_cells()
-			if cells.is_empty():
-				return Vector2.ZERO
-
-			var random_cell = cells.pick_random()
-			var local_pos = house1Layer.map_to_local(random_cell)
-			var world_pos = house1Layer.to_global(local_pos)
-			return world_pos
+			return _get_random_cell_and_convert(house1Layer)
 		_: 
 			print("Could not get random tile to pathfind")
 			return Vector2(0,0)
-
-#TODO Make a new func to retrive random cell and conversion
