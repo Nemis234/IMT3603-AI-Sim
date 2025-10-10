@@ -57,3 +57,23 @@ class Memory:
         
         return matches
 
+    def gemini_query(self, text: str, n=5):
+        """
+        Retrieves top-n most relevant past messages for the given query. Matches are returned in standard gemini request format
+        """
+        results = self.collection.query(
+            query_texts=[text],
+            n_results=n
+        )
+        
+        matches = [
+            {"role": meta["role"], "parts": [{'text': doc}]}
+            for doc, meta, in zip(
+                results["documents"][0],
+                results["metadatas"][0],
+            )
+        ]
+
+        
+        return matches
+
