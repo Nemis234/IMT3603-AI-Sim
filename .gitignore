@@ -17,3 +17,5 @@ mono_crash.*.json
 
 *__pycache__/
 AI-Server/__pycache__/
+
+.idea
