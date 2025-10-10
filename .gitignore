@@ -19,3 +19,4 @@ mono_crash.*.json
 AI-Server/__pycache__/
 
 .idea
+*.import
