@@ -2,7 +2,8 @@ extends CharacterBody2D
 
 signal interact(agent,interactable)
 
-@onready var detectionArea: Area2D = $Area2D
+@onready var interactionArea: Area2D = $InteractArea
+@onready var objectDetectionArea: Area2D = $ObjectDetection
 @export var movement_speed = 5000
 
 @export var movementAnimation: WalkingAnimationComponent
@@ -10,14 +11,13 @@ signal interact(agent,interactable)
 @export var randomVectorOnNavigationLayer: RandomVectorOnNavigationLayerComponent
 @export var agentActions: AgentActionListComponent
 
-#Agents house related
+#Agents house/building related
 @export var house: Node2D
 var house_entrance
 var house_exit
+var in_building: Node2D #Stores the building the agent is in.
 
 #Agents action related
-var current_action # Stores the agents current action 
-var in_building: bool = false #Bool for when agent is insie or outside
 @onready var agent_interact_area = $InteractArea
 
 func _ready() -> void:
@@ -29,22 +29,32 @@ func _physics_process(delta: float) -> void:
 	movementAnimation.update_animation(velocity)
 	
 
+#Helper function to loop through objects and return a specific node
+func get_interactable_object(node_list: Array,group: String ,node_name: String) -> Node2D:
+	for node in node_list:
+		if node.name == node_name:
+			print(node)
+			return node
+	
+	##TODO Maybe create one to filter by group aswell
+	return null
+
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
-	match current_action:
+	match agentActions.current_action:
 		"Wander":
 			agentActions.agent_action_done = true
 		"GoHome":
-			if in_building == false:
-				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
+			if in_building == null:
+				var door_entrance = get_interactable_object(agent_interact_area.get_overlapping_areas(),"","Entrance").get_parent()
 				interact.emit(self, door_entrance)
-				in_building = true
+				in_building = house
 				agentActions.agent_action_done = true
 		"LeaveHome":
 			if in_building:
-				var door_entrance = agent_interact_area.get_overlapping_areas()[0].get_parent()
+				var door_entrance = get_interactable_object(agent_interact_area.get_overlapping_areas(),"","Entrance").get_parent()
 				interact.emit(self, door_entrance)
-				in_building = false
+				in_building = null
 				agentActions.agent_action_done = true
 		_:
 			pass
@@ -77,7 +87,7 @@ func new_agent_action():
 			pass
 		_:print("No such action")
 	
-	current_action = new_action
+	agentActions.current_action = new_action
 
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
@@ -92,3 +102,12 @@ func _on_interact_area_area_exited(area: Area2D) -> void:
 	if area.get_parent().is_in_group("Doors"):
 		if area.get_parent().curr_state == 1:
 			area.get_parent().change_state()
+
+
+func _on_object_detection_area_entered(area: Area2D) -> void:
+	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
+		agentActions.interactable_objects[area.get_parent()] = {
+			"building": in_building, 
+			"position": area.get_global_position(), 
+			"name": area.get_parent().name
+			}
