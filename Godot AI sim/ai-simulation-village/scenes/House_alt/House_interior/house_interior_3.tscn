@@ -1,8 +1,8 @@
 [gd_scene load_steps=26 format=4 uid="uid://seswxf154idw"]
 
 [ext_resource type="Script" uid="uid://bhg31wioycfef" path="res://scenes/House_alt/House_interior/house_stairs.gd" id="1_s2sl4"]
-[ext_resource type="Texture2D" uid="uid://bva437tul01iu" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
-[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
+[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
 [ext_resource type="PackedScene" uid="uid://bsobevf513w03" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.tscn" id="4_2mlr6"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="5_3d3a0"]
 [ext_resource type="PackedScene" uid="uid://byb115aoflo4m" path="res://scenes/House_alt/House_interior/Furniture/Door/Open_right/door_right.tscn" id="6_eji6b"]
@@ -576,6 +576,7 @@ texture = ExtResource("2_05116")
 8:2/0 = 0
 9:2/0 = 0
 11:2/0 = 0
+11:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 13:2/0 = 0
 14:2/0 = 0
 15:2/0 = 0
@@ -589,6 +590,7 @@ texture = ExtResource("2_05116")
 9:3/0 = 0
 11:3/0 = 0
 12:3/0 = 0
+12:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 13:3/0 = 0
 14:3/0 = 0
 15:3/0 = 0
@@ -785,6 +787,7 @@ texture = ExtResource("2_05116")
 9:20/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_k71r2"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_nipbf")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8f6gv"]
@@ -2223,7 +2226,7 @@ tile_map_data = PackedByteArray("AAAAAP7/AAABAA8AAAAAAP//AAABABAAAAATAP7/AAAPAAI
 tile_set = SubResource("TileSet_e850i")
 
 [node name="walls_top" type="TileMapLayer" parent="main_floor"]
-tile_map_data = PackedByteArray("AAD///7/AAAGAAIAAAD/////AAANAAIAAAD//wAAAAANAAIAAAD//wEAAAANAAIAAAD//wIAAAANAAIAAAD//wQAAAANAAIAAAD//wUAAAANAAIAAAD//wYAAAANAAIAAAD//wcAAAANAAIAAAD//wgAAAANAAIAAAD//wkAAAANAAIAAAD//woAAAANAAIAAAD//wsAAAANAAIAAAD//wwAAAANAAIAAAD//w4AAAANAAIAAAD//w8AAAANAAIAAAD//xAAAAANAAIAAAD//xEAAAANAAIAAAD//xIAAAANAAIAAAD//xMAAAANAAIAAAAHAP7/AAAMAAMAAAAJAP7/AAAMAAMAAAAUAAIAAAALAAIAAAAUAAMAAAALAAIAAAAUAAQAAAALAAIAAAAUAAUAAAALAAIAAAAUAAYAAAALAAIAAAAUAAcAAAALAAIAAAAUAAgAAAALAAIAAAAUAAkAAAALAAIAAAAUAAoAAAALAAIAAAAUAAsAAAALAAIAAAAUAAwAAAALAAIAAAAUAA0AAAALAAIAAAAUAA4AAAALAAIAAAAUAA8AAAALAAIAAAAUABAAAAALAAIAAAAUABEAAAALAAIAAAAUABIAAAALAAIAAAAUABMAAAALAAIAAAAFAP//AAALAAIAAAAFAP7/AAALAAEAAAAIAP7/AAAMAAMAAAD//w0AAAAKAAEAAAD//wMAAAAKAAEAAAAFAAMAAAAFAAEAAAD//xQAAAAGAAEAAAAUABQAAAAFAAEAAAAUAAEAAAALAAIAAAA=")
+tile_map_data = PackedByteArray("AAD///7/AAAGAAIAAAD/////AAANAAIAAAD//wAAAAANAAIAAAD//wEAAAANAAIAAAD//wIAAAANAAIAAAD//wQAAAANAAIAAAD//wUAAAANAAIAAAD//wYAAAANAAIAAAD//wcAAAANAAIAAAD//wgAAAANAAIAAAD//wkAAAANAAIAAAD//woAAAANAAIAAAD//wsAAAANAAIAAAD//wwAAAANAAIAAAD//w4AAAANAAIAAAD//w8AAAANAAIAAAD//xAAAAANAAIAAAD//xEAAAANAAIAAAD//xIAAAANAAIAAAD//xMAAAANAAIAAAAHAP7/AAAMAAMAAAAJAP7/AAAMAAMAAAAUAAIAAAALAAIAAAAUAAMAAAALAAIAAAAUAAQAAAALAAIAAAAUAAUAAAALAAIAAAAUAAYAAAALAAIAAAAUAAcAAAALAAIAAAAUAAgAAAALAAIAAAAUAAkAAAALAAIAAAAUAAoAAAALAAIAAAAUAAsAAAALAAIAAAAUAAwAAAALAAIAAAAUAA0AAAALAAIAAAAUAA4AAAALAAIAAAAUAA8AAAALAAIAAAAUABAAAAALAAIAAAAUABEAAAALAAIAAAAUABIAAAALAAIAAAAUABMAAAALAAIAAAAFAP//AAALAAIAAAAFAP7/AAALAAEAAAAIAP7/AAAMAAMAAAD//w0AAAAKAAEAAAD//wMAAAAKAAEAAAAFAAMAAAAFAAEAAAD//xQAAAAGAAEAAAAUABQAAAAFAAEAAAAUAAEAAAALAAIAAAAFAAAAAAALAAIAAAA=")
 tile_set = SubResource("TileSet_k71r2")
 
 [node name="Entrance" parent="main_floor" instance=ExtResource("5_3d3a0")]
