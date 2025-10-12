@@ -1,11 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b8wxfyhgu5wfj"]
+[gd_scene load_steps=7 format=3 uid="uid://b8wxfyhgu5wfj"]
 
 [ext_resource type="Script" uid="uid://bq5peo7b23nf6" path="res://scenes/UI/MainMenu/main_menu.gd" id="1_iy2v4"]
-[ext_resource type="Texture2D" uid="uid://muh0tpr2k32" path="res://assets/serenvillage_2d_art.png" id="2_c38wu"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwpty"]
-atlas = ExtResource("2_c38wu")
-region = Rect2(0, 0, 1408, 800)
+[ext_resource type="Texture2D" uid="uid://8b67axdpimoa" path="res://assets/serenvillage_2d_art.jpg" id="2_c38wu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yj5a8"]
 
@@ -21,14 +17,14 @@ corner_radius_top_right = 24
 corner_radius_bottom_right = 24
 corner_radius_bottom_left = 24
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sahmk"]
-bg_color = Color(0.301961, 0.301961, 0.301961, 0.870588)
-border_color = Color(0.301961, 0.301961, 0.301961, 0.870588)
-border_blend = true
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_65fln"]
 bg_color = Color(0.14902, 0.14902, 0.14902, 0.870588)
 border_color = Color(0.14902, 0.14902, 0.14902, 0.870588)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sahmk"]
+bg_color = Color(0.301961, 0.301961, 0.301961, 0.870588)
+border_color = Color(0.301961, 0.301961, 0.301961, 0.870588)
 border_blend = true
 
 [node name="MainMenu" type="Control"]
@@ -50,8 +46,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("AtlasTexture_lwpty")
-expand_mode = 3
+texture = ExtResource("2_c38wu")
+expand_mode = 2
+stretch_mode = 1
 
 [node name="VersionLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 3
@@ -107,8 +104,8 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 35
-theme_override_styles/hover = SubResource("StyleBoxFlat_sahmk")
 theme_override_styles/normal = SubResource("StyleBoxFlat_65fln")
+theme_override_styles/hover = SubResource("StyleBoxFlat_sahmk")
 text = "Play"
 
 [node name="Settings" type="Button" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
