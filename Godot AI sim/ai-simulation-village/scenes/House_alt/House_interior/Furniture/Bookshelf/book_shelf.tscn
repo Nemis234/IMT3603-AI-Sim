@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cdcb75dc601v"]
 
-[ext_resource type="Texture2D" uid="uid://jpqadswsfvar" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4b2nb"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4b2nb"]
 [ext_resource type="Script" uid="uid://dlw0iyhjec0ge" path="res://scenes/House_alt/House_interior/Furniture/Bookshelf/book_shelf.gd" id="1_jisyy"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_cymtr"]
 
@@ -21,7 +21,8 @@ metadata/_edit_group_ = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(2.985, 2.985)
+position = Vector2(0, 15.49)
+scale = Vector2(2.015, 2.015)
 shape = SubResource("CircleShape2D_0h42k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -33,3 +34,6 @@ shape = SubResource("RectangleShape2D_jisyy")
 one_way_collision = true
 
 [node name="StateHandlerComponent" parent="." instance=ExtResource("3_cymtr")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 20.815)

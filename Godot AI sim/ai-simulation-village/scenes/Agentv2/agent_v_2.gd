@@ -30,11 +30,16 @@ func _physics_process(delta: float) -> void:
 	
 
 #Helper function to loop through objects and return a specific node
-func get_interactable_object(node_list: Array,group: String ,node_name: String) -> Node2D:
-	for node in node_list:
-		if node.name == node_name:
-			print(node)
-			return node
+func get_interactable_object(node_list: Array,group:String, node_name: String) -> Node2D:
+	#Mainly used to get entrances, and other nodes who does not have a parent
+	if group == "":
+		for node in node_list:
+			if node.name.to_lower().contains(node_name.to_lower()):
+				return node
+	elif group == "interactable":
+		for node in node_list:
+			if node.get_parent().name.to_lower().contains(node_name.to_lower()):
+				return node.get_parent()
 	
 	##TODO Maybe create one to filter by group aswell
 	return null
@@ -46,16 +51,32 @@ func _on_pathfinding_component_target_reached() -> void:
 			agentActions.agent_action_done = true
 		"GoHome":
 			if in_building == null:
-				var door_entrance = get_interactable_object(agent_interact_area.get_overlapping_areas(),"","Entrance").get_parent()
+				var door_entrance = get_interactable_object(
+					agent_interact_area.get_overlapping_areas(),
+					"",
+					"Entrance").get_parent()
 				interact.emit(self, door_entrance)
 				in_building = house
 				agentActions.agent_action_done = true
 		"LeaveHome":
 			if in_building:
-				var door_entrance = get_interactable_object(agent_interact_area.get_overlapping_areas(),"","Entrance").get_parent()
+				var door_entrance = get_interactable_object(
+					agent_interact_area.get_overlapping_areas(),
+					"",
+					"Entrance").get_parent()
 				interact.emit(self, door_entrance)
 				in_building = null
 				agentActions.agent_action_done = true
+		"Read": 
+			var bookshelf = get_interactable_object(
+				agent_interact_area.get_overlapping_areas(),
+				"interactable",
+				"bookshelf")
+			if bookshelf:
+				interact.emit(self, bookshelf)
+				agentActions.agent_action_done = true
+			else:
+				pass
 		_:
 			pass
 
@@ -83,6 +104,23 @@ func new_agent_action():
 		"LeaveHome":
 			pathfindingComponent.set_target(house_exit.get_global_position())
 			agentActions.agent_action_done = false
+		"Read": 
+			var bookshelf = agentActions.is_object_in_memory("bookshelf")
+			if bookshelf:
+				if in_building == bookshelf["building"]:
+					pathfindingComponent.set_target(bookshelf["position"])
+					agentActions.agent_action_done = false
+				elif in_building != bookshelf["building"] and in_building != null:
+					##TODO This is for agents not in the same building as bookshelf
+					#They should leave the current building and move to building with bookshelf
+					pass
+				else:
+					pass
+					#pathfindingComponent.set_target(bookshelf["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+			else:
+				print("No bookshelfs in memory")
+		#"Eat": pass
+		#"Sleep": pass
 		"Idle": 
 			pass
 		_:print("No such action")
@@ -108,6 +146,6 @@ func _on_object_detection_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
 		agentActions.interactable_objects[area.get_parent()] = {
 			"building": in_building, 
-			"position": area.get_global_position(), 
+			"position": area.get_parent().get_node("Marker2D").get_global_position(), 
 			"name": area.get_parent().name
 			}

@@ -419,7 +419,7 @@ scale = Vector2(10, 10)
 shape = SubResource("CircleShape2D_2krod")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 5.0
+path_desired_distance = 1.0
 target_desired_distance = 5.0
 path_max_distance = 10.0
 path_postprocessing = 1
