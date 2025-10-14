@@ -22,4 +22,3 @@ func _unhandled_input(event: InputEvent) -> void:
 		if curr_interactable.is_in_group("Agent"):
 			emit_signal("end_convo",curr_interactable)
 		pass
-

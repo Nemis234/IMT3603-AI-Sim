@@ -54,6 +54,7 @@ zoom = Vector2(2, 2)
 
 [node name="ChatBox" type="Control" parent="Adam" node_paths=PackedStringArray("text_input")]
 visible = false
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
