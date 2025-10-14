@@ -1,15 +1,19 @@
+class_name Agent
 extends CharacterBody2D
 
 signal interact(agent,interactable)
 
-@onready var interactionArea: Area2D = $InteractArea
+@onready var agent_interact_area: Area2D = $InteractArea
 @onready var objectDetectionArea: Area2D = $ObjectDetection
-@export var movement_speed = 5000
+#@export var movement_speed = 100
 
 @export var movementAnimation: WalkingAnimationComponent
 @export var pathfindingComponent: PathfindingComponent
 @export var randomVectorOnNavigationLayer: RandomVectorOnNavigationLayerComponent
 @export var agentActions: AgentActionListComponent
+
+@onready var speechBubble = $SpeechBubble
+@onready var speechLabel = $SpeechBubble/Control/PanelContainer/ScrollContainer/MarginContainer/Label
 
 #Agents house/building related
 @export var house: Node2D
@@ -18,13 +22,24 @@ var house_exit
 var in_building: Node2D #Stores the building the agent is in.
 
 #Agents action related
-@onready var agent_interact_area = $InteractArea
+var current_action # Stores the agents current action 
+var in_dialogue: bool = false #To check if agent in dialogue
+
+
 
 func _ready() -> void:
 	house_entrance = house.get_node("house_exterior").get_node("Entrance")
 	house_exit = house.get_node("house_interior").get_node("Entrance")
+	
+	agent_interact_area.body_entered.connect(_on_interact_area_entered)
+	agent_interact_area.body_exited.connect(_on_interact_area_exited)
+	
 
 func _physics_process(delta: float) -> void:
+	if in_dialogue:
+		movementAnimation.update_animation(Vector2.ZERO)
+		return
+	
 	pathfindingComponent.move_along_path(delta)
 	movementAnimation.update_animation(velocity)
 	
@@ -161,3 +176,20 @@ func _on_object_detection_area_entered(area: Area2D) -> void:
 			"position": area.get_parent().get_node("Marker2D").get_global_position(), 
 			"name": area.get_parent().name
 			}
+		
+func _on_interact_area_entered(body):
+	if body.is_in_group("Player"):
+		body.curr_interactable = self
+
+
+func _on_interact_area_exited(body):
+	if body.is_in_group("Player"):
+		body.curr_interactable = null
+
+func hide_speech():
+	speechBubble.visible = false
+	speechLabel.text = ""
+
+func stream_speech(text:String):
+	speechBubble.visible = true
+	ServerConnection.post_message(text,speechLabel)

@@ -4,7 +4,7 @@ class_name PathfindingComponent
 signal target_reached
 
 @export var navigationNode: NavigationAgent2D
-@export var movement_speed: float = 100.0
+@export var movement_speed: float = 50
 
 #The agent this component is bounded too
 var agent: CharacterBody2D

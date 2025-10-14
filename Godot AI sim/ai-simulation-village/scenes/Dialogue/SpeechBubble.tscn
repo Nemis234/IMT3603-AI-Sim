@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://d3k16ikq3jige"]
+
+[node name="SpeechBubble" type="CanvasLayer"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -76.0
+offset_top = -48.0
+offset_right = -76.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = -415.0
+offset_top = -255.0
+offset_right = 585.0
+offset_bottom = 45.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/ScrollContainer/MarginContainer"]
+custom_minimum_size = Vector2(1000, 300)
+layout_mode = 2
+autowrap_mode = 2

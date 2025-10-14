@@ -1,9 +1,10 @@
-extends Node
+extends Control
+signal chat_input(input)
 
-
-@export var label_: Label
+var text_output:String = ""
 @export var text_input : LineEdit
+
 
 func _on_button_pressed() -> void:
 	var text = text_input.text
-	ServerConnection.post_message(text,label_)
+	chat_input.emit(text)

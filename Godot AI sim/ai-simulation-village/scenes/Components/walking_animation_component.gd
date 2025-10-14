@@ -2,14 +2,15 @@ extends Node
 class_name WalkingAnimationComponent
 
 @export var animated_sprite: AnimatedSprite2D
+@export var agent: Agent
 var last_facing: String = "down"
 
 # Small threshold to ignore tiny movement jitter/animation flickering
 const MOVE_THRESHOLD := 10.0
 
 func update_animation(velocity: Vector2) -> void:
+	
 	var speed = velocity.length()
-
 	if speed > MOVE_THRESHOLD:
 		# Determine dominant axis (whichever has larger magnitude)
 		if abs(velocity.x) > abs(velocity.y):

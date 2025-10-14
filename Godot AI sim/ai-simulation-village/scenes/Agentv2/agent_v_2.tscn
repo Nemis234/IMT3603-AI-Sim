@@ -431,8 +431,9 @@ navigationNode = NodePath("../NavigationAgent2D")
 
 [node name="RandomVectorOnNavigationLayerComponent" parent="." instance=ExtResource("5_nsq65")]
 
-[node name="WalkingAnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite") instance=ExtResource("6_xqdgn")]
+[node name="WalkingAnimationComponent" parent="." node_paths=PackedStringArray("animated_sprite", "agent") instance=ExtResource("6_xqdgn")]
 animated_sprite = NodePath("../AnimatedSprite2D")
+agent = NodePath("..")
 
 [node name="AgentActionListComponent" parent="." instance=ExtResource("7_2krod")]
 
