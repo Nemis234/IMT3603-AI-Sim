@@ -29,4 +29,8 @@ static func is_interact_input():
         return true
     
     return false
-    
+
+static  func is_quit_input():
+    if Input.is_action_just_pressed("quit"):
+        return true
+    return false

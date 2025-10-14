@@ -9,6 +9,10 @@ func _on_process(_delta : float) -> void:
 
 
 func _on_physics_process(_delta : float) -> void:
+	if player.in_dialogue:
+		transition.emit("Idle") #Transition to idle state and not accept any movement input if player engaged in dialogue
+		return 
+	
 	var direction = GameInputEvents.movement_input()
 			
 	if direction == Vector2.UP:

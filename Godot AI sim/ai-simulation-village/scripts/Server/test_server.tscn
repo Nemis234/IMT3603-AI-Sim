@@ -1,11 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://vo3f86ta6yul"]
 
-[ext_resource type="Script" uid="uid://w8r71ptdwnrt" path="res://scripts/Server/test_server.gd" id="1_2qwrw"]
+[ext_resource type="Script" uid="uid://cpndt8ysotmcp" path="res://scripts/Server/test_server_basic.gd" id="1_2qwrw"]
 
-[node name="Node" type="Node" node_paths=PackedStringArray("label_", "text_input")]
+[node name="Node" type="Node" node_paths=PackedStringArray("text_input", "label_")]
 script = ExtResource("1_2qwrw")
-label_ = NodePath("Label")
 text_input = NodePath("LineEdit")
+label_ = NodePath("Label")
 
 [node name="Label" type="Label" parent="."]
 offset_right = 410.0

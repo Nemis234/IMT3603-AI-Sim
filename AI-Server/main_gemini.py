@@ -110,6 +110,8 @@ class Agent:
             if chunk.candidates and chunk.candidates[0].content.parts:
                 delta = chunk.candidates[0].content.parts[0].text
                 response_message += delta
+                
+                
                 if delta:
                     # Split into words (preserve spaces)
                     words = delta.split(" ")
@@ -117,7 +119,9 @@ class Agent:
                         if w.strip():  # skip empty tokens
                             yield w + " "
                             await asyncio.sleep(0.05)
-                            
+                
+               
+                     
 
         
         #print(response_message)

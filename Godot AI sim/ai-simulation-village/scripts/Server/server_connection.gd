@@ -8,7 +8,7 @@ var stream = false
 
 # I initialise the request
 func _ready() -> void:
-#	connect_client()
+	connect_client()
 	pass
 
 func connect_client():
@@ -67,3 +67,4 @@ func post_message(message:String,label_,recipiant:int=0,participant="user"):
 	print("bytes got: ", rb.size())
 	var text = rb.get_string_from_utf8()
 	print("Text: ", text)
+	

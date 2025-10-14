@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=17 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
 [ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
 [ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
+[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/test_server.gd" id="13_4jhem"]
+[ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="16_b1ret"]
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_r2lsa")
@@ -50,6 +52,30 @@ position = Vector2(578, 472)
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)
 
+[node name="ChatBox" type="Control" parent="Adam" node_paths=PackedStringArray("text_input")]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_4jhem")
+text_input = NodePath("LineEdit")
+
+[node name="Button" type="Button" parent="Adam/ChatBox"]
+layout_mode = 0
+offset_left = -110.0
+offset_top = -159.0
+offset_right = 40.0
+offset_bottom = -128.0
+text = "Post new message"
+
+[node name="LineEdit" type="LineEdit" parent="Adam/ChatBox"]
+layout_mode = 0
+offset_left = -288.0
+offset_top = -161.0
+offset_right = -115.0
+offset_bottom = -130.0
+
 [node name="AgentTimer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
@@ -59,4 +85,8 @@ script = ExtResource("6_4tw1x")
 position = Vector2(126, 231)
 house = NodePath("../House")
 
+[node name="SpeechBubble" parent="AgentV2" instance=ExtResource("16_b1ret")]
+visible = false
+
+[connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
