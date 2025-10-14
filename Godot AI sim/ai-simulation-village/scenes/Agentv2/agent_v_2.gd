@@ -58,7 +58,7 @@ func _on_pathfinding_component_target_reached() -> void:
 				interact.emit(self, door_entrance)
 				in_building = house
 				agentActions.agent_action_done = true
-		"LeaveHome":
+		"LeaveHome": ## TODO turn this into leavebuilding to generalize it
 			if in_building:
 				var door_entrance = get_interactable_object(
 					agent_interact_area.get_overlapping_areas(),
@@ -76,7 +76,14 @@ func _on_pathfinding_component_target_reached() -> void:
 				interact.emit(self, bookshelf)
 				agentActions.agent_action_done = true
 			else:
-				pass
+				var door_entrance = get_interactable_object(
+					agent_interact_area.get_overlapping_areas(),
+					"",
+					"Entrance").get_parent()
+				interact.emit(self, door_entrance)
+				in_building = door_entrance.get_parent()
+				agentActions.queued_action = "Read"
+				agentActions.agent_action_done = true
 		_:
 			pass
 
@@ -84,11 +91,16 @@ func _on_pathfinding_component_target_reached() -> void:
 func new_agent_action():
 	if !agentActions.agent_action_done:
 		return
-	
-	var new_action = agentActions.agent_actions.pick_random()
-	
-	while agentActions.is_invalid_action(new_action, in_building):
+		
+	var new_action
+	if agentActions.queued_action == "":
 		new_action = agentActions.agent_actions.pick_random()
+		
+		while agentActions.is_invalid_action(new_action, in_building):
+			new_action = agentActions.agent_actions.pick_random()
+	else:
+		new_action = agentActions.queued_action
+		agentActions.queued_action = ""
 	
 	match new_action:
 		"Wander":
@@ -116,7 +128,7 @@ func new_agent_action():
 					pass
 				else:
 					pass
-					#pathfindingComponent.set_target(bookshelf["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+					pathfindingComponent.set_target(bookshelf["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
 			else:
 				print("No bookshelfs in memory")
 		#"Eat": pass

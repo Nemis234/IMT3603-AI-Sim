@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dluw3ibpx76d7"]
 
-[ext_resource type="Texture2D" uid="uid://vajvywhcvexb" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="2_jrt6s"]
-[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House/Entrance/entrance_area.tscn" id="2_ukx0b"]
+[ext_resource type="Texture2D" uid="uid://c6wadxd2s3r6p" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="2_jrt6s"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="2_ukx0b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5utur"]
 atlas = ExtResource("2_jrt6s")

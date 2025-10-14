@@ -17,6 +17,7 @@ var agent_actions: Array = [
 	]
 var agent_action_done: bool = true
 var current_action # Stores the agents current action 
+var queued_action = "" # Stores the next action, for cases such as entering house to read from bookshelf
 
 #For now, prevents agent from going home whenever they are home
 #and also leave home, whenever they are already outside
