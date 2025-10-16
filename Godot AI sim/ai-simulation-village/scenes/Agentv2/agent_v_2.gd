@@ -5,7 +5,6 @@ signal interact(agent,interactable)
 
 @onready var agent_interact_area: Area2D = $InteractArea
 @onready var objectDetectionArea: Area2D = $ObjectDetection
-#@export var movement_speed = 100
 
 @export var movementAnimation: WalkingAnimationComponent
 @export var pathfindingComponent: PathfindingComponent

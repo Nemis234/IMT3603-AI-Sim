@@ -420,7 +420,7 @@ shape = SubResource("CircleShape2D_4p1vs")
 [node name="ObjectDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetection"]
-scale = Vector2(10, 10)
+scale = Vector2(20, 20)
 shape = SubResource("CircleShape2D_2krod")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

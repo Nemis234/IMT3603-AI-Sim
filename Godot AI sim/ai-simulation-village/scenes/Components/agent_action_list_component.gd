@@ -34,19 +34,57 @@ func is_object_in_memory(objectName: String) -> Dictionary:
 				}
 	return {}
 
+##Helper function. This is used to filter out unavailable actions
+##home is the agents home
+##in_building is either null or a Node2D, which is the building the agent is currently in.
+func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
+	var filtered_action_list = agent_actions.duplicate()
+
+	# Building-related filtering
+	if in_building == home:
+		filtered_action_list.erase("gohome")
+	elif in_building == null:
+		filtered_action_list.erase("leavebuilding")
+
+	# Detect which objects exist in memory
+	var has_bookshelf := false
+	var has_fridge := false
+	var has_bed := false
+
+	for key in interactable_objects.keys():
+		var objectData = interactable_objects[key]
+		if objectData.has("name"):
+			var name = objectData["name"].to_lower()
+			if name.find("bookshelf") != -1:
+				has_bookshelf = true
+			if name.find("fridge") != -1:
+				has_fridge = true
+			if name.find("bed") != -1:
+				has_bed = true
+
+	# Remove actions when their required object is missing
+	if not has_bookshelf:
+		filtered_action_list.erase("read")
+	if not has_fridge:
+		filtered_action_list.erase("eat")
+	if not has_bed:
+		filtered_action_list.erase("sleep")
+
+	return filtered_action_list
+
+
 ##Ask AI LLM for a new action
 ##home is need to filter out certain action, such as go home
 ##in_building is needed to filter out unavailable actions
 ##command_stream is the output of the request
 func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) -> String:
-	var filtered_action_list = agent_actions.duplicate()
+	var filtered_action_list = _filter_action_list(home, in_building)
 	
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
 	
-	print(filtered_action_list)
 	var text_prompt = "Can you pick a random action from this array?" + str(filtered_action_list)
 	
 	# Clear previous command
@@ -63,8 +101,8 @@ func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) 
 
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
 func pick_random_action(home: Node2D,in_building: Node2D,) -> String:
-	var filtered_action_list = agent_actions.duplicate()
-	
+	var filtered_action_list = _filter_action_list(home, in_building)
+
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
