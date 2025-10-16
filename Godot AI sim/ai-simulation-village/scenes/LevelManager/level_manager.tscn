@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=18 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dqc3vecv8cfhm" path="res://scenes/House_alt/House_parent_node/house_3.tscn" id="5_r2lsa"]
 [ext_resource type="Script" uid="uid://bgl64mmyy1opy" path="res://scenes/LevelManager/agent_timer.gd" id="6_4tw1x"]
 [ext_resource type="PackedScene" uid="uid://c804odqsa3ufa" path="res://scenes/House_alt/House_parent_node/house2.tscn" id="6_nkjjk"]
+[ext_resource type="Script" uid="uid://pkviwog7eb7w" path="res://scenes/House_alt/House_parent_node/house.gd" id="7_mpw1i"]
 [ext_resource type="PackedScene" uid="uid://covtk3i2t37no" path="res://scenes/House_alt/House_exterior/house_exterior_2.tscn" id="7_rlfer"]
 [ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
 [ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
@@ -32,10 +33,11 @@ position = Vector2(2152, 209)
 
 [node name="House2" parent="." instance=ExtResource("6_nkjjk")]
 position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
 
-[node name="HouseExterior2" parent="House2" instance=ExtResource("7_rlfer")]
+[node name="house_exterior" parent="House2" instance=ExtResource("7_rlfer")]
 
-[node name="HouseInterior2" parent="House2" instance=ExtResource("8_4jhem")]
+[node name="house_interior" parent="House2" instance=ExtResource("8_4jhem")]
 position = Vector2(2626, -992)
 
 [node name="House3" parent="." instance=ExtResource("5_r2lsa")]
@@ -44,7 +46,7 @@ position = Vector2(912, 200)
 [node name="HouseExterior3" parent="House3" instance=ExtResource("10_b1ret")]
 
 [node name="Houseinterior3" parent="House3" instance=ExtResource("11_mpw1i")]
-position = Vector2(1841, 491)
+position = Vector2(2069, 693)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
 position = Vector2(578, 472)
@@ -82,11 +84,18 @@ wait_time = 5.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
-[node name="AgentV2" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
+[node name="Agent1" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
 position = Vector2(126, 231)
 house = NodePath("../House")
 
-[node name="SpeechBubble" parent="AgentV2" instance=ExtResource("16_b1ret")]
+[node name="SpeechBubble" parent="Agent1" instance=ExtResource("16_b1ret")]
+visible = false
+
+[node name="Agent2" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
+position = Vector2(707, 106)
+house = NodePath("../House2")
+
+[node name="SpeechBubble" parent="Agent2" instance=ExtResource("16_b1ret")]
 visible = false
 
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]

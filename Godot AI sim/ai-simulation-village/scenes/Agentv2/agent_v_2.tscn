@@ -428,6 +428,7 @@ path_desired_distance = 5.0
 target_desired_distance = 5.0
 path_max_distance = 10.0
 path_postprocessing = 1
+avoidance_enabled = true
 radius = 5.0
 debug_enabled = true
 
@@ -445,4 +446,5 @@ agent = NodePath("..")
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]
 [connection signal="area_entered" from="ObjectDetection" to="." method="_on_object_detection_area_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="PathfindingComponent" method="_on_navigation_agent_2d_velocity_computed"]
 [connection signal="target_reached" from="PathfindingComponent" to="." method="_on_pathfinding_component_target_reached"]

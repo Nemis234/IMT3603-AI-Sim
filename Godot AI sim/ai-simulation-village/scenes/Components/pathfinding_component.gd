@@ -22,7 +22,14 @@ func set_target(new_target: Vector2):
 func move_along_path(delta: float) -> void:
 	if !navigationNode.is_target_reached():
 		var direction = agent.to_local(navigationNode.get_next_path_position()).normalized()
-		agent.velocity = direction * movement_speed
+		var new_velocity = direction * movement_speed
+		
+		#This part is to avoid agents getting stuck onto each other
+		if navigationNode.avoidance_enabled:
+			navigationNode.set_velocity(new_velocity)
+		else:
+			_on_navigation_agent_2d_velocity_computed(new_velocity)
+		
 		agent.move_and_slide()
 	else:
 		agent.velocity = Vector2.ZERO
@@ -32,3 +39,7 @@ func move_along_path(delta: float) -> void:
 			
 func get_target_reached() -> bool:
 	return navigationNode.is_target_reached()
+
+##This is related to navigation avoidance
+func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
+	agent.velocity = safe_velocity

@@ -1,7 +1,7 @@
 extends Node2D
 
-@onready var house_interior = $HouseInterior2
-@onready var house_exterior = $HouseExterior2
+@onready var house_interior = $house_interior
+@onready var house_exterior = $house_exterior
 
 
 @onready var door_area: Area2D = house_exterior.get_node("Entrance")
@@ -17,11 +17,6 @@ func _ready() -> void:
 	
 	exit_area.body_entered.connect(_on_doorstep_entered.bind("exit"))
 	exit_area.body_exited.connect(_on_doorstep_exited)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func _on_doorstep_entered(body,area):
 	if body.is_in_group("Player"):
