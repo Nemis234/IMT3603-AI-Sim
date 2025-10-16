@@ -44,51 +44,65 @@ func _physics_process(delta: float) -> void:
 	movementAnimation.update_animation(velocity)
 	
 
-#Helper function to loop through objects and return a specific node
-func get_interactable_object(group:String, node_name: String) -> Node2D:
+##Helper function to loop through objects and return a specific node
+##group is the group the object belongs to, it can be passed as "" to ignore group
+##objectName name of the object to interact with.
+func get_interactable_object(group:String, objectName: String) -> Node2D:
 	var node_list = agent_interact_area.get_overlapping_areas()
 	
 	#Mainly used to get entrances, and other nodes who does not have a parent
 	if group == "":
 		for node in node_list:
-			if node.name.to_lower().contains(node_name.to_lower()):
+			if node.name.to_lower().contains(objectName.to_lower()):
 				return node.get_parent()
 	elif group == "interactable":
 		for node in node_list:
-			if node.get_parent().name.to_lower().contains(node_name.to_lower()):
+			if node.get_parent().name.to_lower().contains(objectName.to_lower()):
 				return node.get_parent()
 	
-	#TODO Maybe create one to filter by group aswell
 	return null
 
+##Helper function. Finds an object around the agent with the correct name and interacts with object.
+##group is the group the object belongs to, it can be passed as "" to ignore group
+##objectName name of the object to interact with.
+func _interact_with_object(group: String, objectName: String) -> void:
+	var object = get_interactable_object(group, objectName)
+	
+	if object:		
+		interact.emit(self, object)
+		agentActions.agent_action_done = true
+		
+		if objectName.to_lower() == "entrance":
+			if agentActions.current_action.to_lower() == "leavebuilding":
+				in_building = null
+			else :
+				in_building = object.get_parent()
+	else:
+		#Agent will only get here if they are standing outside of the house
+		#while waiting to enter building to interact with object
+		if group == "interactable":
+			var door_entrance = get_interactable_object("","Entrance")
+			interact.emit(self, door_entrance)
+			in_building = door_entrance.get_parent()
+			agentActions.queued_action = agentActions.current_action
+			agentActions.agent_action_done = true
+		
+		
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
 	match agentActions.current_action:
 		"wander":
 			agentActions.agent_action_done = true
 		"gohome":
-			if in_building == null:
-				var door_entrance = get_interactable_object("","Entrance")
-				interact.emit(self, door_entrance)
-				in_building = house
-				agentActions.agent_action_done = true
+				_interact_with_object("","entrance")
 		"leavebuilding":
-			if in_building:
-				var door_entrance = get_interactable_object("","Entrance")
-				interact.emit(self, door_entrance)
-				in_building = null
-				agentActions.agent_action_done = true
+				_interact_with_object("","entrance")
 		"read": 
-			var bookshelf = get_interactable_object("interactable","bookshelf")
-			if bookshelf:
-				interact.emit(self, bookshelf)
-				agentActions.agent_action_done = true
-			else:
-				var door_entrance = get_interactable_object("","Entrance")
-				interact.emit(self, door_entrance)
-				in_building = door_entrance.get_parent()
-				agentActions.queued_action = "Read"
-				agentActions.agent_action_done = true
+			_interact_with_object("interactable","bookshelf")
+		"eat":
+			_interact_with_object("interactable","fridge")
+		"sleep":
+			_interact_with_object("interactable", "bed")
 		_:
 			pass
 
@@ -100,7 +114,8 @@ func new_agent_action():
 	is_requesting_action = true
 		
 	if agentActions.queued_action == "":
-		new_action = await agentActions.prompt_new_action(house,in_building, command_stream)
+		#new_action = await agentActions.prompt_new_action(house,in_building, command_stream) # Enable this for AI controlling
+		new_action = agentActions.pick_random_action(house, in_building) #Enable this to pick randomly without AI
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""
@@ -117,8 +132,11 @@ func new_agent_action():
 			_go_to_target(in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 		"read": 
 			_got_to_object("bookshelf", "read")
-		#"Eat": pass
-		#"Sleep": pass
+		"eat":
+			_got_to_object("fridge", "eat")
+		"sleep":
+			#TODO will agents have a designated bed?
+			_got_to_object("bed", "sleep")
 		"idle": 
 			pass
 		_:print("No such action")
@@ -145,6 +163,7 @@ func _got_to_object(object: String, action: String) -> void:
 		elif in_building != interactable_object["building"] and in_building != null:
 			_go_to_target(in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 			new_action = "leavebuilding"
+			current_action = new_action
 			agentActions.queued_action = action.to_lower()
 		else:
 			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())

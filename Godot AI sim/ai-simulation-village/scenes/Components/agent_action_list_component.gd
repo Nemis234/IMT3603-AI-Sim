@@ -11,9 +11,9 @@ var agent_actions: Array = [
 	"idle", 
 	"gohome", 
 	"leavebuilding", 
-	"read" 
-	#"eat", 
-	#"sleep"
+	"read",
+	"eat", 
+	"sleep"
 	]
 var agent_action_done: bool = true
 var current_action # Stores the agents current action 
@@ -24,6 +24,8 @@ func is_object_in_memory(objectName: String) -> Dictionary:
 	for key in interactable_objects.keys():
 		var object = interactable_objects[key]
 		if object["name"].to_lower().contains(objectName.to_lower()):
+			#TODO this will always return the first object of its kind
+			#maybe change the logic later?
 			return {
 				"node": object, 
 				"building": object["building"], 
@@ -58,3 +60,14 @@ func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) 
 		await get_tree().process_frame  # wait one frame before checking again
 	
 	return str(command_stream.text).strip_edges().to_lower()
+
+#This is the old logic, randomly picking actions, this is mainly for debugging/testing
+func pick_random_action(home: Node2D,in_building: Node2D,) -> String:
+	var filtered_action_list = agent_actions.duplicate()
+	
+	if in_building == home:
+		filtered_action_list.erase("gohome")
+	elif in_building == null:
+		filtered_action_list.erase("leavebuilding")
+		
+	return filtered_action_list.pick_random()
