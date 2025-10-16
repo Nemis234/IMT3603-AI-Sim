@@ -10,7 +10,7 @@ var agent_actions: Array = [
 	"wander", 
 	"idle", 
 	"gohome", 
-	"leavehome", 
+	"leavebuilding", 
 	"read" 
 	#"eat", 
 	#"sleep"
@@ -42,7 +42,7 @@ func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) 
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
-		filtered_action_list.erase("leavehome")
+		filtered_action_list.erase("leavebuilding")
 	
 	print(filtered_action_list)
 	var text_prompt = "Can you pick a random action from this array?" + str(filtered_action_list)

@@ -18,7 +18,6 @@ signal interact(agent,interactable)
 #Agents house/building related
 @export var house: Node2D
 var house_entrance
-var house_exit
 var in_building: Node2D #Stores the building the agent is in.
 
 #Agents action related
@@ -30,11 +29,10 @@ var in_dialogue: bool = false #To check if agent in dialogue
 
 func _ready() -> void:
 	house_entrance = house.get_node("house_exterior").get_node("Entrance")
-	house_exit = house.get_node("house_interior").get_node("Entrance")
 	
 	agent_interact_area.body_entered.connect(_on_interact_area_entered)
 	agent_interact_area.body_exited.connect(_on_interact_area_exited)
-	
+
 
 func _physics_process(delta: float) -> void:
 	if in_dialogue:
@@ -69,31 +67,23 @@ func _on_pathfinding_component_target_reached() -> void:
 			agentActions.agent_action_done = true
 		"gohome":
 			if in_building == null:
-				var door_entrance = get_interactable_object(
-					"",
-					"Entrance")
+				var door_entrance = get_interactable_object("","Entrance")
 				interact.emit(self, door_entrance)
 				in_building = house
 				agentActions.agent_action_done = true
-		"leavehome": ## TODO turn this into leavebuilding to generalize it
+		"leavebuilding":
 			if in_building:
-				var door_entrance = get_interactable_object(
-					"",
-					"Entrance")
+				var door_entrance = get_interactable_object("","Entrance")
 				interact.emit(self, door_entrance)
 				in_building = null
 				agentActions.agent_action_done = true
 		"read": 
-			var bookshelf = get_interactable_object(
-				"interactable",
-				"bookshelf")
+			var bookshelf = get_interactable_object("interactable","bookshelf")
 			if bookshelf:
 				interact.emit(self, bookshelf)
 				agentActions.agent_action_done = true
 			else:
-				var door_entrance = get_interactable_object(
-					"",
-					"Entrance")
+				var door_entrance = get_interactable_object("","Entrance")
 				interact.emit(self, door_entrance)
 				in_building = door_entrance.get_parent()
 				agentActions.queued_action = "Read"
@@ -118,30 +108,25 @@ func new_agent_action():
 	match new_action:
 		"wander":
 			if agentActions.agent_action_done and !in_building:
-				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_main_map())
-				agentActions.agent_action_done = false
+				_go_to_target(randomVectorOnNavigationLayer.get_random_target_main_map())
 			elif agentActions.agent_action_done and in_building:
-				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_in_building("House"))
-				agentActions.agent_action_done = false
+				_go_to_target(randomVectorOnNavigationLayer.get_random_target_in_building("House"))
 		"gohome":
-			pathfindingComponent.set_target(house_entrance.get_global_position())
-			agentActions.agent_action_done = false
-		"leavehome":
-			pathfindingComponent.set_target(house_exit.get_global_position())
-			agentActions.agent_action_done = false
+			_go_to_target(house_entrance.get_global_position())
+		"leavebuilding":
+			_go_to_target(in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 		"read": 
 			var bookshelf = agentActions.is_object_in_memory("bookshelf")
 			if bookshelf:
 				if in_building == bookshelf["building"]:
-					pathfindingComponent.set_target(bookshelf["position"])
-					agentActions.agent_action_done = false
+					_go_to_target(bookshelf["position"])
 				elif in_building != bookshelf["building"] and in_building != null:
 					##TODO This is for agents not in the same building as bookshelf
 					#They should leave the current building and move to building with bookshelf
 					pass
 				else:
 					pass
-					pathfindingComponent.set_target(bookshelf["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+					_go_to_target(bookshelf["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
 			else:
 				print("No bookshelfs in memory")
 		#"Eat": pass
@@ -153,6 +138,11 @@ func new_agent_action():
 	is_requesting_action = false
 	agentActions.current_action = new_action
 
+##Helper function to set target desitnation and set the agent_action_done to false
+##target is the destination of the target in vector
+func _go_to_target(target: Vector2i)-> void:
+	pathfindingComponent.set_target(target)
+	agentActions.agent_action_done = false
 
 func _on_interact_area_area_entered(area: Area2D) -> void:
 	#Opens doors automatically whenever close to a door 
