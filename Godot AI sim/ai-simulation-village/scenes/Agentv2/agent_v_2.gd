@@ -23,8 +23,9 @@ var in_building: Node2D #Stores the building the agent is in.
 
 #Agents action related
 var current_action # Stores the agents current action 
+var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
-
+@onready var command_stream = $AICommand
 
 
 func _ready() -> void:
@@ -64,9 +65,9 @@ func get_interactable_object(group:String, node_name: String) -> Node2D:
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
 	match agentActions.current_action:
-		"Wander":
+		"wander":
 			agentActions.agent_action_done = true
-		"GoHome":
+		"gohome":
 			if in_building == null:
 				var door_entrance = get_interactable_object(
 					"",
@@ -74,7 +75,7 @@ func _on_pathfinding_component_target_reached() -> void:
 				interact.emit(self, door_entrance)
 				in_building = house
 				agentActions.agent_action_done = true
-		"LeaveHome": ## TODO turn this into leavebuilding to generalize it
+		"leavehome": ## TODO turn this into leavebuilding to generalize it
 			if in_building:
 				var door_entrance = get_interactable_object(
 					"",
@@ -82,7 +83,7 @@ func _on_pathfinding_component_target_reached() -> void:
 				interact.emit(self, door_entrance)
 				in_building = null
 				agentActions.agent_action_done = true
-		"Read": 
+		"read": 
 			var bookshelf = get_interactable_object(
 				"interactable",
 				"bookshelf")
@@ -102,34 +103,33 @@ func _on_pathfinding_component_target_reached() -> void:
 
 #Set a new action for agent, as for now its based on a time interval
 func new_agent_action():
-	if !agentActions.agent_action_done:
+	if !agentActions.agent_action_done or is_requesting_action:
 		return
+		
+	is_requesting_action = true
 		
 	var new_action
 	if agentActions.queued_action == "":
-		new_action = agentActions.agent_actions.pick_random()
-		
-		while agentActions.is_invalid_action(new_action, in_building):
-			new_action = agentActions.agent_actions.pick_random()
+		new_action = await agentActions.prompt_new_action(house,in_building, command_stream)
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""
 	
 	match new_action:
-		"Wander":
+		"wander":
 			if agentActions.agent_action_done and !in_building:
 				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_main_map())
 				agentActions.agent_action_done = false
 			elif agentActions.agent_action_done and in_building:
 				pathfindingComponent.set_target(randomVectorOnNavigationLayer.get_random_target_in_building("House"))
 				agentActions.agent_action_done = false
-		"GoHome":
+		"gohome":
 			pathfindingComponent.set_target(house_entrance.get_global_position())
 			agentActions.agent_action_done = false
-		"LeaveHome":
+		"leavehome":
 			pathfindingComponent.set_target(house_exit.get_global_position())
 			agentActions.agent_action_done = false
-		"Read": 
+		"read": 
 			var bookshelf = agentActions.is_object_in_memory("bookshelf")
 			if bookshelf:
 				if in_building == bookshelf["building"]:
@@ -146,10 +146,11 @@ func new_agent_action():
 				print("No bookshelfs in memory")
 		#"Eat": pass
 		#"Sleep": pass
-		"Idle": 
+		"idle": 
 			pass
 		_:print("No such action")
 	
+	is_requesting_action = false
 	agentActions.current_action = new_action
 
 
@@ -191,3 +192,4 @@ func hide_speech():
 func stream_speech(text:String):
 	speechBubble.visible = true
 	ServerConnection.post_message(text,speechLabel)
+	

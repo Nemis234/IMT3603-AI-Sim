@@ -398,6 +398,11 @@ pathfindingComponent = NodePath("PathfindingComponent")
 randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent")
 agentActions = NodePath("AgentActionListComponent")
 
+[node name="AICommand" type="Label" parent="."]
+visible = false
+offset_right = 40.0
+offset_bottom = 23.0
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_uwfto")
 animation = &"walk_up"
