@@ -1,8 +1,8 @@
 [gd_scene load_steps=59 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
-[ext_resource type="Texture2D" uid="uid://bikcam0141ish" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="2_xqdgn"]
-[ext_resource type="Texture2D" uid="uid://b7dswqgfsslrf" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_run_16x16.png" id="3_2krod"]
+[ext_resource type="Texture2D" uid="uid://717j3fac87vn" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="2_xqdgn"]
+[ext_resource type="Texture2D" uid="uid://c4lx2k7okdgi7" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_run_16x16.png" id="3_2krod"]
 [ext_resource type="PackedScene" uid="uid://dui2l08xih2aa" path="res://scenes/Components/pathfinding_component.tscn" id="4_uwfto"]
 [ext_resource type="PackedScene" uid="uid://dh6fjvy7x6bns" path="res://scenes/Components/random_vector_on_navigation_layer_component.tscn" id="5_nsq65"]
 [ext_resource type="PackedScene" uid="uid://cf37v4t5636x7" path="res://scenes/Components/walking_animation_component.tscn" id="6_xqdgn"]

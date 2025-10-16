@@ -45,12 +45,14 @@ func _physics_process(delta: float) -> void:
 	
 
 #Helper function to loop through objects and return a specific node
-func get_interactable_object(node_list: Array,group:String, node_name: String) -> Node2D:
+func get_interactable_object(group:String, node_name: String) -> Node2D:
+	var node_list = agent_interact_area.get_overlapping_areas()
+	
 	#Mainly used to get entrances, and other nodes who does not have a parent
 	if group == "":
 		for node in node_list:
 			if node.name.to_lower().contains(node_name.to_lower()):
-				return node
+				return node.get_parent()
 	elif group == "interactable":
 		for node in node_list:
 			if node.get_parent().name.to_lower().contains(node_name.to_lower()):
@@ -67,24 +69,21 @@ func _on_pathfinding_component_target_reached() -> void:
 		"GoHome":
 			if in_building == null:
 				var door_entrance = get_interactable_object(
-					agent_interact_area.get_overlapping_areas(),
 					"",
-					"Entrance").get_parent()
+					"Entrance")
 				interact.emit(self, door_entrance)
 				in_building = house
 				agentActions.agent_action_done = true
 		"LeaveHome": ## TODO turn this into leavebuilding to generalize it
 			if in_building:
 				var door_entrance = get_interactable_object(
-					agent_interact_area.get_overlapping_areas(),
 					"",
-					"Entrance").get_parent()
+					"Entrance")
 				interact.emit(self, door_entrance)
 				in_building = null
 				agentActions.agent_action_done = true
 		"Read": 
 			var bookshelf = get_interactable_object(
-				agent_interact_area.get_overlapping_areas(),
 				"interactable",
 				"bookshelf")
 			if bookshelf:
@@ -92,9 +91,8 @@ func _on_pathfinding_component_target_reached() -> void:
 				agentActions.agent_action_done = true
 			else:
 				var door_entrance = get_interactable_object(
-					agent_interact_area.get_overlapping_areas(),
 					"",
-					"Entrance").get_parent()
+					"Entrance")
 				interact.emit(self, door_entrance)
 				in_building = door_entrance.get_parent()
 				agentActions.queued_action = "Read"
