@@ -7,7 +7,7 @@ extends Node2D
 @onready var door_area: Area2D = house_exterior.get_node("Entrance")
 @onready var exit_area: Area2D = house_interior.get_node("Entrance")
 
-
+@onready var navigationTilesMainFloor: TileMapLayer = house_interior.get_node("WalkAbleTiles")
 
 
 # Called when the node enters the scene tree for the first time.

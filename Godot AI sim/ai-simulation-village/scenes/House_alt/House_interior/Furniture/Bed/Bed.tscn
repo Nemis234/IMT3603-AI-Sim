@@ -40,6 +40,3 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_4qapx")
 
 [node name="StateHandlerComponent" parent="." instance=ExtResource("2_bv4ir")]
-
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, 18.315)

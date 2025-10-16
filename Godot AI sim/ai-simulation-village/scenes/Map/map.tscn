@@ -1,8 +1,8 @@
 [gd_scene load_steps=32 format=4 uid="uid://46m2xiqgmiwo"]
 
-[ext_resource type="Texture2D" uid="uid://b6gvo4qjve3fy" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_4rr3d"]
-[ext_resource type="Texture2D" uid="uid://qinwf7u1qt2f" path="res://assets/SERENE_VILLAGE_REVAMPED/Animated stuff/water_waves_16x16.png" id="2_d6mms"]
-[ext_resource type="Texture2D" uid="uid://ynbn4owixylw" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="3_exngo"]
+[ext_resource type="Texture2D" uid="uid://c6wadxd2s3r6p" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_4rr3d"]
+[ext_resource type="Texture2D" uid="uid://rbh6sg5h2qrh" path="res://assets/SERENE_VILLAGE_REVAMPED/Animated stuff/water_waves_16x16.png" id="2_d6mms"]
+[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="3_exngo"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_2rm8l"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)

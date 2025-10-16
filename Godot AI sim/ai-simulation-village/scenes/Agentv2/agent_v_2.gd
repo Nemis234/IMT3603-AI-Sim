@@ -105,7 +105,8 @@ func _on_pathfinding_component_target_reached() -> void:
 		_:
 			pass
 
-#Set a new action for agent, as for now its based on a time interval
+##Set a new action for agent. Actions can either be picked random or by an AI Model (Gemini).
+##To switch between set-type, toggle between the commented "new_action = ..."
 func new_agent_action():
 	if !agentActions.agent_action_done or is_requesting_action:
 		return
@@ -121,10 +122,10 @@ func new_agent_action():
 	
 	match new_action:
 		"wander":
-			if agentActions.agent_action_done and !in_building:
+			if !in_building:
 				_go_to_target(randomVectorOnNavigationLayer.get_random_target_main_map())
-			elif agentActions.agent_action_done and in_building:
-				_go_to_target(randomVectorOnNavigationLayer.get_random_target_in_building("House"))
+			elif in_building:
+				_go_to_target(randomVectorOnNavigationLayer.get_random_target_in_building(in_building))
 		"gohome":
 			_go_to_target(house_entrance.get_global_position())
 		"leavebuilding":

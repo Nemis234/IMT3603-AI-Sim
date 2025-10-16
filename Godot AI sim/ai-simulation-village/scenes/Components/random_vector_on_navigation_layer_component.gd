@@ -2,14 +2,12 @@ extends Node
 class_name RandomVectorOnNavigationLayerComponent
 
 var mainMapLayer
-var house1Layer
 
 func _ready() -> void:
 	for elements in get_tree().get_nodes_in_group("NavigationArea"):
 		if elements.name == "WalkAbleTilesMainMap":
 			mainMapLayer = elements
-		elif elements.name == "WalkAbleTilesHouse1":
-			house1Layer = elements
+
 
 #Get a random cell and convert to global pos from given tilemaplayer
 func _get_random_cell_and_convert(mapLayer:TileMapLayer) -> Vector2:
@@ -26,11 +24,13 @@ func _get_random_cell_and_convert(mapLayer:TileMapLayer) -> Vector2:
 func get_random_target_main_map() -> Vector2:
 	return _get_random_cell_and_convert(mainMapLayer)
 	
-#Get a random Vector from a given section, used for inside buildings
-func get_random_target_in_building(buildingName: String) -> Vector2:
-	match buildingName:
-		"House":
-			return _get_random_cell_and_convert(house1Layer)
-		_: 
-			print("Could not get random tile to pathfind")
-			return Vector2(0,0)
+##Get a random Vector from a given section, used for inside buildings.
+##building is the node of the building
+func get_random_target_in_building(building: Node2D) -> Vector2:
+	
+	var navigationTiles = building.navigationTilesMainFloor
+	if !navigationTiles:
+		print("Could not get random tile to pathfind")
+		return Vector2(0,0)
+	
+	return _get_random_cell_and_convert(navigationTiles)
