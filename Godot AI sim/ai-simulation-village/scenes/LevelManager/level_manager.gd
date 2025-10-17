@@ -3,6 +3,12 @@ extends Node2D
 
 @onready var player:Player = $Adam
 
+#Day and night cycle, related
+var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
+const realSecondsPerIngameDay: float = 180.0 #One in game day is n real time seconds
+var totalMinutes
+var hour
+var minute
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,7 +28,10 @@ func _on_physics_process(delta: float) -> void:
 	#print(player.curr_interactable)
 	pass
 	
-
+func _process(delta: float) -> void:
+	time += delta / realSecondsPerIngameDay
+	time = fmod(time, 1.0)
+	_process_time(delta)
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))
@@ -76,3 +85,11 @@ func _end_dialogue(agent):
 	agent.hide_speech()
 	agent.agentActions.agent_action_done = true
 	agent.in_dialogue = false
+
+	
+##This functions is used to process ingame time.
+func _process_time(delta) -> void:
+	totalMinutes = time * 1440.0
+	hour = int(totalMinutes / 60) % 24
+	minute = int(totalMinutes) % 60
+	
