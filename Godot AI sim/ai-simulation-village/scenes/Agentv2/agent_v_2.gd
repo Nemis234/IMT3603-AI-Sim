@@ -14,6 +14,9 @@ signal interact(agent,interactable)
 @onready var speechBubble = $SpeechBubble
 @onready var speechLabel = $SpeechBubble/Control/PanelContainer/ScrollContainer/MarginContainer/Label
 
+#Agent identifications
+@export var agentName: String
+
 #Agents house/building related
 @export var house: Node2D
 var house_entrance
@@ -108,15 +111,15 @@ func _on_pathfinding_component_target_reached() -> void:
 ##Set a new action for agent. Actions can either be picked random or by an AI Model (Gemini).
 ##To switch between set-type, toggle between the commented "new_action = ..."
 ##partOfDay is to check for available actions
-func new_agent_action(partOfDay: String):
+func new_agent_action():
 	if !agentActions.agent_action_done or is_requesting_action:
 		return
 		
 	is_requesting_action = true
 		
 	if agentActions.queued_action == "":
-		#new_action = await agentActions.prompt_new_action(house,in_building, partOfDay,command_stream) # Enable this for AI controlling
-		new_action = agentActions.pick_random_action(house, in_building, partOfDay) #Enable this to pick randomly without AI
+		new_action = await agentActions.prompt_new_action(house,in_building,command_stream) # Enable this for AI controlling
+		#new_action = agentActions.pick_random_action(house, in_building) #Enable this to pick randomly without AI
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""
@@ -208,5 +211,5 @@ func hide_speech():
 
 func stream_speech(text:String):
 	speechBubble.visible = true
-	ServerConnection.post_message(text,speechLabel)
+	ServerConnection.post_message(agentName,text,speechLabel)
 	

@@ -8,7 +8,7 @@ var stream = false
 
 # I initialise the request
 func _ready() -> void:
-	#connect_client()
+	connect_client()
 	pass
 
 func connect_client():
@@ -28,9 +28,15 @@ func connect_client():
 ## Requests a spesific agent using its url [code]"/chat/{recipiant}"[/code] [br]
 ## Participant is whoever is talking to the AI agent.
 ## Defaults to "user" [br]
-func post_message(message:String, label_:Label, type:String ="chat", participant="user", recipiant:int=0):
+func post_message(agentName:String,message:String, label_:Label, type:String ="chat", participant="user", recipiant:int=0):
 	var err = 0
-	var fields = {"message": message, "participant": participant }
+	var fields = {
+		"agent":agentName,
+		"time":str(Global.hour) + ":" + str(Global.minute),
+		"message": message, 
+		"participant": participant 
+		}
+	print(fields)
 	var query_string = JSON.stringify(fields)
 	var headers = [ #Not necessary
 		"User-Agent: Pirulo/1.0 (Godot)",

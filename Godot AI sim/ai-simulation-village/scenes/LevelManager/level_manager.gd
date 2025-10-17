@@ -7,10 +7,7 @@ extends Node2D
 @onready var dayNightCycle:Node2D = $DayNightCycle
 var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
 const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seconds
-var totalMinutes
-var hour
-var minute
-var partOfDay
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -73,7 +70,7 @@ func _change_state(entity,interactable):
 #Tell the Agents to start a new action/check if they finished their action
 func _on_agent_timer_timeout() -> void:
 	for agents in get_tree().get_nodes_in_group("Agent"):
-		agents.new_agent_action(partOfDay)
+		agents.new_agent_action()
 
 
 func _generate_dialogue(text:String): #Dialogue should occur if player's curr interactable is an Agent
@@ -96,20 +93,20 @@ func _end_dialogue(agent):
 	
 ##This functions is used to process ingame time.
 func _process_time(delta) -> void:
-	totalMinutes = time * 1440.0
-	hour = int(totalMinutes / 60) % 24
-	minute = int(totalMinutes) % 60
+	Global.totalMinutes = time * 1440.0
+	Global.hour = int(Global.totalMinutes / 60) % 24
+	Global.minute = int(Global.totalMinutes) % 60
 	
-	if hour >= 22 or hour < 6:
-		partOfDay = "night"
-	elif hour >= 6 and hour < 8:
-		partOfDay = "morning"
-	elif hour >= 8 and hour < 12:
-		partOfDay = "noon"
-	elif hour >= 12 and hour < 16:
-		partOfDay = "afternoon"
+	if Global.hour >= 22 or Global.hour < 6:
+		Global.partOfDay = "night"
+	elif Global.hour >= 6 and Global.hour < 8:
+		Global.partOfDay = "morning"
+	elif Global.hour >= 8 and Global.hour < 12:
+		Global.partOfDay = "noon"
+	elif Global.hour >= 12 and Global.hour < 16:
+		Global.partOfDay = "afternoon"
 	else:
-		partOfDay = "evening"
+		Global.partOfDay = "evening"
 	
 	#print("In-game time: %02d:%02d" % [hour, minute])
 	#print(partOfDay)

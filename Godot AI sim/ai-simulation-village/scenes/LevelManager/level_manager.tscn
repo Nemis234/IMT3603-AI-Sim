@@ -89,6 +89,7 @@ script = ExtResource("6_4tw1x")
 
 [node name="Agent1" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
 position = Vector2(126, 231)
+agentName = "John"
 house = NodePath("../House")
 
 [node name="SpeechBubble" parent="Agent1" instance=ExtResource("16_b1ret")]

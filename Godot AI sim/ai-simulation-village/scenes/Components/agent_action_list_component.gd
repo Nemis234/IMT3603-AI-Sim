@@ -2,6 +2,8 @@ extends Node
 class_name AgentActionListComponent
 
 #Agent actions related
+@onready var agentNode: Node2D = $".."
+
 #A dictionary of objects and their position
 var interactable_objects: Dictionary = {
 	#ObjectNodePath { "building": Null? , "position": Vectori2, "name": node.name }
@@ -38,11 +40,11 @@ func is_object_in_memory(objectName: String) -> Dictionary:
 ##home is the agents home
 ##in_building is either null or a Node2D, which is the building the agent is currently in.
 ##partOfDay is passed from the levelmanager
-func _filter_action_list(home: Node2D, in_building: Node2D, partOfDay: String) -> Array:
+func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
 	var filtered_action_list = agent_actions.duplicate()
 
 	# Day Night Cycle Related filtering
-	if partOfDay.to_lower() == "night":
+	if Global.partOfDay.to_lower() == "night":
 		filtered_action_list = ["gohome", "sleep"]
 		
 	# Building-related filtering
@@ -83,9 +85,9 @@ func _filter_action_list(home: Node2D, in_building: Node2D, partOfDay: String) -
 ##in_building is needed to filter out unavailable actions
 ##partOfDay is passed from the levelmanager
 ##command_stream is the output of the request
-func prompt_new_action(home: Node2D,in_building: Node2D,partOfDay: String ,command_stream: Label) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building, partOfDay)
-	
+func prompt_new_action(home: Node2D,in_building: Node2D ,command_stream: Label) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building)
+
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
@@ -96,9 +98,13 @@ func prompt_new_action(home: Node2D,in_building: Node2D,partOfDay: String ,comma
 	# Clear previous command
 	command_stream.text = ""
 	
+	if !agentNode.agentName:
+		print("Agent is missing a name")
+		return ""
+
 	# Send prompt and wait for response
 	#NEW: Set type to action to send request to /action endpoint
-	await ServerConnection.post_message(text_prompt, command_stream, "action") 
+	await ServerConnection.post_message(agentNode.agentName,text_prompt, command_stream, "action") 
 	
 	# Make sure response is not empty
 	while command_stream.text == "":
@@ -107,8 +113,8 @@ func prompt_new_action(home: Node2D,in_building: Node2D,partOfDay: String ,comma
 	return str(command_stream.text).strip_edges().to_lower()
 
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
-func pick_random_action(home: Node2D,in_building: Node2D, partOfDay:String) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building, partOfDay)
+func pick_random_action(home: Node2D,in_building: Node2D) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building)
 
 	if in_building == home:
 		filtered_action_list.erase("gohome")
