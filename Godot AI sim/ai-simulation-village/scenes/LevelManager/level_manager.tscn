@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=19 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
 [ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
 [ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/test_server.gd" id="13_4jhem"]
+[ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
 [ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="16_b1ret"]
 
 [node name="LevelManager" type="Node2D"]
@@ -78,6 +79,8 @@ offset_left = -288.0
 offset_top = -161.0
 offset_right = -115.0
 offset_bottom = -130.0
+
+[node name="DayNightCycle" parent="." instance=ExtResource("15_i07ia")]
 
 [node name="AgentTimer" type="Timer" parent="."]
 wait_time = 5.0

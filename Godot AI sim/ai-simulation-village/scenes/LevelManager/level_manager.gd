@@ -4,8 +4,9 @@ extends Node2D
 @onready var player:Player = $Adam
 
 #Day and night cycle, related
+@onready var dayNightCycle:Node2D = $DayNightCycle
 var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
-const realSecondsPerIngameDay: float = 180.0 #One in game day is n real time seconds
+const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seconds
 var totalMinutes
 var hour
 var minute
@@ -32,6 +33,7 @@ func _process(delta: float) -> void:
 	time += delta / realSecondsPerIngameDay
 	time = fmod(time, 1.0)
 	_process_time(delta)
+	dayNightCycle.setDayNightColor(time)
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))
@@ -92,4 +94,5 @@ func _process_time(delta) -> void:
 	totalMinutes = time * 1440.0
 	hour = int(totalMinutes / 60) % 24
 	minute = int(totalMinutes) % 60
+	#print("In-game time: %02d:%02d" % [hour, minute])
 	
