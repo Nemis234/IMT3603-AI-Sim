@@ -13,3 +13,9 @@ func setDayNightColor(time: float) -> void:
 	colorFromGradient = colorFromGradient.lerp(Color(1,1,1), 0.3)
 	
 	canvasMod.color = colorFromGradient
+
+func hideDayNightFilter(state: String) -> void:
+	if state.to_lower() == "hide":
+		canvasMod.visible = false
+	else:
+		canvasMod.visible = true

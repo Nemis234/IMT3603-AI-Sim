@@ -10,6 +10,7 @@ const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seco
 var totalMinutes
 var hour
 var minute
+var partOfDay
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,11 +42,15 @@ func _change_state(entity,interactable):
 	if interactable.is_in_group("house_ext"):
 		var house = interactable.get_parent()
 		entity.position = house.exit_area.get_global_position()
+		if entity.is_in_group("Player"):
+			dayNightCycle.hideDayNightFilter("hide")
 
 	elif interactable.is_in_group("house_int"):
 		print("Changing position")
 		var house = interactable.get_parent()
 		entity.position = house.door_area.get_global_position()
+		if entity.is_in_group("Player"):
+			dayNightCycle.hideDayNightFilter("unhide")
 
 	elif interactable.is_in_group("interactable"):
 		interactable.change_state()
@@ -68,7 +73,7 @@ func _change_state(entity,interactable):
 #Tell the Agents to start a new action/check if they finished their action
 func _on_agent_timer_timeout() -> void:
 	for agents in get_tree().get_nodes_in_group("Agent"):
-		agents.new_agent_action()
+		agents.new_agent_action(partOfDay)
 
 
 func _generate_dialogue(text:String): #Dialogue should occur if player's curr interactable is an Agent
@@ -94,5 +99,17 @@ func _process_time(delta) -> void:
 	totalMinutes = time * 1440.0
 	hour = int(totalMinutes / 60) % 24
 	minute = int(totalMinutes) % 60
-	#print("In-game time: %02d:%02d" % [hour, minute])
 	
+	if hour >= 22 or hour < 6:
+		partOfDay = "night"
+	elif hour >= 6 and hour < 8:
+		partOfDay = "morning"
+	elif hour >= 8 and hour < 12:
+		partOfDay = "noon"
+	elif hour >= 12 and hour < 16:
+		partOfDay = "afternoon"
+	else:
+		partOfDay = "evening"
+	
+	#print("In-game time: %02d:%02d" % [hour, minute])
+	#print(partOfDay)

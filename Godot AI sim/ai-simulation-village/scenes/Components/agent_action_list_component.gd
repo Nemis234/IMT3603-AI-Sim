@@ -37,15 +37,20 @@ func is_object_in_memory(objectName: String) -> Dictionary:
 ##Helper function. This is used to filter out unavailable actions
 ##home is the agents home
 ##in_building is either null or a Node2D, which is the building the agent is currently in.
-func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
+##partOfDay is passed from the levelmanager
+func _filter_action_list(home: Node2D, in_building: Node2D, partOfDay: String) -> Array:
 	var filtered_action_list = agent_actions.duplicate()
 
+	# Day Night Cycle Related filtering
+	if partOfDay.to_lower() == "night":
+		filtered_action_list = ["gohome", "sleep"]
+		
 	# Building-related filtering
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
-
+		
 	# Detect which objects exist in memory
 	var has_bookshelf := false
 	var has_fridge := false
@@ -76,9 +81,10 @@ func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
 ##Ask AI LLM for a new action
 ##home is need to filter out certain action, such as go home
 ##in_building is needed to filter out unavailable actions
+##partOfDay is passed from the levelmanager
 ##command_stream is the output of the request
-func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building)
+func prompt_new_action(home: Node2D,in_building: Node2D,partOfDay: String ,command_stream: Label) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building, partOfDay)
 	
 	if in_building == home:
 		filtered_action_list.erase("gohome")
@@ -100,8 +106,8 @@ func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) 
 	return str(command_stream.text).strip_edges().to_lower()
 
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
-func pick_random_action(home: Node2D,in_building: Node2D,) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building)
+func pick_random_action(home: Node2D,in_building: Node2D, partOfDay:String) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building, partOfDay)
 
 	if in_building == home:
 		filtered_action_list.erase("gohome")
