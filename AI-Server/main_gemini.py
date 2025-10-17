@@ -1,8 +1,8 @@
 from google import genai
-
+from google.genai import types
 from collections.abc import Iterator
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse,Response
 from collections import defaultdict
 from database import Memory
 import chromadb
@@ -61,7 +61,7 @@ class Agent:
         self._name = name
         self._system_prompt = f"{system_prompt}"
         self._create_client()
-        self.memory.add(role="model", message=self._system_prompt)
+        #self.memory.add(role="model", message=self._system_prompt)
 
     @property
     def system_prompt(self):
@@ -86,7 +86,7 @@ class Agent:
         history = self.memory.gemini_query(text = message)
         return history
     
-    async def chat(self, participant:str,message:str, stream:bool=True):
+    async def chat(self, participant:str,message:str):
         query_message = {'role':'user', 'parts':[{'text': message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
 
@@ -103,7 +103,10 @@ class Agent:
         
         
         response = client.models.generate_content_stream(
-                                        model="gemini-2.5-flash", contents=input_message)
+                                        model="gemini-2.5-flash", 
+                                        contents=input_message,
+                                         config=types.GenerateContentConfig(
+                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
         
         response_message=""
         for chunk in response:
@@ -120,11 +123,7 @@ class Agent:
                             yield w + " "
                             await asyncio.sleep(0.05)
                 
-               
-                     
-
-        
-        #print(response_message)
+                #print(response_message)
         
         #Add query to memory
         memory_message = f"You were asked/told by {participant}: {message}."
@@ -133,6 +132,33 @@ class Agent:
         #Add response to memory
         memory_message = f"You responded to {participant}: {response_message} "
         self.memory.add(role= "model",message=memory_message)
+    
+    
+    #Standard function to get a response from an LLM from on a message and adds only response to memory
+    async def act(self,message):
+        
+        query_message = {'role':'user', 'parts':[{'text': message}]}
+        
+        history = self.get_memory(message) #Get most relevant entries from db closest to query (message)
+        input_message = [] 
+        input_message.extend(history)
+        input_message.append(query_message)
+
+        response = client.models.generate_content(
+                                        model="gemini-2.5-flash", 
+                                        contents=input_message,
+                                         config=types.GenerateContentConfig(
+                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
+        
+        action_message = f"You previously performed the following action: {response.text}" #WOULD BE NICE TO ADD TIME STAMP HERE
+        self.memory.add(role="model" ,message=action_message) #Noting action to memory
+        
+        return response.text
+
+        
+
+                
+        
 
        
 
@@ -183,4 +209,28 @@ async def chat_endpoint(request: Request):
 
 
     return StreamingResponse(john.chat(participant, message), media_type="text/event-stream")
+
+
+@chat_server.post("/action")
+async def action_endpoint(request: Request):
+    """ API endpoint for handling actions\n
+
+    This endpoint should receive a request from Godot which is something like:
+    Pick an action from this array that you feel like should be done now {[action_array]}. Ouput only the action
+
+    This sends back the response , which is the resultant action, back to Godot and the repsonse is saved in memory. 
+        
+
+    """
+    print("Received request")
+    data: dict = await request.json()
+    print(f"Received data: {data}")
+
+    if not isinstance(data.get("message"), str):
+        raise HTTPException(status_code=400, detail="Invalid messages format")
+    
+    message = data.get("message", "")
+
+    action = await john.act(message) #Wait for response
+    return Response(action)
 
