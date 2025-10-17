@@ -114,8 +114,8 @@ func new_agent_action():
 	is_requesting_action = true
 		
 	if agentActions.queued_action == "":
-		#new_action = await agentActions.prompt_new_action(house,in_building, command_stream) # Enable this for AI controlling
-		new_action = agentActions.pick_random_action(house, in_building) #Enable this to pick randomly without AI
+		new_action = await agentActions.prompt_new_action(house,in_building, command_stream) # Enable this for AI controlling
+		#new_action = agentActions.pick_random_action(house, in_building) #Enable this to pick randomly without AI
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""

@@ -3,12 +3,12 @@ extends Node
 var client : HTTPClient
 var stream = false
 
-@export var label_ : Label
+
 
 
 # I initialise the request
 func _ready() -> void:
-	#connect_client()
+	connect_client()
 	pass
 
 func connect_client():
@@ -28,9 +28,9 @@ func connect_client():
 ## Requests a spesific agent using its url [code]"/chat/{recipiant}"[/code] [br]
 ## Participant is whoever is talking to the AI agent.
 ## Defaults to "user" [br]
-func post_message(message:String,label_,recipiant:int=0,participant="user"):
+func post_message(message:String, label_:Label, type:String ="chat", participant="user", recipiant:int=0):
 	var err = 0
-	var fields = { "message":message, "participant":participant }
+	var fields = {"message": message, "participant": participant }
 	var query_string = JSON.stringify(fields)
 	var headers = [ #Not necessary
 		"User-Agent: Pirulo/1.0 (Godot)",
@@ -41,7 +41,7 @@ func post_message(message:String,label_,recipiant:int=0,participant="user"):
 	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
 		await connect_client()
 	
-	err = client.request(HTTPClient.METHOD_POST,"/chat",headers,query_string)
+	err = client.request(HTTPClient.METHOD_POST,"/"+type,headers,query_string)
 	assert(err == OK)
 	
 	while client.get_status() == HTTPClient.STATUS_REQUESTING:

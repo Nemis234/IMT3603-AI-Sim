@@ -85,13 +85,14 @@ func prompt_new_action(home: Node2D,in_building: Node2D, command_stream: Label) 
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
 	
-	var text_prompt = "Can you pick a random action from this array?" + str(filtered_action_list)
+	var text_prompt = "Pick an action from this array that you feel like should be done now " + str(filtered_action_list) + ". Ouput only the action"
 	
 	# Clear previous command
 	command_stream.text = ""
 	
 	# Send prompt and wait for response
-	await ServerConnection.post_message(text_prompt, command_stream)
+	#NEW: Set type to action to send request to /action endpoint
+	await ServerConnection.post_message(text_prompt, command_stream, "action") 
 	
 	# Make sure response is not empty
 	while command_stream.text == "":

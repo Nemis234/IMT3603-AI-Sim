@@ -94,12 +94,5 @@ house = NodePath("../House")
 [node name="SpeechBubble" parent="Agent1" instance=ExtResource("16_b1ret")]
 visible = false
 
-[node name="Agent2" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
-position = Vector2(707, 106)
-house = NodePath("../House2")
-
-[node name="SpeechBubble" parent="Agent2" instance=ExtResource("16_b1ret")]
-visible = false
-
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]

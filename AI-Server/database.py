@@ -57,7 +57,7 @@ class Memory:
         
         return matches
 
-    def gemini_query(self, text: str, n=5):
+    def gemini_query(self, text: str, n=10):
         """
         Retrieves top-n most relevant past messages for the given query. Matches are returned in standard gemini request format
         """
