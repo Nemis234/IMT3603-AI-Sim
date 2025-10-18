@@ -6,7 +6,6 @@ extends Node2D
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
 var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
-const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seconds
 
 
 # Called when the node enters the scene tree for the first time.
@@ -28,7 +27,7 @@ func _on_physics_process(delta: float) -> void:
 	pass
 	
 func _process(delta: float) -> void:
-	time += delta / realSecondsPerIngameDay
+	time += delta / Global.realSecondsPerIngameDay
 	time = fmod(time, 1.0)
 	_process_time(delta)
 	dayNightCycle.setDayNightColor(time)
@@ -60,7 +59,7 @@ func _change_state(entity,interactable):
 		agent.in_dialogue = true
 		
 
-		agent.agentActions.current_action = "Idle"
+		agent.current_action = "Idle"
 		agent.agentActions.agent_action_done = false
 
 		

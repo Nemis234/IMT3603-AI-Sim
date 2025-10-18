@@ -8,7 +8,7 @@ var stream = false
 
 # I initialise the request
 func _ready() -> void:
-	connect_client()
+	#connect_client()
 	pass
 
 func connect_client():

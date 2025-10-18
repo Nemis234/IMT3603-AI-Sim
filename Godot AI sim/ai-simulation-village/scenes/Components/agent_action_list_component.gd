@@ -18,7 +18,6 @@ var agent_actions: Array = [
 	"sleep"
 	]
 var agent_action_done: bool = true
-var current_action # Stores the agents current action 
 var queued_action = "" # Stores the next action, for cases such as entering house to read from bookshelf
 
 #Check if agent remembers a specific object
@@ -40,11 +39,22 @@ func is_object_in_memory(objectName: String) -> Dictionary:
 ##home is the agents home
 ##in_building is either null or a Node2D, which is the building the agent is currently in.
 ##partOfDay is passed from the levelmanager
-func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
+func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -> Array:
 	var filtered_action_list = agent_actions.duplicate()
-
-	# Day Night Cycle Related filtering
-	if Global.partOfDay.to_lower() == "night":
+	
+	# Day Night Cycle Related filtering and stat priority based filtering
+	#TODO clean this part up later
+	if Global.partOfDay.to_lower() != "night":
+		for key in stats.keys():
+			var stat = stats[key]
+			if stat > 30:
+				match key:
+					"mood": filtered_action_list.erase("read")
+					"hunger":filtered_action_list.erase("eat")
+					"tiredness":filtered_action_list.erase("sleep")
+					_:
+						pass
+	elif Global.partOfDay.to_lower() == "night":
 		filtered_action_list = ["gohome", "sleep"]
 		
 	# Building-related filtering
@@ -76,7 +86,16 @@ func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
 		filtered_action_list.erase("eat")
 	if not has_bed:
 		filtered_action_list.erase("sleep")
-
+		
+	#TODO Maybe use a weight system later
+	#Filtering out low weighted actions
+	if randf() < 0.7: #70% to filter out
+		filtered_action_list.erase("wander")
+		filtered_action_list.erase("idle")
+	
+	print(interactable_objects)
+	print(filtered_action_list)
+	print(stats)
 	return filtered_action_list
 
 
@@ -85,8 +104,8 @@ func _filter_action_list(home: Node2D, in_building: Node2D) -> Array:
 ##in_building is needed to filter out unavailable actions
 ##partOfDay is passed from the levelmanager
 ##command_stream is the output of the request
-func prompt_new_action(home: Node2D,in_building: Node2D ,command_stream: Label) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building)
+func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,command_stream: Label) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building, stats)
 
 	if in_building == home:
 		filtered_action_list.erase("gohome")
@@ -113,8 +132,8 @@ func prompt_new_action(home: Node2D,in_building: Node2D ,command_stream: Label) 
 	return str(command_stream.text).strip_edges().to_lower()
 
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
-func pick_random_action(home: Node2D,in_building: Node2D) -> String:
-	var filtered_action_list = _filter_action_list(home, in_building)
+func pick_random_action(home: Node2D,in_building: Node2D, stats: Dictionary) -> String:
+	var filtered_action_list = _filter_action_list(home, in_building, stats)
 
 	if in_building == home:
 		filtered_action_list.erase("gohome")

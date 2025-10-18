@@ -29,6 +29,9 @@ var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 @onready var command_stream = $AICommand
 
+#Progressbar and stats related
+@export var agentStats: AgentStatComponent
+
 
 func _ready() -> void:
 	house_entrance = house.get_node("house_exterior").get_node("Entrance")
@@ -73,9 +76,9 @@ func _interact_with_object(group: String, objectName: String) -> void:
 	if object:		
 		interact.emit(self, object)
 		agentActions.agent_action_done = true
-		
+		agentStats.update_stat(current_action)
 		if objectName.to_lower() == "entrance":
-			if agentActions.current_action.to_lower() == "leavebuilding":
+			if current_action.to_lower() == "leavebuilding":
 				in_building = null
 			else :
 				in_building = object.get_parent()
@@ -86,13 +89,13 @@ func _interact_with_object(group: String, objectName: String) -> void:
 			var door_entrance = get_interactable_object("","Entrance")
 			interact.emit(self, door_entrance)
 			in_building = door_entrance.get_parent()
-			agentActions.queued_action = agentActions.current_action
+			agentActions.queued_action = current_action
 			agentActions.agent_action_done = true
 		
 		
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
-	match agentActions.current_action:
+	match current_action:
 		"wander":
 			agentActions.agent_action_done = true
 		"gohome":
@@ -107,6 +110,7 @@ func _on_pathfinding_component_target_reached() -> void:
 			_interact_with_object("interactable", "bed")
 		_:
 			pass
+		
 
 ##Set a new action for agent. Actions can either be picked random or by an AI Model (Gemini).
 ##To switch between set-type, toggle between the commented "new_action = ..."
@@ -114,12 +118,13 @@ func _on_pathfinding_component_target_reached() -> void:
 func new_agent_action():
 	if !agentActions.agent_action_done or is_requesting_action:
 		return
-		
+	
 	is_requesting_action = true
+	agentStats.hide_progress_bar()
 		
 	if agentActions.queued_action == "":
-		new_action = await agentActions.prompt_new_action(house,in_building,command_stream) # Enable this for AI controlling
-		#new_action = agentActions.pick_random_action(house, in_building) #Enable this to pick randomly without AI
+		#new_action = await agentActions.prompt_new_action(house,in_building,command_stream) # Enable this for AI controlling
+		new_action = agentActions.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""
@@ -146,7 +151,7 @@ func new_agent_action():
 		_:print("No such action")
 	
 	is_requesting_action = false
-	agentActions.current_action = new_action
+	current_action = new_action
 
 ##Helper function to set target desitnation and set the agent_action_done to false.
 ##This is used for simple "go to this point"-actions.

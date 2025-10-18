@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://cvinojykw1akk"]
+[gd_scene load_steps=62 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
 [ext_resource type="Texture2D" uid="uid://717j3fac87vn" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="2_xqdgn"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dh6fjvy7x6bns" path="res://scenes/Components/random_vector_on_navigation_layer_component.tscn" id="5_nsq65"]
 [ext_resource type="PackedScene" uid="uid://cf37v4t5636x7" path="res://scenes/Components/walking_animation_component.tscn" id="6_xqdgn"]
 [ext_resource type="PackedScene" uid="uid://b5g4betym4jw2" path="res://scenes/Components/agent_action_list_component.tscn" id="7_2krod"]
+[ext_resource type="Texture2D" uid="uid://rl2rcan3yw7f" path="res://assets/UI/kenney_ui-pack-adventure/Vector/progress_transparent.svg" id="8_gwmsk"]
+[ext_resource type="PackedScene" uid="uid://dqeloa0qttsly" path="res://scenes/Components/agent_stat_component.tscn" id="8_i2t6t"]
+[ext_resource type="Texture2D" uid="uid://cokh8iwmt2hlq" path="res://assets/UI/kenney_ui-pack-adventure/Vector/progress_blue.svg" id="9_i2t6t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a0e6s"]
 atlas = ExtResource("2_xqdgn")
@@ -391,12 +394,14 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2krod"]
 
-[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "agentActions") groups=["Agent"]]
+[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "agentActions", "agentStats") groups=["Agent"]]
 script = ExtResource("1_3fu0x")
 movementAnimation = NodePath("WalkingAnimationComponent")
 pathfindingComponent = NodePath("PathfindingComponent")
 randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent")
 agentActions = NodePath("AgentActionListComponent")
+agentName = null
+agentStats = NodePath("AgentStatComponent")
 
 [node name="AICommand" type="Label" parent="."]
 visible = false
@@ -429,7 +434,7 @@ target_desired_distance = 5.0
 path_max_distance = 10.0
 path_postprocessing = 1
 avoidance_enabled = true
-radius = 5.0
+radius = 20.0
 debug_enabled = true
 
 [node name="PathfindingComponent" parent="." node_paths=PackedStringArray("navigationNode") instance=ExtResource("4_uwfto")]
@@ -442,6 +447,20 @@ animated_sprite = NodePath("../AnimatedSprite2D")
 agent = NodePath("..")
 
 [node name="AgentActionListComponent" parent="." instance=ExtResource("7_2krod")]
+
+[node name="AgentStatComponent" parent="." instance=ExtResource("8_i2t6t")]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+visible = false
+offset_left = 8.0
+offset_top = -8.0
+offset_right = 24.0
+offset_bottom = 24.0
+scale = Vector2(0.5, 0.5)
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("8_gwmsk")
+texture_progress = ExtResource("9_i2t6t")
 
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]

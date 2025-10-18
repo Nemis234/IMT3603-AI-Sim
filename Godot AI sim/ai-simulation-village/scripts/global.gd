@@ -7,3 +7,4 @@ var totalMinutes
 var hour
 var minute
 var partOfDay
+const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seconds
