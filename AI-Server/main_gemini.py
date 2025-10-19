@@ -7,6 +7,8 @@ from collections import defaultdict
 from database import Memory
 import chromadb
 import asyncio
+from agent_map import AGENT_DESC
+
 
 '''
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
@@ -23,7 +25,7 @@ print(response.text)
 # Roles
 USER = 'user'
 ASSISTANT = 'assistant'
-SYSTEM = 'system'
+SYSTEM = 'model'
 
 
 #Gemini client
@@ -31,28 +33,6 @@ client = genai.Client()
 
 #Establishing db client
 db = chromadb.PersistentClient(path=f"./store/")
-
-desc = '''You are John Lin. You are a pharmacy shopkeeper at the Willow
-            Market and Pharmacy who loves to help people. You 
-            always looking for ways to make the process
-            of getting medication easier for his customers;
-            You live with your wife, Mei Lin, who
-            is a college professor, and son, Eddy Lin, who is
-            a student studying music theory; John Lin loves
-            his family very much; you know the old
-            couple next-door, Sam Moore and Jennifer Moore,
-            for a few years; you think Sam Moore is a
-            kind and nice man; you know his neighbor,
-            Yuriko Yamamoto, well; you know of his
-            neighbors, Tamara Taylor and Carmen Ortiz, but
-            has not met them before; you and Tom Moreno
-            are colleagues at The Willows Market and Pharmacy;
-            you and Tom Moreno are friends and like to
-            discuss local politics together; you know
-            the Moreno family somewhat well — the husband Tom
-            Moreno and the wife Jane Moreno.
-            
-            Note: Respond to questions/queries in brief (just 1-2 sentences).'''
 
 
 class Agent:
@@ -86,7 +66,7 @@ class Agent:
         history = self.memory.gemini_query(text = message)
         return history
     
-    async def chat(self, participant:str,message:str):
+    async def chat(self, participant:str,message:str,time_stamp):
         query_message = {'role':'user', 'parts':[{'text': message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
 
@@ -126,16 +106,16 @@ class Agent:
                 #print(response_message)
         
         #Add query to memory
-        memory_message = f"You were asked/told by {participant}: {message}."
+        memory_message = f"At {time_stamp} you were asked/told by {participant}: {message}."
         self.memory.add(role="model" ,message=memory_message)
         
         #Add response to memory
-        memory_message = f"You responded to {participant}: {response_message} "
+        memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
         self.memory.add(role= "model",message=memory_message)
     
     
     #Standard function to get a response from an LLM from on a message and adds only response to memory
-    async def act(self,message):
+    async def act(self,message,time_stamp):
         
         query_message = {'role':'user', 'parts':[{'text': message}]}
         
@@ -150,35 +130,24 @@ class Agent:
                                          config=types.GenerateContentConfig(
                                                 system_instruction=self._system_prompt)) #Generating responses based on system prompts
         
-        action_message = f"You previously performed the following action: {response.text}" #WOULD BE NICE TO ADD TIME STAMP HERE
+        print("Top memories relevant to action:")
+        for i,h in enumerate(history):
+            print(f"{i+1}) {h["parts"][0]["text"]}")
+        print("Action taken:",response.text)
+
+        
+        action_message = f"You previously performed the following action: {response.text} at time {time_stamp}" #WOULD BE NICE TO ADD TIME STAMP HERE
         self.memory.add(role="model" ,message=action_message) #Noting action to memory
         
         return response.text
 
         
 
-                
-        
-
-       
-
-
-
-# Create an agent with a system prompt
-john = Agent("John", system_prompt=desc)
-
-
-if __name__ == "__main__":
-    while True:
-        print('\nQ to quit')
-        prompt = input('Enter your message: ')
-        if prompt.lower() == 'q':
-            break
-        else:
-            for response in john.chat(USER,prompt):
-                pass
-                #print(response, end='', flush=True)
-
+               
+#Store map of agents to itrs respective object
+agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"])
+     
+                    }      
 
 chat_server = FastAPI()
 
@@ -204,11 +173,13 @@ async def chat_endpoint(request: Request):
     if not isinstance(data.get("message"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
     
+    agent = data.get("agent","")
     message = data.get("message", "")
     participant = data.get("participant", USER)
+    time_stamp = data.get("time","")
 
 
-    return StreamingResponse(john.chat(participant, message), media_type="text/event-stream")
+    return StreamingResponse(agent_obj_map[agent].chat(participant, message,time_stamp), media_type="text/event-stream")
 
 
 @chat_server.post("/action")
@@ -229,8 +200,11 @@ async def action_endpoint(request: Request):
     if not isinstance(data.get("message"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
     
+    agent = data.get("agent","")
     message = data.get("message", "")
+    time_stamp = data.get("time","")
 
-    action = await john.act(message) #Wait for response
+
+    action = await agent_obj_map[agent].act(message,time_stamp=time_stamp) #Wait for response
     return Response(action)
 
