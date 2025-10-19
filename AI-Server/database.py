@@ -13,7 +13,7 @@ class Memory:
         # For simplicity, using the default embedding
         self.embed_fn = embedding_functions.DefaultEmbeddingFunction()
     
-    def add(self, role: str, message: str):
+    def add(self, role: str, message: str, time_stamp:str = None):
         """
         Adds a message (user or assistant) to memory.
         """
@@ -21,7 +21,7 @@ class Memory:
         self.collection.add(
             ids=[doc_id],
             documents=[message],
-            metadatas=[{"role": role}]
+            metadatas=[{"role": role,"time_stamp": time_stamp}]
         )
 
     def get_recent(self, n=5):

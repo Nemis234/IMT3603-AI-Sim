@@ -50,14 +50,10 @@ class Agent:
     def system_prompt(self, value:str):
         self._system_prompt = f"{value}"
        
-        
-    
 
     def _create_client(self):
         pass
        
-    def add_message(self, content:str, role:str='user'):
-        self.memory.add(role, message=content)
 
     def get_memory(self, message:str):
         '''
@@ -107,11 +103,11 @@ class Agent:
         
         #Add query to memory
         memory_message = f"At {time_stamp} you were asked/told by {participant}: {message}."
-        self.memory.add(role="model" ,message=memory_message)
+        self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
         
         #Add response to memory
         memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
-        self.memory.add(role= "model",message=memory_message)
+        self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
     
     #Standard function to get a response from an LLM from on a message and adds only response to memory
@@ -137,14 +133,14 @@ class Agent:
 
         
         action_message = f"You previously performed the following action: {response.text} at time {time_stamp}" #WOULD BE NICE TO ADD TIME STAMP HERE
-        self.memory.add(role="model" ,message=action_message) #Noting action to memory
+        self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
         return response.text
 
         
 
                
-#Store map of agents to itrs respective object
+#Store map of agents to its respective object
 agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"])
      
                     }      
