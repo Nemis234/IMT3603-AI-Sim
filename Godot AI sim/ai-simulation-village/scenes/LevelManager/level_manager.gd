@@ -59,8 +59,9 @@ func _change_state(entity,interactable):
 		agent.in_dialogue = true
 		
 
-		agent.current_action = "Idle"
 		agent.agentActions.agent_action_done = false
+		agent.current_action = "Idle"
+		
 
 		
 
@@ -76,7 +77,7 @@ func _generate_dialogue(text:String): #Dialogue should occur if player's curr in
 	if player.curr_interactable: 
 		if player.curr_interactable.is_in_group("Agent"):
 			player.curr_interactable.stream_speech(text)
-	pass
+	
 
 #func to end dialogue with agent
 func _end_dialogue(agent):
@@ -86,8 +87,11 @@ func _end_dialogue(agent):
 	player.in_dialogue = false
 	
 	agent.hide_speech()
-	agent.agentActions.agent_action_done = true
+	
 	agent.in_dialogue = false
+	agent.agentActions.agent_action_done = true
+	agent.new_agent_action()
+	
 
 	
 ##This functions is used to process ingame time.
