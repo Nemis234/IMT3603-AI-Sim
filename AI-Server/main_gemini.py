@@ -147,6 +147,12 @@ agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"])
 
 chat_server = FastAPI()
 
+@chat_server.get("/agents")
+async def get_agents():
+    """ API endpoint to retrieve the list of available agents
+    """
+    return {"agents": list(agent_obj_map.keys())}
+
 @chat_server.post("/chat")
 async def chat_endpoint(request: Request):
     """ API endpoint \n
