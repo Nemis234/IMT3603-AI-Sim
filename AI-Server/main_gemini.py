@@ -149,7 +149,7 @@ class Agent:
         print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
 
         
-        action_message = f"You previously performed the following action: {response.text} at time {time_stamp}"
+        action_message = f"You decided to perform the following action: {action_dict["action"]} at time {time_stamp}"
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
         return action_dict
