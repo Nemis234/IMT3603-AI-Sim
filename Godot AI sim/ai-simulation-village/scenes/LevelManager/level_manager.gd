@@ -59,14 +59,6 @@ func _change_state(entity,interactable):
 		agent.in_dialogue = true
 		
 
-		agent.agentActions.agent_action_done = false
-		agent.current_action = "Idle"
-		
-
-		
-
-		
-
 #Tell the Agents to start a new action/check if they finished their action
 func _on_agent_timer_timeout() -> void:
 	for agents in get_tree().get_nodes_in_group("Agent"):
@@ -89,8 +81,7 @@ func _end_dialogue(agent):
 	agent.hide_speech()
 	
 	agent.in_dialogue = false
-	agent.agentActions.agent_action_done = true
-	agent.new_agent_action()
+
 	
 
 	

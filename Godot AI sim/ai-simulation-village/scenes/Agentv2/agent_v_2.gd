@@ -123,8 +123,11 @@ func new_agent_action():
 	agentStats.hide_progress_bar()
 		
 	if agentActions.queued_action == "":
-		#new_action = await agentActions.prompt_new_action(house,in_building,command_stream) # Enable this for AI controlling
-		new_action = agentActions.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		var action_details = await agentActions.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
+		new_action = action_details["action"]
+		var duration = action_details["duration"] #Expected Duration to perform action in minutes
+		
+		#new_action = agentActions.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""

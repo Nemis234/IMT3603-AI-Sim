@@ -104,7 +104,7 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 ##in_building is needed to filter out unavailable actions
 ##partOfDay is passed from the levelmanager
 ##command_stream is the output of the request
-func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,command_stream: Label) -> String:
+func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,command_stream: Label) -> Dictionary:
 	var filtered_action_list = _filter_action_list(home, in_building, stats)
 
 	if in_building == home:
@@ -112,14 +112,13 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
 	
-	var text_prompt = "Pick an action from this array that you feel like should be done now " + str(filtered_action_list) + ". Ouput only the action"
-	
+	var text_prompt = str(filtered_action_list)
 	# Clear previous command
 	command_stream.text = ""
 	
 	if !agentNode.agentName:
 		print("Agent is missing a name")
-		return ""
+		return {}
 
 	# Send prompt and wait for response
 	#NEW: Set type to action to send request to /action endpoint
@@ -129,7 +128,14 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	while command_stream.text == "":
 		await get_tree().process_frame  # wait one frame before checking again
 	
-	return str(command_stream.text).strip_edges().to_lower()
+	#NEW: Response stream for actions now is a json so getting relevant info from others
+	var action_info = JSON.parse_string(command_stream.text) # is a dict = {"action": ..., "duration": ...}
+	
+	action_info["action"] = action_info["action"].strip_edges().to_lower() #The action 
+	action_info["duration"] = int(action_info["duration"].strip_edges()) #NEW: How long the agent should perform the action
+	
+
+	return action_info
 
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
 func pick_random_action(home: Node2D,in_building: Node2D, stats: Dictionary) -> String:
