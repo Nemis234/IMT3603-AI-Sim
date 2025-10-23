@@ -14,7 +14,7 @@ var stats: Dictionary = {
 func _ready() -> void:
 	stats["mood"] = 50
 	stats["hunger"] = 50
-	stats["tiredness"] = 50
+	stats["tiredness"] = 30
 	
 func _process(delta: float) -> void:
 	var minutes_passed = delta_minutes(delta)
@@ -33,24 +33,26 @@ func delta_minutes(delta: float) -> float:
 	var minutes_per_real_second = 1440 / Global.realSecondsPerIngameDay
 	return delta * minutes_per_real_second
 
-func update_stat(currentAction: String) -> void:
+func update_stat(currentAction = null) -> void:
 	#TODO maybe get values from the objects itself
 	match currentAction:
 		"read":
-			stats["mood"] += 5
+			stats["mood"] += 0.5
 			update_progress_bar(stats["mood"])
 		"eat":
-			stats["hunger"] += 80
+			stats["hunger"] += 0.5
 			update_progress_bar(stats["hunger"])
 		"sleep":
-			stats["tiredness"] += 60
+			stats["tiredness"] += 0.1
 			update_progress_bar(stats["tiredness"])
 		_:
 			pass
 
 func update_progress_bar(value: float):
-	progressBar.visible = true
 	progressBar.value = value
+
+func show_progress_bar():
+	progressBar.visible = true
 
 func hide_progress_bar():
 	progressBar.visible = false

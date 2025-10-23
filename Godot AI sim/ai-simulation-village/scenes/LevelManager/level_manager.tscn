@@ -88,10 +88,11 @@ wait_time = 10.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
-[node name="Agent1" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
-position = Vector2(126, 231)
+[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+position = Vector2(670, 461)
 agentName = "John"
 house = NodePath("../House")
+agentBed = NodePath("../House/house_interior/Bed")
 
 [node name="SpeechBubble" parent="Agent1" instance=ExtResource("16_b1ret")]
 visible = false
@@ -100,3 +101,5 @@ visible = false
 
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
+
+[editable path="House/house_interior"]

@@ -5,7 +5,6 @@ extends Node2D
 
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
-var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
 
 
 # Called when the node enters the scene tree for the first time.
@@ -29,10 +28,10 @@ func _on_physics_process(delta: float) -> void:
 	pass
 	
 func _process(delta: float) -> void:
-	time += delta / Global.realSecondsPerIngameDay
-	time = fmod(time, 1.0)
+	Global.time += delta / Global.realSecondsPerIngameDay
+	Global.time = fmod(Global.time, 1.0)
 	_process_time(delta)
-	dayNightCycle.setDayNightColor(time)
+	dayNightCycle.setDayNightColor(Global.time)
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))
@@ -62,9 +61,9 @@ func _change_state(entity,interactable):
 		
 
 #Tell the Agents to start a new action/check if they finished their action
-func _on_agent_timer_timeout() -> void:
-	for agents in get_tree().get_nodes_in_group("Agent"):
-		agents.new_agent_action()
+#func _on_agent_timer_timeout() -> void:
+	#for agents in get_tree().get_nodes_in_group("Agent"):
+		#agents.new_agent_action()
 
 
 func _generate_dialogue(text:String): #Dialogue should occur if player's curr interactable is an Agent
@@ -89,7 +88,7 @@ func _end_dialogue(agent):
 	
 ##This functions is used to process ingame time.
 func _process_time(delta) -> void:
-	Global.totalMinutes = time * 1440.0
+	Global.totalMinutes = Global.time * 1440.0
 	Global.hour = int(Global.totalMinutes / 60) % 24
 	Global.minute = int(Global.totalMinutes) % 60
 	
