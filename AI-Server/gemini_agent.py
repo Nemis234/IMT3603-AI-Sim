@@ -1,0 +1,156 @@
+from google import genai
+from google.genai import types
+from collections.abc import Iterator
+from collections import defaultdict
+from database import Memory
+import chromadb
+import asyncio
+
+
+'''
+# The client gets the API key from the environment variable `GEMINI_API_KEY`.
+client = genai.Client()
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash", contents="Tell me something interesting that happened in 1919 in one sentence"
+)
+print(response.text)
+
+'''
+
+
+# Roles
+USER = 'user'
+ASSISTANT = 'assistant'
+SYSTEM = 'model'
+
+
+#Gemini client
+client = genai.Client()
+
+#Establishing db client
+db = chromadb.PersistentClient(path=f"./store/")
+
+
+class Agent:
+    def __init__(self, name:str, system_prompt:str=''):
+        self.memory = Memory(client=db,collection_name=name)
+        self._name = name
+        self._system_prompt = f"{system_prompt}"
+        self._model = "gemini-2.5-flash"
+        self._create_client()
+        #self.memory.add(role="model", message=self._system_prompt)
+
+    @property
+    def system_prompt(self):
+        return self._system_prompt
+    @system_prompt.setter
+    def system_prompt(self, value:str):
+        self._system_prompt = f"{value}"
+       
+
+    def _create_client(self):
+        pass
+       
+
+    def get_memory(self, message:str):
+        '''
+        Doing retrieval based on query (get top n most similar db entries to query)
+        '''
+        history = self.memory.gemini_query(text = message)
+        return history
+    
+    def save_action_memory(self,action,time_stamp):
+        '''
+            Func to save memories associated with actions
+        '''
+
+        action_message = f"You previously performed the following action: {action} at time {time_stamp}"
+        self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
+
+
+    async def chat(self, participant:str,message:str,time_stamp):
+        query_message = {'role':'user', 'parts':[{'text': message}]}
+        history = self.get_memory(message) #Get most relevant entries from db closest to query
+
+        print("Top memories:")
+        for i,h in enumerate(history):
+            print(f"{i+1}) {h["parts"][0]["text"]}")
+
+        print("User is asking:", message)
+        
+        
+        input_message = [] 
+        input_message.extend(history)
+        input_message.append(query_message)
+        
+        
+        response = client.models.generate_content_stream(
+                                        model=self._model, 
+                                        contents=input_message,
+                                         config=types.GenerateContentConfig(
+                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
+        
+        response_message=""
+        for chunk in response:
+            print("Received chunk:", chunk)
+            if chunk.candidates and chunk.candidates[0].content.parts:
+                delta = chunk.candidates[0].content.parts[0].text
+                response_message += delta
+                
+                
+                if delta:
+                    # Split into words (preserve spaces)
+                    words = delta.split(" ")
+                    for w in words:
+                        if w.strip():  # skip empty tokens
+                            yield w + " "
+                            await asyncio.sleep(0.05)
+                
+                #print(response_message)
+        
+        #Add query to memory
+        memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
+        self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
+        
+        #Add response to memory
+        memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
+        self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
+    
+    
+    #Standard function to get a response from an LLM from on a message and adds only response to memory
+    async def act(self,message,time_stamp):
+        
+        #Specifying output format and adding it to message (Message would be only plausible action list)
+        action_prompt = f""" Pick an action from this array {message}  that you feel like should be done now. Decide a suitable duration it will take for you to perform the action and strictly output the following: action,duration.
+                            Ensure duration is a single number (in minutes)
+                            """
+        
+        
+        query_message = {'role':'user', 'parts':[{'text': action_prompt}]}
+        history = self.get_memory(message) #Get most relevant entries from db closest to query (message)
+        input_message = [] 
+        input_message.extend(history)
+        input_message.append(query_message)
+
+        response = client.models.generate_content(
+                                        model=self._model, 
+                                        contents=input_message,
+                                         config=types.GenerateContentConfig(
+                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
+        
+
+        action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1]} #Dict {action: , duration: }
+        
+        print("Top memories relevant to action:")
+        for i,h in enumerate(history):
+            print(f"{i+1}) {h["parts"][0]["text"]}")
+        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
+
+        
+        action_message = f"You decided to perform the following action: {action_dict["action"]} at time {time_stamp}"
+        self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
+        
+        return action_dict
+
+        
