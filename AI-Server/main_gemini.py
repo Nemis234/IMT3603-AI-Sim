@@ -2,7 +2,7 @@ from google import genai
 from google.genai import types
 from collections.abc import Iterator
 from fastapi import FastAPI, Request, HTTPException
-from fastapi.responses import StreamingResponse,Response
+from fastapi.responses import StreamingResponse,Response,JSONResponse
 from collections import defaultdict
 from database import Memory
 import chromadb
@@ -62,6 +62,15 @@ class Agent:
         history = self.memory.gemini_query(text = message)
         return history
     
+    def save_action_memory(self,action,time_stamp):
+        '''
+            Func to save memories associated with actions
+        '''
+
+        action_message = f"You previously performed the following action: {action} at time {time_stamp}"
+        self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
+
+
     async def chat(self, participant:str,message:str,time_stamp):
         query_message = {'role':'user', 'parts':[{'text': message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
@@ -102,7 +111,7 @@ class Agent:
                 #print(response_message)
         
         #Add query to memory
-        memory_message = f"At {time_stamp} you were asked/told by {participant}: {message}."
+        memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
         self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
         
         #Add response to memory
@@ -113,8 +122,13 @@ class Agent:
     #Standard function to get a response from an LLM from on a message and adds only response to memory
     async def act(self,message,time_stamp):
         
-        query_message = {'role':'user', 'parts':[{'text': message}]}
+        #Specifying output format and adding it to message (Message would be only plausible action list)
+        action_prompt = f""" Pick an action from this array {message}  that you feel like should be done now. Decide a suitable duration it will take for you to perform the action and strictly output the following: action,duration.
+                            Ensure duration is a single number (in minutes)
+                            """
         
+        
+        query_message = {'role':'user', 'parts':[{'text': action_prompt}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query (message)
         input_message = [] 
         input_message.extend(history)
@@ -126,16 +140,19 @@ class Agent:
                                          config=types.GenerateContentConfig(
                                                 system_instruction=self._system_prompt)) #Generating responses based on system prompts
         
+
+        action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1]} #Dict {action: , duration: }
+        
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")
-        print("Action taken:",response.text)
+        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
 
         
-        action_message = f"You previously performed the following action: {response.text} at time {time_stamp}" #WOULD BE NICE TO ADD TIME STAMP HERE
+        action_message = f"You decided to perform the following action: {action_dict["action"]} at time {time_stamp}"
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
-        return response.text
+        return action_dict
 
         
 
@@ -206,7 +223,8 @@ async def action_endpoint(request: Request):
     message = data.get("message", "")
     time_stamp = data.get("time","")
 
+   
 
-    action = await agent_obj_map[agent].act(message,time_stamp=time_stamp) #Wait for response
-    return Response(action)
+    action_dict = await agent_obj_map[agent].act(message,time_stamp=time_stamp) #Wait for response
+    return JSONResponse(action_dict)
 
