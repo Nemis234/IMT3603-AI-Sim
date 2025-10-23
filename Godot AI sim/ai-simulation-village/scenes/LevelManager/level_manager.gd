@@ -38,15 +38,24 @@ func _change_state(entity,interactable):
 	if interactable.is_in_group("house_ext"):
 		var house = interactable.get_parent()
 		entity.position = house.exit_area.get_global_position()
+		
 		if entity.is_in_group("Player"):
 			dayNightCycle.hideDayNightFilter("hide")
+		
+		if entity.is_in_group("Agent"):
+			entity.currentLocation = house.name 
+
 
 	elif interactable.is_in_group("house_int"):
 		print("Changing position")
 		var house = interactable.get_parent()
 		entity.position = house.door_area.get_global_position()
+		
 		if entity.is_in_group("Player"):
 			dayNightCycle.hideDayNightFilter("unhide")
+		
+		if entity.is_in_group("Agent"):
+			entity.currentLocation = "outside of " + house.name
 
 	elif interactable.is_in_group("interactable"):
 		interactable.change_state()

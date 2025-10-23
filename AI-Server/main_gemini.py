@@ -120,16 +120,20 @@ class Agent:
     
     
     #Standard function to get a response from an LLM from on a message and adds only response to memory
-    async def act(self,message,time_stamp):
+    async def act(self,agent_details:dict):
+        
+        action_list = agent_details.get("action_list", "")
+        time_stamp = agent_details.get("time","")
+        location = agent_details.get("location","") #Gets current location
         
         #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" Pick an action from this array {message}  that you feel like should be done now. Decide a suitable duration it will take for you to perform the action and strictly output the following: action,duration.
+        action_prompt = f""" This is your current location {location}. Pick an action from this array {action_list}  that you feel like should be done now. Decide a suitable duration it will take for you to perform the action and strictly output the following: action,duration.
                             Ensure duration is a single number (in minutes)
                             """
         
         
         query_message = {'role':'user', 'parts':[{'text': action_prompt}]}
-        history = self.get_memory(message) #Get most relevant entries from db closest to query (message)
+        history = self.get_memory(action_prompt) #Get most relevant entries from db closest to query (message)
         input_message = [] 
         input_message.extend(history)
         input_message.append(query_message)
@@ -210,15 +214,13 @@ async def action_endpoint(request: Request):
     data: dict = await request.json()
     print(f"Received data: {data}")
 
-    if not isinstance(data.get("message"), str):
+    if not isinstance(data.get("action_list"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
     
-    agent = data.get("agent","")
-    message = data.get("message", "")
-    time_stamp = data.get("time","")
+    agent = data.get("agent","") #Get the agent name 
+    
 
-   
-
-    action_dict = await agent_obj_map[agent].act(message,time_stamp=time_stamp) #Wait for response
+    action_dict = await agent_obj_map[agent].act(data) #Wait for response
+    #print(action_dict)
     return JSONResponse(action_dict)
 

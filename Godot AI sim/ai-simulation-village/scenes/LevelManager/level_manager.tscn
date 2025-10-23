@@ -50,7 +50,7 @@ position = Vector2(912, 200)
 position = Vector2(2069, 693)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
-position = Vector2(578, 472)
+position = Vector2(4103, 1008)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)
@@ -88,7 +88,7 @@ autostart = true
 script = ExtResource("6_4tw1x")
 
 [node name="Agent1" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
-position = Vector2(126, 231)
+position = Vector2(2188, 352)
 agentName = "John"
 house = NodePath("../House")
 

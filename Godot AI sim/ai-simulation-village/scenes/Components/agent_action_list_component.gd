@@ -107,12 +107,15 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,command_stream: Label) -> Dictionary:
 	var filtered_action_list = _filter_action_list(home, in_building, stats)
 
+	
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
 	
-	var text_prompt = str(filtered_action_list)
+	
+	#var text_prompt = str(filtered_action_list)
+
 	# Clear previous command
 	command_stream.text = ""
 	
@@ -120,9 +123,15 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 		print("Agent is missing a name")
 		return {}
 
+	var agent_details:Dictionary = {
+		"agent": str(agentNode.agentName),
+		"location": str(agentNode.currentLocation),
+		"time":str(Global.hour) + ":" + str(Global.minute),
+		"action_list": str(filtered_action_list)
+		}
 	# Send prompt and wait for response
 	#NEW: Set type to action to send request to /action endpoint
-	await ServerConnection.post_message(agentNode.agentName,text_prompt, command_stream, "action") 
+	await ServerConnection.post_action(agent_details, command_stream) 
 	
 	# Make sure response is not empty
 	while command_stream.text == "":
@@ -130,7 +139,7 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	
 	#NEW: Response stream for actions now is a json so getting relevant info from others
 	var action_info = JSON.parse_string(command_stream.text) # is a dict = {"action": ..., "duration": ...}
-	
+	#print(action_info)
 	action_info["action"] = action_info["action"].strip_edges().to_lower() #The action 
 	action_info["duration"] = int(action_info["duration"].strip_edges()) #NEW: How long the agent should perform the action
 	

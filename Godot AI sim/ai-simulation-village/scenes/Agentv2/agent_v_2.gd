@@ -20,7 +20,7 @@ signal interact(agent,interactable)
 #Agents house/building related
 @export var house: Node2D
 var house_entrance
-var in_building: Node2D #Stores the building the agent is in.
+@onready var in_building: Node2D = house #Stores the building the agent is in.
 
 #Agents action related
 var new_action
@@ -31,6 +31,9 @@ var in_dialogue: bool = false #To check if agent in dialogue
 
 #Progressbar and stats related
 @export var agentStats: AgentStatComponent
+
+#To store the current location of the agent (in context if the world)
+@onready var currentLocation = house.name 
 
 
 func _ready() -> void:
