@@ -36,8 +36,8 @@ class Agent:
     def __init__(self, name:str, system_prompt:str=''):
         self.memory = Memory(client=db,collection_name=name)
         self._name = name
-        self._system_prompt = f"{system_prompt}"
-        self._model = "gemini-2.5-flash"
+        self.system_prompt = system_prompt
+        self.model = "gemini-2.5-flash"
         self._create_client()
         #self.memory.add(role="model", message=self._system_prompt)
 
@@ -51,7 +51,24 @@ class Agent:
 
     def _create_client(self):
         pass
-       
+    
+
+    def generate_content_stream(self, input_message: list[dict]) -> Iterator[types.GenerateContentResponse]:
+        response = client.models.generate_content_stream(
+                            model=self.model,
+                            contents=input_message,
+                            config=types.GenerateContentConfig(
+                                system_instruction=self.system_prompt)) #Generating responses based on system prompts
+        return response
+
+    def generate_content(self, input_message: list[dict]) -> types.GenerateContentResponse:
+        response = client.models.generate_content(
+                            model=self.model,
+                            contents=input_message,
+                            config=types.GenerateContentConfig(
+                                system_instruction=self.system_prompt)) #Generating responses based on system prompts
+        return response
+
 
     def get_memory(self, message:str):
         '''
@@ -83,14 +100,10 @@ class Agent:
         input_message = [] 
         input_message.extend(history)
         input_message.append(query_message)
-        
-        
-        response = client.models.generate_content_stream(
-                                        model=self._model, 
-                                        contents=input_message,
-                                         config=types.GenerateContentConfig(
-                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
-        
+
+
+        response = self.generate_content_stream(input_message)
+
         response_message=""
         for chunk in response:
             print("Received chunk:", chunk)
@@ -133,12 +146,7 @@ class Agent:
         input_message.extend(history)
         input_message.append(query_message)
 
-        response = client.models.generate_content(
-                                        model=self._model, 
-                                        contents=input_message,
-                                         config=types.GenerateContentConfig(
-                                                system_instruction=self._system_prompt)) #Generating responses based on system prompts
-        
+        response = self.generate_content(input_message)
 
         action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1]} #Dict {action: , duration: }
         
