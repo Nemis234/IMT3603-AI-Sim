@@ -18,7 +18,7 @@ func connect_client():
 	assert(err==OK)
 	while client.get_status() == HTTPClient.STATUS_CONNECTING or client.get_status() == HTTPClient.STATUS_RESOLVING:
 		client.poll()
-		printraw("Connecting...")
+		print("Connecting...")
 		await get_tree().process_frame
 	
 	assert(client.get_status() == HTTPClient.STATUS_CONNECTED)
@@ -44,26 +44,16 @@ func post_message(agentName:String,message:String, label_:Label, type:String ="c
 	]
 	
 	client.poll()
-	var status = client.get_status()
-	
-	while client.get_status() > 5:
-		client.poll()
-		print(client.get_status())
-		await get_tree().process_frame
-	
-	client.poll()
 	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
 		await connect_client()
 	
-	
-	status = client.get_status()
 	err = client.request(HTTPClient.METHOD_POST,"/"+type,headers,query_string)
 	assert(err == OK)
 	
-	print("Requesting...")
 	while client.get_status() == HTTPClient.STATUS_REQUESTING:
 		# Keep polling for as long as the request is being processed.
 		client.poll()
+		print("Requesting...")
 		await get_tree().process_frame
 	
 	assert(client.get_status() == HTTPClient.STATUS_BODY or client.get_status() == HTTPClient.STATUS_CONNECTED)
