@@ -21,14 +21,12 @@ extends CharacterBody2D
 @export var house: Node2D
 @export var agentBed: Node2D
 var house_entrance
-var in_building: Node2D #Stores the building the agent is in.
+@onready var in_building: Node2D = house #Stores the building the agent is in.
 
 #Agents action related
 var agent_action_done: bool = true
 var new_action
 var current_action # Stores the agents current action 
-var queued_action = "" # Stores the next action, for cases such as entering house to read from bookshelf
-var duration_action = 30# Default fallback value 30, mainly given by the ai, perform an action for how long?
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 @onready var command_stream = $AICommand
@@ -57,6 +55,9 @@ func _physics_process(delta: float) -> void:
 		movementAnimation.update_animation(Vector2.ZERO)
 		return
 	
+	#if duration_action > 0:
+		#duration_action -= 2 * (Global.realSecondsPerIngameDay / 1440)
+	#print(duration_action)
 	pathfindingComponent.move_along_path(delta)
 	movementAnimation.update_animation(velocity)
 	

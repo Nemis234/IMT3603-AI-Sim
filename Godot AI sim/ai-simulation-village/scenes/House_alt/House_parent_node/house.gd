@@ -24,7 +24,7 @@ func _on_doorstep_entered(body,area):
 			body.curr_interactable = self.house_exterior
 		elif area=="exit":
 			body.curr_interactable = self.house_interior
-		print(body.curr_interactable)
+		#print(body.curr_interactable)
 		
 func _on_doorstep_exited(body):
 	if body.is_in_group("Player"):
@@ -34,4 +34,4 @@ func _on_doorstep_exited(body):
 			body.curr_interactable = self.house_interior
 		else: #If you just walk out/leave of the area normally
 			body.curr_interactable = null
-		print(body.curr_interactable)
+		#print(body.curr_interactable)

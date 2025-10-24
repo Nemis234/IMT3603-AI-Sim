@@ -51,7 +51,7 @@ position = Vector2(912, 200)
 position = Vector2(2069, 693)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
-position = Vector2(578, 472)
+position = Vector2(1109, 468)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)
@@ -89,7 +89,7 @@ autostart = true
 script = ExtResource("6_4tw1x")
 
 [node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
-position = Vector2(670, 461)
+position = Vector2(2208, 225)
 agentName = "John"
 house = NodePath("../House")
 agentBed = NodePath("../House/house_interior/Bed")
@@ -100,7 +100,7 @@ visible = false
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
 [node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
-position = Vector2(606, 222)
+position = Vector2(3224, -547)
 agentName = "Mei"
 house = NodePath("../House2")
 agentBed = NodePath("../House2/house_interior/Bed")
