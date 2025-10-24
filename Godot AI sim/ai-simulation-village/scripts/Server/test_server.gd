@@ -8,3 +8,7 @@ var text_output:String = ""
 func _on_button_pressed() -> void:
 	var text = text_input.text
 	chat_input.emit(text)
+
+
+func _on_line_edit_text_submitted(new_text: String) -> void:
+	_on_button_pressed()
