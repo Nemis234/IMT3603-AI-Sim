@@ -17,8 +17,6 @@ var agent_actions: Array = [
 	"eat", 
 	"sleep"
 	]
-var agent_action_done: bool = true
-var queued_action = "" # Stores the next action, for cases such as entering house to read from bookshelf
 
 #Check if agent remembers a specific object
 func is_object_in_memory(objectName: String) -> Dictionary:

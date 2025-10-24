@@ -40,6 +40,32 @@ func move_along_path(delta: float) -> void:
 func get_target_reached() -> bool:
 	return navigationNode.is_target_reached()
 
+##Helper function to set target desitnation and set the agent_action_done to false.
+##This is used for simple "go to this point"-actions.
+##target is the end-destination in vector.
+func _go_to_target(target: Vector2i)-> void:
+	set_target(target)
+	agent.agent_action_done = false
+	
+##Helper function to move agents to objects.
+##This function is mainly used to move agent to an object such as bookshelfs.
+##object is the interactable object that is needed for the action that triggered this function.
+##action is the action which triggered this function.
+func _got_to_object(object: String, action: String) -> void:
+	var interactable_object = agent.actionList.is_object_in_memory(object)
+	if interactable_object:
+		if agent.in_building == interactable_object["building"]:
+			_go_to_target(interactable_object["position"])
+		elif agent.in_building != interactable_object["building"] and agent.in_building != null:
+			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+			agent.new_action = "leavebuilding"
+			agent.current_action = agent.new_action
+			agent.queued_action = action.to_lower()
+		else:
+			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+	else:
+		print("No " + object +  " in memory")
+
 ##This is related to navigation avoidance
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	agent.velocity = safe_velocity

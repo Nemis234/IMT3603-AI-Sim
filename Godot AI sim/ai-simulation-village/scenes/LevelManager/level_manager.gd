@@ -16,7 +16,7 @@ func _ready() -> void:
 			node.get_node("ChatBox").chat_input.connect(_generate_dialogue)
 
 		if node.is_in_group("Agent"):
-			node.interact.connect(_change_state)
+			node.interactionComponent.interact.connect(_change_state)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		node.connect("request_popup", _on_request_popup)
