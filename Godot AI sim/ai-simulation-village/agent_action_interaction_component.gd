@@ -44,11 +44,9 @@ func _interact_with_object(group: String, objectName: String) -> void:
 		else:
 			#If the object is not and entrance, delay agent action
 			#to mimic time to perform action
-			print("Time started")
 			agent.agentStats.show_progress_bar()
 			await _delay_agent_action(agent.duration_action, true)
 			agent.agent_action_done = true
-			print("Time ended")
 	else:
 		#Agent will only get here if they are standing outside of the house
 		#while waiting to enter building to interact with object

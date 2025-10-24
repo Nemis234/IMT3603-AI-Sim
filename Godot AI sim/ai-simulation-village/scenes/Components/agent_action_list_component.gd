@@ -20,6 +20,7 @@ var agent_actions: Array = [
 
 #Check if agent remembers a specific object
 func is_object_in_memory(objectName: String) -> Dictionary:
+	print(interactable_objects)
 	for key in interactable_objects.keys():
 		var object = interactable_objects[key]
 		if object["name"].to_lower().contains(objectName.to_lower()):

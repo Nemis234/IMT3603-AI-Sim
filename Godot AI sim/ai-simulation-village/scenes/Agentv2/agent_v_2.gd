@@ -44,7 +44,7 @@ func _ready() -> void:
 	actionList.interactable_objects[agentBed] = {
 	"building": house, 
 	"position": agentBed.get_node("Marker2D").get_global_position(), 
-	"name": agentBed.name
+	"name": "myownbed"
 	}
 	
 func _process(_delta: float) -> void:
@@ -56,10 +56,7 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		movementAnimation.update_animation(Vector2.ZERO)
 		return
-	
-	#if duration_action > 0:
-		#duration_action -= 2 * (Global.realSecondsPerIngameDay / 1440)
-	#print(duration_action)
+
 	pathfindingComponent.move_along_path(delta)
 	movementAnimation.update_animation(velocity)
 	
@@ -121,8 +118,7 @@ func new_agent_action():
 		"eat":
 			pathfindingComponent._got_to_object("fridge", "eat")
 		"sleep":
-			#TODO will agents have a designated bed?
-			pathfindingComponent._got_to_object("bed", "sleep")
+			pathfindingComponent._got_to_object("myownbed", "sleep")
 		"idle": 
 			pass
 		_:print("No such action")
@@ -147,11 +143,12 @@ func _on_interact_area_area_exited(area: Area2D) -> void:
 
 func _on_object_detection_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
-		actionList.interactable_objects[area.get_parent()] = {
-			"building": in_building, 
-			"position": area.get_parent().get_node("Marker2D").get_global_position(), 
-			"name": area.get_parent().name
-			}
+		if !(area.get_parent() == agentBed):
+			actionList.interactable_objects[area.get_parent()] = {
+				"building": in_building, 
+				"position": area.get_parent().get_node("Marker2D").get_global_position(), 
+				"name": area.get_parent().name
+				}
 		
 func _on_interact_area_entered(body):
 	if body.is_in_group("Player"):
