@@ -43,7 +43,8 @@ class Agent:
 
     @property
     def system_prompt(self):
-        return self._system_prompt
+        note = "\n\nNote: Respond to questions/queries in brief (just 1-2 sentences)."
+        return self._system_prompt + note
     @system_prompt.setter
     def system_prompt(self, value:str):
         self._system_prompt = f"{value}"

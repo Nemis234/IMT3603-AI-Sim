@@ -4,9 +4,9 @@ from fastapi.responses import StreamingResponse,Response,JSONResponse
 from agent_map import AGENT_DESC
                
 #Store map of agents to its respective object
-agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"])
-     
-                    }      
+agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"]),
+                  "Mei": Agent("Mei",system_prompt=AGENT_DESC["Mei"]),
+                  }      
 
 chat_server = FastAPI()
 
