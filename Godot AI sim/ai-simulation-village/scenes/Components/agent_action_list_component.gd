@@ -93,9 +93,6 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 		filtered_action_list.erase("wander")
 		filtered_action_list.erase("idle")
 	
-	print(interactable_objects)
-	print(filtered_action_list)
-	print(stats)
 	return filtered_action_list
 
 
@@ -150,9 +147,10 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 func pick_random_action(home: Node2D,in_building: Node2D, stats: Dictionary) -> String:
 	var filtered_action_list = _filter_action_list(home, in_building, stats)
 
+
 	if in_building == home:
 		filtered_action_list.erase("gohome")
 	elif in_building == null:
 		filtered_action_list.erase("leavebuilding")
-		
+
 	return filtered_action_list.pick_random()

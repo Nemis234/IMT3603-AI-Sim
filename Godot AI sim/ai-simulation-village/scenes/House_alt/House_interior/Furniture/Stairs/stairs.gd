@@ -1,6 +1,7 @@
 extends Node2D
 
 signal stair_used(target_floor: String)
+signal request_popup(question: String, content: Array)
 
 @export var target_stair: NodePath
 @export var target_floor: String
@@ -17,7 +18,6 @@ func interact(player):
 		emit_signal("stair_used", target_floor)
 
 # To integrate with LevelManager
-func change_state():
-	var player = get_tree().get_first_node_in_group("Player")
-	if player:
-		interact(player)
+func change_state(entity):
+	if entity:
+		interact(entity)

@@ -1,6 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsobevf513w03"]
+[gd_scene load_steps=8 format=3 uid="uid://bsobevf513w03"]
 
-[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
+[ext_resource type="Texture2D" uid="uid://b0vgics5p3k1w" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
+[ext_resource type="Script" uid="uid://x08yoq6iwjrs" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.gd" id="1_a5aqc"]
+[ext_resource type="PackedScene" uid="uid://cehfeltlxf112" path="res://scenes/Components/state_handler_component.tscn" id="3_qj85k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7me0"]
 atlas = ExtResource("1_60suo")
@@ -10,14 +12,15 @@ region = Rect2(15, 16, 65, 32)
 atlas = ExtResource("1_60suo")
 region = Rect2(15, 64, 65, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7bv2"]
-size = Vector2(66, 32)
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_60suo"]
-radius = 23.0
+radius = 25.0
 height = 84.0
 
-[node name="Bathtub" type="StaticBody2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a7bv2"]
+size = Vector2(66, 36)
+
+[node name="Bathtub" type="StaticBody2D" groups=["interactable"]]
+script = ExtResource("1_a5aqc")
 
 [node name="bathtub_empty" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_u7me0")
@@ -26,11 +29,17 @@ texture = SubResource("AtlasTexture_u7me0")
 visible = false
 texture = SubResource("AtlasTexture_l6wry")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_a7bv2")
-
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -2)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_60suo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_a7bv2")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("3_qj85k")]
+
+[node name="Marker2D" type="Marker2D" parent="."]

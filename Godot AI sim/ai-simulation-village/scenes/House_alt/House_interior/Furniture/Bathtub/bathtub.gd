@@ -6,7 +6,5 @@ signal request_popup(question: String, choises: Array)
 
 #Changes state
 func change_state(node: Node) -> void:
-	state_handler_component.change_state(0,collisionArea)
 	if node.is_in_group("Player"):
-		emit_signal("request_popup", "Would you like to go to sleep?", ["No", "Yes"])
-	print("Interacted with Bed")
+		emit_signal("request_popup", "Would you like to take a bath?", ["No", "Yes"])

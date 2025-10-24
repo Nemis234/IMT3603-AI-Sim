@@ -6,6 +6,6 @@ extends interactable
 var curr_state = 0
 
 #Changes state
-func change_state() -> void:
+func change_state(_node = null) -> void:
 	state_handler_component.change_state(curr_state,collisionArea, change_state_sprite)
  

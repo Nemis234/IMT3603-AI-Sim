@@ -158,27 +158,33 @@ class Agent:
         
         return action_dict
 
-        
+    
 
-               
 #Store map of agents to its respective object
-agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"])
-     
-                    }      
+agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"]),
+                  "Mei": Agent("Mei",system_prompt=AGENT_DESC["Mei"]),
+                  }      
 
 chat_server = FastAPI()
 
+
+@chat_server.get("/agents")
+async def get_agents():
+    """ API endpoint to retrieve the list of available agents"""
+    return {"agents": list(agent_obj_map.keys())}
+
 @chat_server.post("/chat")
 async def chat_endpoint(request: Request):
-    """ API endpoint \n
+    """ API endpoint for chatting with an agent\n
         This endpoint allows users to send and receive messages from the chatbot.
-
         The response is streamed back to the client as it is generated.
 
         Expects a JSON payload with the following structure:
 
             {
+                "agent": "AgentName",
                 "message": "Your message here",
+                "time": "timestamp",
                 "participant": "user_identifier"  # Optional, defaults to 'user'
             }
 
@@ -187,13 +193,13 @@ async def chat_endpoint(request: Request):
     data: dict = await request.json()
     print(f"Received data: {data}")
 
-    if not isinstance(data.get("message"), str):
+    if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
     
     agent = data.get("agent","")
     message = data.get("message", "")
-    participant = data.get("participant", USER)
     time_stamp = data.get("time","")
+    participant = data.get("participant", USER)
 
 
     return StreamingResponse(agent_obj_map[agent].chat(participant, message,time_stamp), media_type="text/event-stream")
@@ -223,4 +229,3 @@ async def action_endpoint(request: Request):
     action_dict = await agent_obj_map[agent].act(data) #Wait for response
     #print(action_dict)
     return JSONResponse(action_dict)
-

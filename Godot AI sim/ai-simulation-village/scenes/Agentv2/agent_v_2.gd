@@ -19,12 +19,14 @@ signal interact(agent,interactable)
 
 #Agents house/building related
 @export var house: Node2D
+@export var agentBed: Node2D
 var house_entrance
 @onready var in_building: Node2D = house #Stores the building the agent is in.
 
 #Agents action related
 var new_action
 var current_action # Stores the agents current action 
+var duration_action = 30# Default fallback value 30, mainly given by the ai, perform an action for how long?
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 @onready var command_stream = $AICommand
@@ -42,12 +44,26 @@ func _ready() -> void:
 	agent_interact_area.body_entered.connect(_on_interact_area_entered)
 	agent_interact_area.body_exited.connect(_on_interact_area_exited)
 
+	#Add their designated bed
+	agentActions.interactable_objects[agentBed] = {
+	"building": house, 
+	"position": agentBed.get_node("Marker2D").get_global_position(), 
+	"name": agentBed.name
+	}
+	
+func _process(_delta: float) -> void:
+	if agentActions.agent_action_done:
+		await _delay_agent_action(100)
+		new_agent_action()
 
 func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		movementAnimation.update_animation(Vector2.ZERO)
 		return
 	
+	#if duration_action > 0:
+		#duration_action -= 2 * (Global.realSecondsPerIngameDay / 1440)
+	#print(duration_action)
 	pathfindingComponent.move_along_path(delta)
 	movementAnimation.update_animation(velocity)
 	
@@ -78,13 +94,20 @@ func _interact_with_object(group: String, objectName: String) -> void:
 	
 	if object:		
 		interact.emit(self, object)
-		agentActions.agent_action_done = true
-		agentStats.update_stat(current_action)
 		if objectName.to_lower() == "entrance":
+			agentActions.agent_action_done = true
 			if current_action.to_lower() == "leavebuilding":
 				in_building = null
 			else :
 				in_building = object.get_parent()
+		else:
+			#If the object is not and entrance, delay agent action
+			#to mimic time to perform action
+			print("Time started")
+			agentStats.show_progress_bar()
+			await _delay_agent_action(duration_action, true)
+			agentActions.agent_action_done = true
+			print("Time ended")
 	else:
 		#Agent will only get here if they are standing outside of the house
 		#while waiting to enter building to interact with object
@@ -94,10 +117,22 @@ func _interact_with_object(group: String, objectName: String) -> void:
 			in_building = door_entrance.get_parent()
 			agentActions.queued_action = current_action
 			agentActions.agent_action_done = true
-		
-		
+			
+##Function used to delay agent actions. Used to mimic time an agent would use to interact
+##with an object. Also used to update stats(TODO Maybe seperate them later)
+func _delay_agent_action(duration, usingObject = null):
+	duration = float(duration)
+	while duration > 0:
+		if usingObject:
+			agentStats.update_stat(current_action) #TODO optimalize this
+		duration -= get_process_delta_time() * (1440 / Global.realSecondsPerIngameDay)
+		await get_tree().process_frame
+#	await get_tree().create_timer(duration).timeout
+
+
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
+	await _delay_agent_action(1)
 	match current_action:
 		"wander":
 			agentActions.agent_action_done = true
@@ -106,11 +141,11 @@ func _on_pathfinding_component_target_reached() -> void:
 		"leavebuilding":
 				_interact_with_object("","entrance")
 		"read": 
-			_interact_with_object("interactable","bookshelf")
+			await _interact_with_object("interactable","bookshelf")
 		"eat":
-			_interact_with_object("interactable","fridge")
+			await _interact_with_object("interactable","fridge")
 		"sleep":
-			_interact_with_object("interactable", "bed")
+			await _interact_with_object("interactable", "bed")
 		_:
 			pass
 		
@@ -119,6 +154,7 @@ func _on_pathfinding_component_target_reached() -> void:
 ##To switch between set-type, toggle between the commented "new_action = ..."
 ##partOfDay is to check for available actions
 func new_agent_action():
+	await _delay_agent_action(1)
 	if !agentActions.agent_action_done or is_requesting_action:
 		return
 	
@@ -128,9 +164,10 @@ func new_agent_action():
 	if agentActions.queued_action == "":
 		var action_details = await agentActions.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
-		var duration = action_details["duration"] #Expected Duration to perform action in minutes
+		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		
 		#new_action = agentActions.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		#duration_action = clamp(randf_range(100,480),100,480)
 	else:
 		new_action = agentActions.queued_action
 		agentActions.queued_action = ""
@@ -201,6 +238,7 @@ func _on_interact_area_area_exited(area: Area2D) -> void:
 
 func _on_object_detection_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
+		print(area.get_parent())
 		agentActions.interactable_objects[area.get_parent()] = {
 			"building": in_building, 
 			"position": area.get_parent().get_node("Marker2D").get_global_position(), 

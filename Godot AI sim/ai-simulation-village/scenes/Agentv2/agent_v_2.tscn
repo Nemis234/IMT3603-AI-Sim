@@ -400,7 +400,6 @@ movementAnimation = NodePath("WalkingAnimationComponent")
 pathfindingComponent = NodePath("PathfindingComponent")
 randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent")
 agentActions = NodePath("AgentActionListComponent")
-agentName = null
 agentStats = NodePath("AgentStatComponent")
 
 [node name="AICommand" type="Label" parent="."]
@@ -425,7 +424,7 @@ shape = SubResource("CircleShape2D_4p1vs")
 [node name="ObjectDetection" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectDetection"]
-scale = Vector2(20, 20)
+scale = Vector2(30, 30)
 shape = SubResource("CircleShape2D_2krod")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]

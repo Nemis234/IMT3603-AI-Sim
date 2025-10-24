@@ -8,6 +8,7 @@ class Memory:
         self.client = client
         self.collection = self.client.get_or_create_collection(name=collection_name)
         print(self.collection.name,self.collection.get())
+        print("\n\n\n")
         
      
         # For simplicity, using the default embedding

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=20 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/test_server.gd" id="13_4jhem"]
 [ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
 [ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="16_b1ret"]
+[ext_resource type="PackedScene" uid="uid://b6pbjw861pyrp" path="res://scenes/UI/PopupMenu/popup_menu.tscn" id="19_j8lo3"]
 
 [node name="LevelManager" type="Node2D"]
 script = ExtResource("1_r2lsa")
@@ -50,7 +51,7 @@ position = Vector2(912, 200)
 position = Vector2(2069, 693)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
-position = Vector2(4103, 1008)
+position = Vector2(1109, 468)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)
@@ -87,13 +88,29 @@ wait_time = 10.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
-[node name="Agent1" parent="." node_paths=PackedStringArray("house") instance=ExtResource("4_hbnk6")]
-position = Vector2(2188, 352)
+[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+position = Vector2(2208, 225)
 agentName = "John"
 house = NodePath("../House")
+agentBed = NodePath("../House/house_interior/Bed")
 
 [node name="SpeechBubble" parent="Agent1" instance=ExtResource("16_b1ret")]
 visible = false
 
+[node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
+
+[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+position = Vector2(3224, -547)
+agentName = "Mei"
+house = NodePath("../House2")
+agentBed = NodePath("../House2/house_interior/Bed")
+
+[node name="SpeechBubble" parent="AgentV2" instance=ExtResource("16_b1ret")]
+visible = false
+
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
+[connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
+
+[editable path="House/house_interior"]
+[editable path="House2/house_interior"]
