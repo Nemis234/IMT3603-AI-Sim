@@ -99,8 +99,18 @@ visible = false
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
+[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+position = Vector2(606, 222)
+agentName = "Mei"
+house = NodePath("../House2")
+agentBed = NodePath("../House2/house_interior/Bed")
+
+[node name="SpeechBubble" parent="AgentV2" instance=ExtResource("16_b1ret")]
+visible = false
+
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
 
 [editable path="House/house_interior"]
+[editable path="House2/house_interior"]
