@@ -27,6 +27,8 @@ var house_entrance
 var agent_action_done: bool = true
 var new_action
 var current_action # Stores the agents current action 
+var duration_action
+var queued_action = ""
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 @onready var command_stream = $AICommand
