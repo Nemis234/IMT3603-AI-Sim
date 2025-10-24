@@ -22,6 +22,7 @@ extends CharacterBody2D
 @export var agentBed: Node2D
 var house_entrance
 @onready var in_building: Node2D = house #Stores the building the agent is in.
+var currentLocation #Used for AI stuff?
 
 #Agents action related
 var agent_action_done: bool = true
