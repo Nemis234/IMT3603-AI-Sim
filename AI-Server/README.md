@@ -16,7 +16,7 @@
     - Make the python venv: ```python -m venv ai_venv``` (use python3 for linux and macOS systems)
     - Start the venv (unless it is automatically initiated):
         - Windows: ```./ai_venv/Scripts/activate```
-        - Linux/macOS: ```source ./ai_venv/Scripts/activate```
+        - Linux/macOS: ```source ./ai_venv/bin/activate```
 - Install packages from the requirements file:  ```pip install -r requirements```
 
 #### Local server
