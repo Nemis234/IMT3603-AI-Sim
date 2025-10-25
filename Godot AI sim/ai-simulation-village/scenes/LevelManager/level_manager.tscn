@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
 [ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
 [ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
-[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/test_server.gd" id="13_4jhem"]
+[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/chat_connection.gd" id="13_4jhem"]
 [ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
 [ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="16_b1ret"]
 [ext_resource type="PackedScene" uid="uid://b6pbjw861pyrp" path="res://scenes/UI/PopupMenu/popup_menu.tscn" id="19_j8lo3"]

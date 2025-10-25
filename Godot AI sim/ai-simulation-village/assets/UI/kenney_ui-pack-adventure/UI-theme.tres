@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=14 format=4 uid="uid://cvnibqmmph3ur"]
 
-[ext_resource type="Texture2D" uid="uid://bnd6pya3ju6ad" path="res://assets/UI/kenney_ui-pack-adventure/Vector/button_grey.svg" id="1_vorkm"]
-[ext_resource type="Texture2D" uid="uid://44vdc70o01xo" path="res://assets/UI/kenney_ui-pack-adventure/Vector/panel_brown.svg" id="2_rkdp6"]
+[ext_resource type="Texture2D" uid="uid://65waw6dqakce" path="res://assets/UI/kenney_ui-pack-adventure/Vector/button_grey.svg" id="1_vorkm"]
+[ext_resource type="Texture2D" uid="uid://8kbjlq3ge614" path="res://assets/UI/kenney_ui-pack-adventure/Vector/panel_brown.svg" id="2_rkdp6"]
 
 [sub_resource type="Image" id="Image_tlf47"]
 data = {
