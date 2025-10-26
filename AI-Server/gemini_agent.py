@@ -88,7 +88,7 @@ class Agent:
 
 
     async def chat(self, participant:str,message:str,time_stamp,save_query:bool=True,save_response:bool=True):
-        query_message = {'role':'user', 'parts':[{'text': message}]}
+        query_message = {'role':"user", 'parts':[{'text': message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
 
         print("Top memories:")
@@ -126,7 +126,7 @@ class Agent:
         #Add query to memory
         if save_query:
             memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
-            self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
+            self.memory.add(role="user" ,message=memory_message,time_stamp=time_stamp)
             
         #Add response to memory
         if save_response:
@@ -179,8 +179,8 @@ class Agent:
             print(f"{i+1}) {h["parts"][0]["text"]}")
         print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
 
-        
-        action_message = f"You decided to perform the following action: {action_dict["action"]} at time {time_stamp}"
+
+        action_message = f"At time {time_stamp}, you performed the following action: {action_dict["action"]}"
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
         return action_dict

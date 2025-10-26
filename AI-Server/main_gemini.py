@@ -71,7 +71,7 @@ async def set_memory_endpoint(request: Request):
     agent = agent_obj_map[agent_name]
 
     memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
-    agent.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
+    agent.memory.add(role="user" ,message=memory_message,time_stamp=time_stamp)
 
     return Response(status_code=204)
 
