@@ -6,18 +6,6 @@ from agent_map import AGENT_DESC
 from gemini_agent import Agent
 
 
-'''
-# The client gets the API key from the environment variable `GEMINI_API_KEY`.
-client = genai.Client()
-
-response = client.models.generate_content(
-    model="gemini-2.5-flash", contents="Tell me something interesting that happened in 1919 in one sentence"
-)
-print(response.text)
-
-'''
-
-
 # Roles
 USER = 'user'
 ASSISTANT = 'assistant'
@@ -53,9 +41,7 @@ async def set_memory_endpoint(request: Request):
         - message: Message to be added to memory
         - time: Timestamp of the message
     """
-    print("Received request")
     data: dict = await request.json()
-    print(f"Received data: {data}")
 
     if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
@@ -92,9 +78,7 @@ async def chat_endpoint(request: Request):
             }
 
     """
-    print("Received request")
     data: dict = await request.json()
-    print(f"Received data: {data}")
 
     if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
@@ -116,9 +100,7 @@ async def start_ai_chat_endpoint(request: Request):
     """ API endpoint to start a chat with an agent\n
         This endpoint allows users to initiate a chat session with a specific agent.
     """
-    print("Received request")
     data: dict = await request.json()
-    print(f"Received data: {data}")
 
     if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
         raise HTTPException(status_code=400, detail="Invalid messages format")
@@ -145,9 +127,7 @@ async def action_endpoint(request: Request):
         
 
     """
-    print("Received request")
     data: dict = await request.json()
-    print(f"Received data: {data}")
 
     if not isinstance(data.get("action_list"), str):
         raise HTTPException(status_code=404, detail="Invalid messages format")

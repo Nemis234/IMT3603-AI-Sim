@@ -13,7 +13,6 @@ client = genai.Client()
 response = client.models.generate_content(
     model="gemini-2.5-flash", contents="Tell me something interesting that happened in 1919 in one sentence"
 )
-print(response.text)
 
 '''
 
@@ -102,12 +101,10 @@ class Agent:
         input_message.extend(history)
         input_message.append(query_message)
 
-
         response = self.generate_content_stream(input_message)
 
         response_message=""
         for chunk in response:
-            print("Received chunk:", chunk)
             if chunk.candidates and chunk.candidates[0].content.parts:
                 delta = chunk.candidates[0].content.parts[0].text
                 response_message += delta
@@ -121,8 +118,6 @@ class Agent:
                             yield w + " "
                             await asyncio.sleep(0.05)
                 
-                #print(response_message)
-        
         #Add query to memory
         if save_query:
             memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
