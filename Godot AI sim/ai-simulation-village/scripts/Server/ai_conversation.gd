@@ -5,7 +5,6 @@ var pause_messages: bool = false:
 	set(value):
 		if value:
 			timer.start()
-			print("Timer started")
 		pause_messages = value
 
 func _ready() -> void:
@@ -13,7 +12,6 @@ func _ready() -> void:
 	timer.one_shot = true
 	timer.wait_time = 4
 	timer.timeout.connect(func():
-		print("timeout")
 		pause_messages=false)
 	
 	add_child(timer)
@@ -43,6 +41,6 @@ func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,o
 	
 	response_from_1 = await ServerConnection.post_message(agent1,response_from_2,output1,"chat",agent2)
 	
-	await ServerConnection.post_message(agent2,response_from_2,output2,"set_memory",agent1)
+	await ServerConnection.post_message(agent2,response_from_1,output2,"set_memory",agent1)
 	
 	
