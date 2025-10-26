@@ -5,6 +5,7 @@ extends Node
 #Related to ingame time
 var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
 var totalMinutes
+var day
 var hour
 var minute
 var partOfDay = ""

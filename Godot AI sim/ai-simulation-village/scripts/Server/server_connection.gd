@@ -80,7 +80,7 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 
 	var fields = {
 		"agent":agentName,
-		"time": hour + ":" + minute ,
+		"time": "Day "+str(Global.day)+" "+ hour + ":" + minute ,
 		"message": message, 
 		"participant": participant 
 		}
@@ -99,7 +99,10 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 #New creating sepearte post method for actions (passing entire dict of agent details so it becomes easier to add more details)
 func post_action(agent_details:Dictionary, label_:Label):
 	var client = await connect_client()
+	agent_details["time"] = "Day "+str(Global.day)+" "+agent_details["time"]
+	
 	print(agent_details)
+	
 	
 	var query_string = JSON.stringify(agent_details)
 	var headers = [ #Not necessary

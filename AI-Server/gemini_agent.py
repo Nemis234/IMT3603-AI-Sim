@@ -121,12 +121,12 @@ class Agent:
                 
         #Add query to memory
         if save_query:
-            memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
+            memory_message = f"On {time_stamp}, you were asked/told by {participant}: {message}."
             self.memory.add(role="user" ,message=memory_message,time_stamp=time_stamp)
             
         #Add response to memory
         if save_response:
-            memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
+            memory_message = f"You responded to {participant} on {time_stamp}: {response_message} "
             self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
 
@@ -143,7 +143,7 @@ class Agent:
             yield chunk
         
         
-        memory_message = f"At {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
+        memory_message = f"On {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
         self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
     
@@ -176,7 +176,7 @@ class Agent:
         print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
 
 
-        action_message = f"At time {time_stamp}, you performed the following action: {action_dict["action"]}"
+        action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
         return action_dict

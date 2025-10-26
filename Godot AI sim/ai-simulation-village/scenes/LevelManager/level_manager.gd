@@ -94,8 +94,9 @@ func _end_dialogue(agent):
 ##This functions is used to process ingame time.
 func _process_time(delta) -> void:
 	Global.totalMinutes = Global.time * 1440.0
-	Global.hour = int(Global.totalMinutes / 60) % 24
 	Global.minute = int(Global.totalMinutes) % 60
+	Global.hour = int(Global.totalMinutes / 60) % 24
+	Global.day = int(int(Global.totalMinutes / 60) / 24) + 1 
 	
 	if Global.hour >= 22 or Global.hour < 6:
 		Global.partOfDay = "night"
