@@ -37,6 +37,7 @@ class Agent:
         self.system_prompt = system_prompt
         self.action_model = "gemini-2.5-flash"
         self.chat_model = "gemini-2.0-flash-lite"
+        self.memory_count = 25
         self._create_client()
         #self.memory.add(role="model", message=self._system_prompt)
 
@@ -74,7 +75,7 @@ class Agent:
         '''
         Doing retrieval based on query (get top n most similar db entries to query)
         '''
-        history = self.memory.gemini_query(text = message)
+        history = self.memory.gemini_query(text = message, n=self.memory_count)
         return history
     
     def save_action_memory(self,action,time_stamp):
