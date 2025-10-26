@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c804odqsa3ufa"]
-
-[ext_resource type="Script" uid="uid://bvolgu3i06c2v" path="res://scenes/House_alt/House_parent_node/house_2.gd" id="1_xihx7"]
-
-[node name="House2" type="Node2D" groups=["House"]]
-script = ExtResource("1_xihx7")

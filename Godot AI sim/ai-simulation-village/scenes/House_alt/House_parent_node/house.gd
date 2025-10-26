@@ -8,5 +8,3 @@ extends Node2D
 @onready var exit_area: Area2D = house_interior.get_node("Entrance")
 
 @onready var navigationTilesMainFloor: TileMapLayer = house_interior.get_node("WalkAbleTiles")
-
-
