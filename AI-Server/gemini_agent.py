@@ -36,7 +36,8 @@ class Agent:
         self.memory = Memory(client=db,collection_name=name)
         self._name = name
         self.system_prompt = system_prompt
-        self.model = "gemini-2.5-flash"
+        self.action_model = "gemini-2.5-flash"
+        self.chat_model = "gemini-2.0-flash-lite"
         self._create_client()
         #self.memory.add(role="model", message=self._system_prompt)
 
@@ -55,7 +56,7 @@ class Agent:
 
     def generate_content_stream(self, input_message: list[dict]) -> Iterator[types.GenerateContentResponse]:
         response = client.models.generate_content_stream(
-                            model=self.model,
+                            model=self.chat_model,
                             contents=input_message,
                             config=types.GenerateContentConfig(
                                 system_instruction=self.system_prompt)) #Generating responses based on system prompts
@@ -63,7 +64,7 @@ class Agent:
 
     def generate_content(self, input_message: list[dict]) -> types.GenerateContentResponse:
         response = client.models.generate_content(
-                            model=self.model,
+                            model=self.action_model,
                             contents=input_message,
                             config=types.GenerateContentConfig(
                                 system_instruction=self.system_prompt)) #Generating responses based on system prompts
@@ -86,7 +87,7 @@ class Agent:
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
 
 
-    async def chat(self, participant:str,message:str,time_stamp):
+    async def chat(self, participant:str,message:str,time_stamp,save_query:bool=True,save_response:bool=True):
         query_message = {'role':'user', 'parts':[{'text': message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
 
@@ -123,11 +124,30 @@ class Agent:
                 #print(response_message)
         
         #Add query to memory
-        memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
-        self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
-        
+        if save_query:
+            memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
+            self.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
+            
         #Add response to memory
-        memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
+        if save_response:
+            memory_message = f"You responded to {participant} at {time_stamp}: {response_message} "
+            self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
+    
+
+        
+    
+    async def start_ai_chat(self,participant:str,message:str,time_stamp):
+        '''
+        Wrapper function to start chat with agent
+        '''
+
+        response_message=""
+        async for chunk in self.chat(participant,message,time_stamp,False, False):
+            response_message += chunk
+            yield chunk
+        
+        
+        memory_message = f"At {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
         self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
     

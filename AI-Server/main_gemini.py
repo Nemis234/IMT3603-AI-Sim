@@ -44,6 +44,38 @@ async def get_agents():
     """ API endpoint to retrieve the list of available agents"""
     return {"agents": list(agent_obj_map.keys())}
 
+@chat_server.post("/set_memory")
+async def set_memory_endpoint(request: Request):
+    """ API endpoint to set memory for an agent\n
+        Expects query parameters:
+        - agent: Name of the agent
+        - participant: Participant identifier (default: 'user')
+        - message: Message to be added to memory
+        - time: Timestamp of the message
+    """
+    print("Received request")
+    data: dict = await request.json()
+    print(f"Received data: {data}")
+
+    if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
+        raise HTTPException(status_code=400, detail="Invalid messages format")
+
+    agent_name = data.get("agent","")
+    message = data.get("message", "")
+    time_stamp = data.get("time","")
+    participant = data.get("participant", USER)
+
+    if agent_name not in agent_obj_map:
+        raise HTTPException(status_code=404, detail=f"Agent {agent_name} not found")
+
+    agent = agent_obj_map[agent_name]
+
+    memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
+    agent.memory.add(role="model" ,message=memory_message,time_stamp=time_stamp)
+
+    return Response(status_code=204)
+
+
 @chat_server.post("/chat")
 async def chat_endpoint(request: Request):
     """ API endpoint for chatting with an agent\n
@@ -72,8 +104,34 @@ async def chat_endpoint(request: Request):
     time_stamp = data.get("time","")
     participant = data.get("participant", USER)
 
+    if agent not in agent_obj_map:
+        raise HTTPException(status_code=404, detail=f"Agent {agent} not found")
+
 
     return StreamingResponse(agent_obj_map[agent].chat(participant, message,time_stamp), media_type="text/event-stream")
+
+
+@chat_server.post("/chat/start_ai_chat")
+async def start_ai_chat_endpoint(request: Request):
+    """ API endpoint to start a chat with an agent\n
+        This endpoint allows users to initiate a chat session with a specific agent.
+    """
+    print("Received request")
+    data: dict = await request.json()
+    print(f"Received data: {data}")
+
+    if not isinstance(data.get("message"), str) or not isinstance(data.get("agent"), str):
+        raise HTTPException(status_code=400, detail="Invalid messages format")
+    
+    agent = data.get("agent","")
+    message = data.get("message", "")
+    time_stamp = data.get("time","")
+    participant = data.get("participant", USER)
+
+    if agent not in agent_obj_map:
+        raise HTTPException(status_code=404, detail=f"Agent {agent} not found")
+
+    return StreamingResponse(agent_obj_map[agent].start_ai_chat(participant, message, time_stamp), media_type="text/event-stream")
 
 
 @chat_server.post("/action")
@@ -92,11 +150,13 @@ async def action_endpoint(request: Request):
     print(f"Received data: {data}")
 
     if not isinstance(data.get("action_list"), str):
-        raise HTTPException(status_code=400, detail="Invalid messages format")
-    
-    agent = data.get("agent","") #Get the agent name 
-    
+        raise HTTPException(status_code=404, detail="Invalid messages format")
 
-    action_dict = await agent_obj_map[agent].act(data) #Wait for response
-    #print(action_dict)
+    agent = data.get("agent", "")  # Get the agent name
+
+    if agent not in agent_obj_map:
+        raise HTTPException(status_code=404, detail=f"Agent {agent} not found")
+
+    action_dict = await agent_obj_map[agent].act(data)  # Wait for response
+    
     return JSONResponse(action_dict)
