@@ -5,6 +5,6 @@ extends interactable
 @onready var collisionArea: CollisionShape2D = $CollisionShape2D
 
 #Changes state
-func change_state() -> void:
+func change_state(node:Node) -> void:
 	state_handler_component.change_state(0,collisionArea)
 	print("Interacted with TV")

@@ -1,4 +1,4 @@
-extends Node2D
+extends interactable
 
 signal stair_used(target_floor: String)
 signal request_popup(question: String, content: Array)

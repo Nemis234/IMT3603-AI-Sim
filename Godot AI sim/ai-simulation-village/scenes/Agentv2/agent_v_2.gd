@@ -1,7 +1,13 @@
 class_name Agent
 extends CharacterBody2D
 
+
 @onready var agent_interact_area: Area2D = $InteractArea
+var on_mouse: bool = true # To see if the mouse is on the agent
+var player_in_area: bool = false # Toggle to cehck if player is in its interact area
+@onready var player: Player = get_tree().root.get_node("LevelManager/Adam")
+
+
 @onready var objectDetectionArea: Area2D = $ObjectDetection
 
 @export var movementAnimation: WalkingAnimationComponent
@@ -40,6 +46,10 @@ func _ready() -> void:
 	
 	agent_interact_area.body_entered.connect(_on_interact_area_entered)
 	agent_interact_area.body_exited.connect(_on_interact_area_exited)
+	agent_interact_area.mouse_entered.connect(_on_mouse_entered)
+	agent_interact_area.mouse_exited.connect(_on_mouse_exited)
+	
+	agent_interact_area.input_event.connect(_on_area_input_event.bind(player))
 
 	#Add their designated bed
 	actionList.interactable_objects[agentBed] = {
@@ -94,12 +104,12 @@ func new_agent_action():
 	agentStats.hide_progress_bar()
 		
 	if queued_action == "":
-		#var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
-		#new_action = action_details["action"]
-		#duration_action = action_details["duration"] #Expected Duration to perform action in minutes
+		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
+		new_action = action_details["action"]
+		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		
-		new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
-		duration_action = clamp(randf_range(100,480),100,480)
+		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		#duration_action = clamp(randf_range(100,480),100,480)
 	else:
 		new_action = queued_action
 		queued_action = ""
@@ -153,12 +163,30 @@ func _on_object_detection_area_entered(area: Area2D) -> void:
 		
 func _on_interact_area_entered(body):
 	if body.is_in_group("Player"):
-		body.curr_interactable = self
+		player_in_area = true
 
 
 func _on_interact_area_exited(body):
 	if body.is_in_group("Player"):
-		body.curr_interactable = null
+		player_in_area = false
+
+func _on_mouse_entered():
+	agent_interact_area.modulate = Color(1, 1, 0.6) # highlight
+	on_mouse = true
+	print("Mouse entered",name)
+
+func _on_mouse_exited():
+	agent_interact_area.modulate = Color(1, 1, 1) # remove highlight
+	on_mouse = false
+	print("Mouse exited",name)
+
+# On right click initiate caht with agents. Requires Interacting entity (in this case only player to be passed)
+func _on_area_input_event(viewport, event, shape_idx, entity:Player):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT and player_in_area:
+		player.get_node("ChatBox").visible = true
+		player.in_dialogue = true
+		self.in_dialogue = true
+		player.recipient_in_convo = self
 
 func hide_speech():
 	speechBubble.visible = false

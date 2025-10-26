@@ -11,7 +11,7 @@ extends Node2D
 func _ready() -> void:
 	for node in get_children():
 		if node.is_in_group("Player"):
-			node.interact.connect(_change_state)
+			#node.interact.connect(_change_state)
 			node.end_convo.connect(_end_dialogue)
 			node.get_node("ChatBox").chat_input.connect(_generate_dialogue)
 
@@ -61,12 +61,7 @@ func _change_state(entity,interactable):
 	elif interactable.is_in_group("interactable"):
 		interactable.change_state(entity)
 	
-	elif entity.is_in_group("Player") and interactable.is_in_group("Agent"): #If Player Engages chat with agent
-		var agent: Agent = interactable
-		
-		player.get_node("ChatBox").visible = true
-		player.in_dialogue = true
-		agent.in_dialogue = true
+	
 		
 
 #Tell the Agents to start a new action/check if they finished their action
@@ -76,9 +71,9 @@ func _change_state(entity,interactable):
 
 
 func _generate_dialogue(text:String): #Dialogue should occur if player's curr interactable is an Agent
-	if player.curr_interactable: 
-		if player.curr_interactable.is_in_group("Agent"):
-			player.curr_interactable.stream_speech(text)
+	if player.recipient_in_convo: 
+		if player.recipient_in_convo.is_in_group("Agent"):
+			player.recipient_in_convo.stream_speech(text)
 	
 
 #func to end dialogue with agent

@@ -7,6 +7,7 @@ signal request_popup(question: String, content: Array)
 #Changes state
 func change_state(node: Node) -> void:
 	state_handler_component.change_state(0,collisionArea)
+	print(node)
 	if node.is_in_group("Player"):
 		emit_signal("request_popup", "What book would you like to read?", 
 			[
