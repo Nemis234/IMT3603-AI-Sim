@@ -66,17 +66,11 @@ func send_request(label_:Label,client:HTTPClient,method:HTTPClient.Method,url:St
 ## Defaults to "user" [br]
 func post_message(agentName:String,message:String, label_:Label, type:String="chat", participant="user")->String:
 	var client := await connect_client()
-	var curr_time = Time.get_time_dict_from_system()
-	
+
 	var h = Global.hour
-	var hour = "0"+ str(h) if h < 10 else h
+	var hour = "0"+ str(h) if h < 10 else str(h)
 	var m = Global.minute
-	var minute = "0"+str(m) if m < 10 else m
-	
-	if not hour:
-		hour = curr_time["hour"]
-	if not minute:
-		minute = curr_time["minute"]
+	var minute = "0"+str(m) if m < 10 else str(m)
 
 	var fields = {
 		"agent":agentName,
