@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
 [ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
 [ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
-[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/chat_connection.gd" id="13_4jhem"]
+[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/chat_connection.gd" id="14_j8lo3"]
 [ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
 [ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="16_b1ret"]
 [ext_resource type="PackedScene" uid="uid://b6pbjw861pyrp" path="res://scenes/UI/PopupMenu/popup_menu.tscn" id="19_j8lo3"]
@@ -25,7 +25,9 @@ script = ExtResource("1_r2lsa")
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
-[node name="House" parent="." instance=ExtResource("5_4tw1x")]
+[node name="House" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") instance=ExtResource("5_4tw1x")]
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
 
 [node name="house_exterior" parent="House" instance=ExtResource("4_xo7uf")]
 position = Vector2(671, 433)
@@ -33,17 +35,22 @@ position = Vector2(671, 433)
 [node name="house_interior" parent="House" instance=ExtResource("5_ofnrc")]
 position = Vector2(2152, 209)
 
-[node name="House2" parent="." instance=ExtResource("6_nkjjk")]
+[node name="House2" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") instance=ExtResource("6_nkjjk")]
 position = Vector2(494, 255)
 script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
 
 [node name="house_exterior" parent="House2" instance=ExtResource("7_rlfer")]
 
 [node name="house_interior" parent="House2" instance=ExtResource("8_4jhem")]
 position = Vector2(2626, -992)
 
-[node name="House3" parent="." instance=ExtResource("5_r2lsa")]
+[node name="House3" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") instance=ExtResource("5_r2lsa")]
 position = Vector2(912, 200)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("Houseinterior3")
+house_exterior = NodePath("HouseExterior3")
 
 [node name="HouseExterior3" parent="House3" instance=ExtResource("10_b1ret")]
 
@@ -63,7 +70,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("13_4jhem")
+script = ExtResource("14_j8lo3")
 text_input = NodePath("LineEdit")
 
 [node name="Button" type="Button" parent="Adam/ChatBox"]

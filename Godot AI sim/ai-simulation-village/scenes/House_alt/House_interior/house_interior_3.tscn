@@ -1,8 +1,8 @@
 [gd_scene load_steps=26 format=4 uid="uid://seswxf154idw"]
 
-[ext_resource type="Script" uid="uid://bhg31wioycfef" path="res://scenes/House_alt/House_interior/house_stairs.gd" id="1_s2sl4"]
-[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
-[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
+[ext_resource type="Script" uid="uid://dpcsaeyuqavqs" path="res://scenes/House_alt/House_interior/house_interior.gd" id="1_s2sl4"]
+[ext_resource type="Texture2D" uid="uid://ynbn4owixylw" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
+[ext_resource type="Texture2D" uid="uid://bigblp1taodk4" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
 [ext_resource type="PackedScene" uid="uid://bsobevf513w03" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.tscn" id="4_2mlr6"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="5_3d3a0"]
 [ext_resource type="PackedScene" uid="uid://byb115aoflo4m" path="res://scenes/House_alt/House_interior/Furniture/Door/Open_right/door_right.tscn" id="6_eji6b"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dq4atcaco87c6" path="res://scenes/House_alt/House_interior/Furniture/Toilet/toilet.tscn" id="8_wmqv2"]
 [ext_resource type="PackedScene" uid="uid://dxaap0uepvube" path="res://scenes/House_alt/House_interior/Furniture/Sinks/Bathroom/bathroom_sink.tscn" id="9_frcds"]
 [ext_resource type="PackedScene" uid="uid://co3mecjygtwqc" path="res://scenes/House_alt/House_interior/Furniture/Window/Kitchen/kitchen_window.tscn" id="10_bipdu"]
-[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
+[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House_alt/House_interior/Furniture/TV/tv.tscn" id="12_l8hp0"]
 [ext_resource type="PackedScene" uid="uid://sdt4uupylmv4" path="res://scenes/House_alt/House_interior/Furniture/Stove/stove.tscn" id="13_lm4j8"]
 [ext_resource type="PackedScene" uid="uid://b1pt8cmc0e236" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs_top.tscn" id="14_xrqkn"]
@@ -2207,6 +2207,9 @@ sources/4 = SubResource("TileSetAtlasSource_m4fun")
 [node name="Houseinterior3" type="Node2D" groups=["house_int"]]
 script = ExtResource("1_s2sl4")
 
+[node name="Entrance" parent="." instance=ExtResource("5_3d3a0")]
+position = Vector2(136, -1)
+
 [node name="main_floor" type="Node2D" parent="."]
 
 [node name="floor" type="TileMapLayer" parent="main_floor"]
@@ -2228,9 +2231,6 @@ tile_set = SubResource("TileSet_e850i")
 [node name="walls_top" type="TileMapLayer" parent="main_floor"]
 tile_map_data = PackedByteArray("AAD///7/AAAGAAIAAAD/////AAANAAIAAAD//wAAAAANAAIAAAD//wEAAAANAAIAAAD//wIAAAANAAIAAAD//wQAAAANAAIAAAD//wUAAAANAAIAAAD//wYAAAANAAIAAAD//wcAAAANAAIAAAD//wgAAAANAAIAAAD//wkAAAANAAIAAAD//woAAAANAAIAAAD//wsAAAANAAIAAAD//wwAAAANAAIAAAD//w4AAAANAAIAAAD//w8AAAANAAIAAAD//xAAAAANAAIAAAD//xEAAAANAAIAAAD//xIAAAANAAIAAAD//xMAAAANAAIAAAAHAP7/AAAMAAMAAAAJAP7/AAAMAAMAAAAUAAIAAAALAAIAAAAUAAMAAAALAAIAAAAUAAQAAAALAAIAAAAUAAUAAAALAAIAAAAUAAYAAAALAAIAAAAUAAcAAAALAAIAAAAUAAgAAAALAAIAAAAUAAkAAAALAAIAAAAUAAoAAAALAAIAAAAUAAsAAAALAAIAAAAUAAwAAAALAAIAAAAUAA0AAAALAAIAAAAUAA4AAAALAAIAAAAUAA8AAAALAAIAAAAUABAAAAALAAIAAAAUABEAAAALAAIAAAAUABIAAAALAAIAAAAUABMAAAALAAIAAAAFAP//AAALAAIAAAAFAP7/AAALAAEAAAAIAP7/AAAMAAMAAAD//w0AAAAKAAEAAAD//wMAAAAKAAEAAAAFAAMAAAAFAAEAAAD//xQAAAAGAAEAAAAUABQAAAAFAAEAAAAUAAEAAAALAAIAAAAFAAAAAAALAAIAAAA=")
 tile_set = SubResource("TileSet_k71r2")
-
-[node name="Entrance" parent="main_floor" instance=ExtResource("5_3d3a0")]
-position = Vector2(136, -1)
 
 [node name="DoorRight" parent="main_floor" instance=ExtResource("6_eji6b")]
 position = Vector2(94, 24)

@@ -1,9 +1,9 @@
-[gd_scene load_steps=57 format=3 uid="uid://cnb82310hrgyw"]
+[gd_scene load_steps=58 format=3 uid="uid://cnb82310hrgyw"]
 
-[ext_resource type="Texture2D" uid="uid://cyt5ept1raupc" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
+[ext_resource type="Texture2D" uid="uid://clgm3bxqbn282" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
 [ext_resource type="Script" uid="uid://3fkc3teo15tn" path="res://scenes/Player/player.gd" id="1_xcisb"]
 [ext_resource type="Script" uid="uid://c51k334lubtr1" path="res://scripts/state_machine.gd" id="2_ky53y"]
-[ext_resource type="Texture2D" uid="uid://bqxp04xuedvig" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
+[ext_resource type="Texture2D" uid="uid://yh3n2d0arvld" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
 [ext_resource type="Script" uid="uid://c30fjyf3v3ewk" path="res://scripts/Player_States/idle_state.gd" id="5_fxc31"]
 [ext_resource type="Script" uid="uid://cpfhrvy4xavxh" path="res://scripts/Player_States/walk_state.gd" id="6_socpp"]
 
@@ -389,6 +389,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_h00vy"]
 radius = 4.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_socpp"]
+radius = 291.55618
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_xcisb")
 
@@ -401,8 +404,13 @@ frame = 1
 frame_progress = 0.77795
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -1)
 shape = SubResource("CircleShape2D_h00vy")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_socpp")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_node_state")]
 script = ExtResource("2_ky53y")
