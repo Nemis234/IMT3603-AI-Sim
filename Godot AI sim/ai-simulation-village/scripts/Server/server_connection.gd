@@ -68,8 +68,10 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 	var client := await connect_client()
 	var curr_time = Time.get_time_dict_from_system()
 	
-	var hour = str(Global.hour)
-	var minute = str(Global.minute)
+	var h = Global.hour
+	var hour = "0"+ str(h) if h < 10 else h
+	var m = Global.minute
+	var minute = "0"+str(m) if m < 10 else m
 	
 	if not hour:
 		hour = curr_time["hour"]

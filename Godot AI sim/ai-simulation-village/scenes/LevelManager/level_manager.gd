@@ -29,9 +29,10 @@ func _on_physics_process(delta: float) -> void:
 	
 func _process(delta: float) -> void:
 	Global.time += delta / Global.realSecondsPerIngameDay
-	Global.time = fmod(Global.time, 1.0)
+	#Global.time = fmod(Global.time, 1.0)
+	var time_per_day = fmod(Global.time, 1.0)
 	_process_time(delta)
-	dayNightCycle.setDayNightColor(Global.time)
+	dayNightCycle.setDayNightColor(time_per_day)
 
 func _change_state(entity,interactable):
 	#print("signal sent",interactable.is_in_group("house_int"))

@@ -117,11 +117,15 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	if !agentNode.agentName:
 		print("Agent is missing a name")
 		return {}
+	var h = Global.hour
+	var hour = "0"+ str(h) if h < 10 else str(h)
+	var m = Global.minute
+	var minute = "0"+str(m) if m < 10 else str(m)
 
 	var agent_details:Dictionary = {
 		"agent": str(agentNode.agentName),
 		"location": str(agentNode.currentLocation),
-		"time":str(Global.hour) + ":" + str(Global.minute),
+		"time":hour + ":" + minute,
 		"action_list": str(filtered_action_list)
 		}
 	# Send prompt and wait for response
