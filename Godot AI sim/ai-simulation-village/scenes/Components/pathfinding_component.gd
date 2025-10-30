@@ -51,7 +51,16 @@ func _go_to_target(target: Vector2i)-> void:
 ##This function is mainly used to move agent to an object such as bookshelfs.
 ##object is the interactable object that is needed for the action that triggered this function.
 ##action is the action which triggered this function.
-func _got_to_object(object: String, action: String) -> void:
+func _got_to_object(action: String) -> void:
+	var object: String
+	match action:
+		"read": 
+			object = "bookshelf"
+		"eat":
+			object = "fridge"
+		"sleep":
+			object = "myownbed"
+	
 	var interactable_object = agent.actionList.is_object_in_memory(object)
 	if interactable_object:
 		if agent.in_building == interactable_object["building"]:

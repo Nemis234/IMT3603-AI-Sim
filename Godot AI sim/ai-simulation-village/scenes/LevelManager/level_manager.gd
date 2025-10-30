@@ -9,6 +9,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Setting up signals connection/set global variables 
 	for node in get_children():
 		if node.is_in_group("Player"):
 			#node.interact.connect(_change_state)
@@ -17,13 +18,14 @@ func _ready() -> void:
 
 		if node.is_in_group("Agent"):
 			node.interactionComponent.interact.connect(_change_state)
+			Global.agent_houses[node.agentName] = node.house #Register name and house
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		node.connect("request_popup", _on_request_popup)
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_physics_process(delta: float) -> void:
+func _on_physics_process(_delta: float) -> void:
 	#print(player.curr_interactable)
 	pass
 	
