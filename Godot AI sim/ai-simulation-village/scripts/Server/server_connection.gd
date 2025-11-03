@@ -4,12 +4,7 @@ extends Node
 const SERVER_URL = "http://127.0.0.1"
 const SERVER_PORT = 8000
 
-
-# I initialise the request
-func _ready() -> void:
-	#connect_client()
-	pass
-
+## Initialises a new [HTTPClient]
 func connect_client() -> HTTPClient:
 	var client
 	var err = 0
@@ -26,12 +21,24 @@ func connect_client() -> HTTPClient:
 	return client
 
 
-## Sends a request using the given client. [br]
-## Output text is written to the label_, and is returned in full when complete. [br]
-func send_request(label_:Label,client:HTTPClient,method:HTTPClient.Method,url:String,headers:PackedStringArray,query_string:String="")->String:
+## Sends a request to the url using the given client. [br]
+## Output text is written to the label_ if provided, and is returned in a string when complete. [br]
+func send_request(client:HTTPClient,url:String,
+	query_string:String="",
+	label_:Label=Label.new(),
+	method:HTTPClient.Method=HTTPClient.METHOD_POST,
+	headers:PackedStringArray=[]
+	)->String:
+	
+	if not headers:
+		headers = [ #Not necessary
+			"User-Agent: AI-village/1.0 (Godot)",
+			"Accept: */*"
+		]
+	
 	client.poll()
 	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
-		await connect_client()
+		client = await connect_client()
 	
 	var status = client.get_status()
 	var err = client.request(method,url,headers,query_string)
@@ -80,15 +87,11 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 		}
 	print(fields)
 	var query_string = JSON.stringify(fields)
-	var headers = [ #Not necessary
-		"User-Agent: Pirulo/1.0 (Godot)",
-		"Accept: */*"
-	]
 	
-	var text = await send_request(label_,client,HTTPClient.METHOD_POST,"/"+type,headers,query_string)
+	var text = await send_request(client,"/"+type,query_string,label_)
 	
 	return text
-	
+
 
 #New creating seperate post method for actions (passing entire dict of agent details so it becomes easier to add more details)
 func post_action(agent_details:Dictionary, label_:Label):
@@ -99,12 +102,8 @@ func post_action(agent_details:Dictionary, label_:Label):
 	
 	
 	var query_string = JSON.stringify(agent_details)
-	var headers = [ #Not necessary
-		"User-Agent: Pirulo/1.0 (Godot)",
-		"Accept: */*"
-	]
 	
-	var text = await send_request(label_,client,HTTPClient.METHOD_POST,"/action",headers,query_string)
+	var text = await send_request(client,"/action",query_string,label_)
 	print(text)
 	
 
@@ -112,27 +111,7 @@ func post_action(agent_details:Dictionary, label_:Label):
 func update_memory_recency(agentName:String) -> void:
 	var client := await connect_client()
 	
-	client.poll()
-	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
-		await connect_client()
+	var query_string = JSON.stringify(agentName)
 	
-	var headers = [ #Not necessary
-		"User-Agent: Pirulo/1.0 (Godot)",
-		"Accept: */*"
-	]
-	
-	var status = client.get_status()
-	var err = client.request(HTTPClient.METHOD_POST,"/update_recency",headers,agentName)
-	assert(err == OK)
-	
-	print("Requesting to '", "/update_recency" ,"'...")
-	while client.get_status() == HTTPClient.STATUS_REQUESTING:
-		# Keep polling for as long as the request is being processed.
-		client.poll()
-		await get_tree().process_frame
-	
-	assert(client.get_status() == HTTPClient.STATUS_BODY or client.get_status() == HTTPClient.STATUS_CONNECTED)
-
-	while client.get_status() == HTTPClient.STATUS_BODY:
-		var chunk = client.read_response_body_chunk().get_string_from_utf8()
-		print("Response: ",chunk)
+	var text = await send_request(client,"/update_recency",query_string)
+	print(text)
