@@ -40,7 +40,7 @@ func send_request(client:HTTPClient,url:String,
 	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
 		client = await connect_client()
 	
-	var status = client.get_status()
+	var _status = client.get_status()
 	var err = client.request(method,url,headers,query_string)
 	assert(err == OK)
 	

@@ -1,5 +1,14 @@
 extends Node
 
+## The number of messages sent in the whole conversation. [br]
+## This includes the initial message at least one response, 
+## ie. setting this to less than 2 does nothing
+var numb_chat_messages = 4:
+	set(value):
+		if value < 2:
+			value = 2
+		numb_chat_messages = value
+
 var timer = Timer.new()
 var pause_messages: bool = false:
 	set(value):
@@ -24,23 +33,34 @@ func _wait_on_timer():
 
 func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,output2:Label):
 	## The starting message
-	var initial_message = "You are starting a conversation with " + agent2 + ". What do you say to them?"
-	
-	# The respones from each agent
-	var response_from_1 
-	var response_from_2
-	
+	var initial_message = "You are starting a whole new conversation with " + agent2 + ". What do you say to them?"
 	
 	pause_messages = true
-	response_from_1 = await ServerConnection.post_message(agent1,initial_message,output1,"chat/start_ai_chat",agent2)
+	var response = await ServerConnection.post_message(agent1,initial_message,output1,"chat/start_ai_chat",agent2)
 	await _wait_on_timer()
+
+	var last_agent = agent1
+	var next_agent = agent2
 	
-	pause_messages = true
-	response_from_2 = await ServerConnection.post_message(agent2,response_from_1,output2,"chat",agent1)
-	await _wait_on_timer()
+	var last_output = output1
+	var next_output = output2
+	for x in range(numb_chat_messages-2):
+		pause_messages = true
+		response = await ServerConnection.post_message(next_agent,response,next_output,"chat",last_agent)
+		
+		# Switches the agents
+		var temp_agent = next_agent
+		next_agent = last_agent
+		last_agent = temp_agent
+		
+		var temp_output = next_output
+		next_output = last_output
+		last_output = temp_output
+		
+		await _wait_on_timer()
 	
-	response_from_1 = await ServerConnection.post_message(agent1,response_from_2,output1,"chat",agent2)
+	response = await ServerConnection.post_message(next_agent,response,next_output,"chat",last_agent)
 	
-	await ServerConnection.post_message(agent2,response_from_1,output2,"set_memory",agent1)
+	await ServerConnection.post_message(last_agent,response,last_output,"set_memory",next_agent)
 	
 	
