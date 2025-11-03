@@ -34,20 +34,34 @@ class Agent:
     def __init__(self, name:str, system_prompt:str=''):
         self.memory = Memory(client=db,collection_name=name)
         self._name = name
-        self.system_prompt = system_prompt
+        self.action_prompt = system_prompt
+        self.chat_prompt = system_prompt
         self.action_model = "gemini-2.5-flash"
-        self.chat_model = "gemini-2.0-flash-lite"
+        self.chat_model = "gemini-2.5-flash-lite"
         self.memory_count = 25
         self._create_client()
         #self.memory.add(role="model", message=self._system_prompt)
 
     @property
-    def system_prompt(self):
-        note = "\n\nNote: Respond to questions/queries in brief (just 1-2 sentences)"
-        return self._system_prompt + note
-    @system_prompt.setter
-    def system_prompt(self, value:str):
-        self._system_prompt = f"{value}"
+    def action_prompt(self):
+        note = f"""\n\nAlways respond in the way the user is requesting."""
+        return self._action_prompt + note
+    @action_prompt.setter
+    def action_prompt(self, value:str):
+        self._action_prompt = f"{value}"
+    
+    @property
+    def chat_prompt(self):
+        note = f"""\n\nYou should always respond in character as {self._name}. Follow these guidelines strictly:
+        Respond to questions and queries in brief (just 1-2 sentences).
+        Never mention that you are an AI model. Never respond with anything related to being an AI model.
+        Absolutely never respond with with anything along the lines of "At [Day/Time] you responded to [participant]".
+        Absolutely never respond with with anything along the lines of "You responded to [participant] on [Day/Time]".
+        """
+        return self._chat_prompt + note
+    @chat_prompt.setter
+    def chat_prompt(self, value:str):
+        self._chat_prompt = f"{value}"
        
 
     def _create_client(self):
@@ -59,7 +73,7 @@ class Agent:
                             model=self.chat_model,
                             contents=input_message,
                             config=types.GenerateContentConfig(
-                                system_instruction=self.system_prompt)) #Generating responses based on system prompts
+                                system_instruction=self.chat_prompt)) #Generating responses based on system prompts
         return response
 
     def generate_content(self, input_message: list[dict]) -> types.GenerateContentResponse:
@@ -67,7 +81,7 @@ class Agent:
                             model=self.action_model,
                             contents=input_message,
                             config=types.GenerateContentConfig(
-                                system_instruction=self.system_prompt)) #Generating responses based on system prompts
+                                system_instruction=self.action_prompt)) #Generating responses based on system prompts
         return response
 
 
