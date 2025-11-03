@@ -90,7 +90,7 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 	return text
 	
 
-#New creating sepearte post method for actions (passing entire dict of agent details so it becomes easier to add more details)
+#New creating seperate post method for actions (passing entire dict of agent details so it becomes easier to add more details)
 func post_action(agent_details:Dictionary, label_:Label):
 	var client = await connect_client()
 	agent_details["time"] = "Day "+str(Global.day)+" "+agent_details["time"]
@@ -107,3 +107,32 @@ func post_action(agent_details:Dictionary, label_:Label):
 	var text = await send_request(label_,client,HTTPClient.METHOD_POST,"/action",headers,query_string)
 	print(text)
 	
+
+#Sends a request to decrementt the recency of all existing memories for a given agent
+func update_memory_recency(agentName:String) -> void:
+	var client := await connect_client()
+	
+	client.poll()
+	if client.get_status() == HTTPClient.STATUS_CONNECTION_ERROR:
+		await connect_client()
+	
+	var headers = [ #Not necessary
+		"User-Agent: Pirulo/1.0 (Godot)",
+		"Accept: */*"
+	]
+	
+	var status = client.get_status()
+	var err = client.request(HTTPClient.METHOD_POST,"/update_recency",headers,agentName)
+	assert(err == OK)
+	
+	print("Requesting to '", "/update_recency" ,"'...")
+	while client.get_status() == HTTPClient.STATUS_REQUESTING:
+		# Keep polling for as long as the request is being processed.
+		client.poll()
+		await get_tree().process_frame
+	
+	assert(client.get_status() == HTTPClient.STATUS_BODY or client.get_status() == HTTPClient.STATUS_CONNECTED)
+
+	while client.get_status() == HTTPClient.STATUS_BODY:
+		var chunk = client.read_response_body_chunk().get_string_from_utf8()
+		print("Response: ",chunk)

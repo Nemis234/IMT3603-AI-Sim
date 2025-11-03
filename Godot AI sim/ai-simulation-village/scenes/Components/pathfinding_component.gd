@@ -65,6 +65,7 @@ func _got_to_object(action: String) -> void:
 	if interactable_object:
 		if agent.in_building == interactable_object["building"]:
 			_go_to_target(interactable_object["position"])
+			
 		elif agent.in_building != interactable_object["building"] and agent.in_building != null:
 			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 			agent.new_action = "leavebuilding"
@@ -72,6 +73,7 @@ func _got_to_object(action: String) -> void:
 			agent.queued_action = action.to_lower()
 		else:
 			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+
 	else:
 		print("No " + object +  " in memory")
 

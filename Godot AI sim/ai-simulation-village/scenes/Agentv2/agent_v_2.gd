@@ -28,13 +28,12 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var agentBed: Node2D
 var house_entrance
 @onready var in_building: Node2D = house #Stores the building the agent is in.
-var currentLocation #Used for AI stuff?
-
+@onready var currentLocation: Dictionary = {"location": house.name , "sub_location": agentBed.name} 
 #Agents action related
 var agent_action_done: bool = true
 var new_action
 var current_action # Stores the agents current action 
-var duration_action
+var duration_action = 1 #To store the duration of agent's current action
 var queued_action = ""
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
@@ -60,9 +59,12 @@ func _ready() -> void:
 	
 func _process(_delta: float) -> void:
 	if agent_action_done:
-		await interactionComponent._delay_agent_action(100)
+		await interactionComponent._delay_agent_action(duration_action)
 		new_agent_action()
+	
+	
 
+	
 func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		movementAnimation.update_animation(Vector2.ZERO)
@@ -104,12 +106,12 @@ func new_agent_action():
 	agentStats.hide_progress_bar()
 		
 	if queued_action == "":
-		#var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
-		#new_action = action_details["action"]
-		#duration_action = action_details["duration"] #Expected Duration to perform action in minutes
+		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
+		new_action = action_details["action"]
+		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		
-		new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
-		duration_action = clamp(randf_range(100,480),100,480)
+		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		#duration_action = clamp(randf_range(100,480),100,480)
 	else:
 		new_action = queued_action
 		queued_action = ""
@@ -174,7 +176,7 @@ func _on_mouse_exited():
 	on_mouse = false
 	print("Mouse exited",name)
 
-# On right click initiate caht with agents. Requires Interacting entity (in this case only player to be passed)
+# On right click initiate chat with agents. Requires Interacting entity (in this case only player to be passed)
 func _on_area_input_event(viewport, event, shape_idx, entity:Player):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT and player_in_area:
 		player.get_node("ChatBox").visible = true

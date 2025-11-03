@@ -43,7 +43,7 @@ class Agent:
 
     @property
     def system_prompt(self):
-        note = "\n\nNote: Respond to questions/queries in brief (just 1-2 sentences)."
+        note = "\n\nNote: Respond to questions/queries in brief (just 1-2 sentences)"
         return self._system_prompt + note
     @system_prompt.setter
     def system_prompt(self, value:str):
@@ -121,7 +121,7 @@ class Agent:
                 
         #Add query to memory
         if save_query:
-            memory_message = f"On {time_stamp}, you were asked/told by {participant}: {message}."
+            memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
             self.memory.add(role="user" ,message=memory_message,time_stamp=time_stamp)
             
         #Add response to memory
@@ -143,7 +143,7 @@ class Agent:
             yield chunk
         
         
-        memory_message = f"On {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
+        memory_message = f"At {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
         self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
     
@@ -170,6 +170,7 @@ class Agent:
 
         action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1]} #Dict {action: , duration: }
         
+        print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")

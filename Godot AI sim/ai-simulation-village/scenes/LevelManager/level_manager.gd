@@ -5,11 +5,15 @@ extends Node2D
 
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
+@onready var agentTimer: Timer = $AgentTimer
+var agent_list: Array = [] #To store list of agents
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
+	agentTimer.timeout.connect(_on_agent_timer_timeout)
+	
 	for node in get_children():
 		if node.is_in_group("Player"):
 			#node.interact.connect(_change_state)
@@ -19,6 +23,7 @@ func _ready() -> void:
 		if node.is_in_group("Agent"):
 			node.interactionComponent.interact.connect(_change_state)
 			Global.agent_houses[node.agentName] = node.house #Register name and house
+			agent_list.append(node.agentName)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		node.connect("request_popup", _on_request_popup)
@@ -47,8 +52,7 @@ func _change_state(entity,interactable):
 			dayNightCycle.hideDayNightFilter("hide")
 		
 		if entity.is_in_group("Agent"):
-			entity.currentLocation = house.name 
-
+			entity.currentLocation ={"location": house.name , "sub_location": house.name+' exit'} 
 
 	elif interactable.is_in_group("house_int"):
 		print("Changing position")
@@ -59,9 +63,12 @@ func _change_state(entity,interactable):
 			dayNightCycle.hideDayNightFilter("unhide")
 		
 		if entity.is_in_group("Agent"):
-			entity.currentLocation = "outside of " + house.name
+			entity.currentLocation = {"location": "outside" , "sub_location": "at doorstep of "+ house.name} 
 
 	elif interactable.is_in_group("interactable"):
+		if entity.is_in_group("Agent"):
+			entity.currentLocation["sub_location"] = interactable.name
+
 		interactable.change_state(entity)
 	
 	
@@ -118,3 +125,6 @@ func _process_time(delta) -> void:
 func _on_request_popup(question, choices):
 	$PopupMenu.show_menu(question, choices)
 	
+func _on_agent_timer_timeout():
+	for agent in agent_list:
+		ServerConnection.update_memory_recency(agent) #Update memory recency
