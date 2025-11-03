@@ -102,17 +102,18 @@ class Agent:
 
 
     async def chat(self, participant:str,message:str,time_stamp,save_query:bool=True,save_response:bool=True):
-        query_message = {'role':"user", 'parts':[{'text': message}]}
+        new_message = f"{participant} says: {message}"
+        query_message = {'role':"user", 'parts':[{'text': new_message}]}
         history = self.get_memory(message) #Get most relevant entries from db closest to query
 
         print("Top memories:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")
+            pass
 
-        print("User is asking:", message)
-        
-        
-        input_message = [] 
+        print(new_message)
+
+        input_message = []
         input_message.extend(history)
         input_message.append(query_message)
 
@@ -132,15 +133,41 @@ class Agent:
                         if w.strip():  # skip empty tokens
                             yield w + " "
                             await asyncio.sleep(0.05)
-                
+
+        banned_prefixes = [f"You replied to {participant} on {time_stamp}:",
+                        f"You replied to {participant}:",
+                        f"You responded to {participant} on {time_stamp}:",
+                        f"You responded to {participant}:",
+                        f"You responded:",
+                        f"At {time_stamp}, you responded to {participant}:",
+                        f"At {time_stamp}, you replied to {participant}:",
+                        f"I replied to {participant} on {time_stamp}:",
+                        f"I replied to {participant}:",
+                        f"I responded to {participant} on {time_stamp}:",
+                        f"I responded to {participant}:",
+                        f"I told {participant} on {time_stamp}:",
+                        f"I told {participant}:",
+                        f"{self._name} responding:",
+                        f"{self._name} replying:",
+                        f"on {time_stamp}:"
+                        ]
+        print()
+        print(f"Raw response: ", response_message)
+
+        for prefix in banned_prefixes:
+            response_message = response_message.replace(prefix, "",1)
+
+        print()
+        print("Cleaned response: ", response_message)
+
         #Add query to memory
         if save_query:
-            memory_message = f"At {time_stamp}, you were asked/told by {participant}: {message}."
+            memory_message = f"On {time_stamp}, you were asked/told by {participant}: {message}."
             self.memory.add(role="user" ,message=memory_message,time_stamp=time_stamp)
             
         #Add response to memory
         if save_response:
-            memory_message = f"You responded to {participant} on {time_stamp}: {response_message} "
+            memory_message = f"On {time_stamp}, you responded to {participant}: {response_message} "
             self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
 
@@ -152,12 +179,12 @@ class Agent:
         '''
 
         response_message=""
-        async for chunk in self.chat(participant,message,time_stamp,False, False):
+        async for chunk in self.chat(USER,message,time_stamp,False, False):
             response_message += chunk
             yield chunk
-        
-        
-        memory_message = f"At {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
+
+
+        memory_message = f"On {time_stamp}, you started a conversation with {participant} by saying: {response_message} "
         self.memory.add(role= "model",message=memory_message,time_stamp=time_stamp)
     
     
