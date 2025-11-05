@@ -184,6 +184,11 @@ func _on_area_input_event(viewport, event, shape_idx, entity:Player):
 		player.in_dialogue = true
 		self.in_dialogue = true
 		player.recipient_in_convo = self
+		
+		#Make agent face player
+		movementAnimation.set_facing(entity.get_opposite_direction())
+		movementAnimation.update_animation(-entity.player_direction)
+		
 
 func hide_speech():
 	speechBubble.visible = false
