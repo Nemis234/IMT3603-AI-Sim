@@ -128,7 +128,11 @@ func _on_request_popup(question, choices):
 	$PopupMenu.show_menu(question, choices)
 	
 func _on_choice_made(choice_text:String):
-	player.in_interaction = false #Set player out of interaction on making choice
+	if player.curr_interactable and player.curr_interactable.has_method("on_choice_made"):
+		player.curr_interactable.on_choice_made(choice_text)
+	else:
+		player.in_interaction = false #Set player out of interaction on making choice
+	player.curr_interactable = null
 
 ###############################################################
 

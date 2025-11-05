@@ -5,6 +5,7 @@ extends CharacterBody2D
 var player_direction: Vector2
 var in_dialogue: bool = false #Keep track if player is engaging with an agent in dialogue
 var in_interaction:bool = false #Keep track if player is engaging with an object
+var curr_interactable: Node = null
 var recipient_in_convo: Agent = null # To stroe the agent the player is interacting with
 
 #signal interact(entity,interactable) #Signal for general interactions
