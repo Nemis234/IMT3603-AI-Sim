@@ -112,6 +112,7 @@ func new_agent_action():
 		
 		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 		#duration_action = clamp(randf_range(100,480),100,480)
+	
 	else:
 		new_action = queued_action
 		queued_action = ""

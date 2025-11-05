@@ -107,7 +107,7 @@ func post_action(agent_details:Dictionary, label_:Label):
 	print(text)
 	
 
-#Sends a request to decrementt the recency of all existing memories for a given agent
+#Sends a request to decrement the recency of all existing memories for a given agent
 func update_memory_recency(agentName:String) -> void:
 	var client := await connect_client()
 	

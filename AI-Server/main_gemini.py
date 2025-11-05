@@ -144,10 +144,10 @@ async def action_endpoint(request: Request):
 
 @chat_server.post("/update_recency")
 async def recency_endpoint(request: Request):
-    request_body = await request.body()
-    agent_name = request_body.decode("utf-8")
+    agent_name:str = await request.json()
+    
     print(f"Updating memory recencies for agent {agent_name}")
 
-    agent: Agent = agent_obj_map[agent_name] #Get agent object
+    agent: Agent = agent_obj_map[str(agent_name)] #Get agent object
     agent.memory.update_recency()
     return Response("Memory Recency Update Successful")
