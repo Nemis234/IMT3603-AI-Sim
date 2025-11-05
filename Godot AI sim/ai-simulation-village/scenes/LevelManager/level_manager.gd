@@ -27,8 +27,10 @@ func _ready() -> void:
 			agent_list.append(node.agentName)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
-		node.connect("request_popup", _on_request_popup)
-		
+		# chack if interactable has signal before connecting
+		if node.has_signal("request_popup"):
+			node.connect("request_popup", _on_request_popup)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_physics_process(_delta: float) -> void:
