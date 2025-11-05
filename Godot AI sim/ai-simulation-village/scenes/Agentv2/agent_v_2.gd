@@ -5,8 +5,8 @@ extends CharacterBody2D
 @onready var agent_interact_area: Area2D = $InteractArea
 var on_mouse: bool = true # To see if the mouse is on the agent
 var player_in_area: bool = false # Toggle to cehck if player is in its interact area
-@onready var player: Player = get_tree().root.get_node("LevelManager/Adam")
-
+#@onready var player: Player = get_tree().root.get_node("LevelManager/Adam")
+@onready var player: Player = get_tree().get_root().find_child("Adam", true, false) # searches for the node recursively
 
 @onready var objectDetectionArea: Area2D = $ObjectDetection
 
@@ -106,12 +106,12 @@ func new_agent_action():
 	agentStats.hide_progress_bar()
 		
 	if queued_action == "":
-		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
-		new_action = action_details["action"]
-		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
+		#var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
+		#new_action = action_details["action"]
+		#duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		
-		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
-		#duration_action = clamp(randf_range(100,480),100,480)
+		new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		duration_action = clamp(randf_range(100,480),100,480)
 	
 	else:
 		new_action = queued_action
