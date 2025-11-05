@@ -13,6 +13,7 @@ var agent_list: Array = [] #To store list of agents
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
 	agentTimer.timeout.connect(_on_agent_timer_timeout)
+	$PopupMenu.connect("choice_made", _on_choice_made)
 	
 	for node in get_children():
 		if node.is_in_group("Player"):
@@ -121,10 +122,17 @@ func _process_time(delta) -> void:
 	#print("In-game time: %02d:%02d" % [hour, minute])
 	#print(partOfDay)
 	
-
+## Relating to pop_menu and chices for certain intercatables ##
 func _on_request_popup(question, choices):
+	player.in_interaction = true #Set player in interaction
 	$PopupMenu.show_menu(question, choices)
 	
+func _on_choice_made(choice_text:String):
+	player.in_interaction = false #Set player out of interaction on making choice
+
+###############################################################
+
+
 func _on_agent_timer_timeout():
 	for agent in agent_list:
 		ServerConnection.update_memory_recency(agent) #Update memory recency

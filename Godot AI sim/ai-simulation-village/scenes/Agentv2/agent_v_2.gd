@@ -58,7 +58,7 @@ func _ready() -> void:
 	}
 	
 func _process(_delta: float) -> void:
-	if agent_action_done:
+	if agent_action_done and not self.in_dialogue:
 		await interactionComponent._delay_agent_action(duration_action)
 		new_agent_action()
 	
