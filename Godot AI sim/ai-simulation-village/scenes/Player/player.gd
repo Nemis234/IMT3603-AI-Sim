@@ -4,6 +4,8 @@ extends CharacterBody2D
 
 var player_direction: Vector2
 var in_dialogue: bool = false #Keep track if player is engaging with an agent in dialogue
+var in_interaction:bool = false #Keep track if player is engaging with an object
+var curr_interactable: Node = null
 var recipient_in_convo: Agent = null # To stroe the agent the player is interacting with
 
 #signal interact(entity,interactable) #Signal for general interactions
@@ -26,3 +28,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if recipient_in_convo.is_in_group("Agent"):
 			emit_signal("end_convo",recipient_in_convo)
 		pass
+
+#Gets the opposite direction of the player direction as a string
+func get_opposite_direction()->String:
+	if player_direction == Vector2.UP:
+		return "down"
+	elif player_direction == Vector2.DOWN:
+		return "up"
+	elif player_direction == Vector2.LEFT:
+		return "right"
+	elif player_direction == Vector2.RIGHT:
+		return "left"
+	
+	return ""

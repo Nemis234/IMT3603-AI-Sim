@@ -13,6 +13,7 @@ var agent_list: Array = [] #To store list of agents
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
 	agentTimer.timeout.connect(_on_agent_timer_timeout)
+	$PopupMenu.connect("choice_made", _on_choice_made)
 	
 	for node in get_children():
 		if node.is_in_group("Player"):
@@ -26,8 +27,10 @@ func _ready() -> void:
 			agent_list.append(node.agentName)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
-		node.connect("request_popup", _on_request_popup)
-		
+		# chack if interactable has signal before connecting
+		if node.has_signal("request_popup"):
+			node.connect("request_popup", _on_request_popup)
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _on_physics_process(_delta: float) -> void:
@@ -121,10 +124,21 @@ func _process_time(delta) -> void:
 	#print("In-game time: %02d:%02d" % [hour, minute])
 	#print(partOfDay)
 	
-
+## Relating to pop_menu and chices for certain intercatables ##
 func _on_request_popup(question, choices):
+	player.in_interaction = true #Set player in interaction
 	$PopupMenu.show_menu(question, choices)
 	
+func _on_choice_made(choice_text:String):
+	if player.curr_interactable and player.curr_interactable.has_method("on_choice_made"):
+		player.curr_interactable.on_choice_made(choice_text)
+	else:
+		player.in_interaction = false #Set player out of interaction on making choice
+	player.curr_interactable = null
+
+###############################################################
+
+
 func _on_agent_timer_timeout():
 	for agent in agent_list:
 		ServerConnection.update_memory_recency(agent) #Update memory recency

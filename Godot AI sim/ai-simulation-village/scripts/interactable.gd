@@ -1,10 +1,11 @@
 class_name interactable
 extends Node2D
 
-@onready var interact_area: Area2D = $Area2D
+@onready var interact_area: Area2D = get_node_or_null("Area2D")
 var on_mouse: bool = false #To check mouse is hoverd over
 var player_in_area: bool = false #To check if player entered the area
-@onready var player: Player = get_tree().root.get_node("LevelManager/Adam")
+#@onready var player: Player = get_tree().root.get_node("LevelManager/Adam")
+@onready var player: Player = get_tree().get_root().find_child("Adam", true, false) # searches for the node recursively
 
 
 

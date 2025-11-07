@@ -89,7 +89,7 @@ offset_bottom = -130.0
 [node name="DayNightCycle" parent="." instance=ExtResource("15_i07ia")]
 
 [node name="AgentTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 30.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
