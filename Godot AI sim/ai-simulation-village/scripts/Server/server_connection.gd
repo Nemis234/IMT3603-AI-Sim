@@ -11,7 +11,7 @@ func connect_client() -> HTTPClient:
 	client = HTTPClient.new()
 	err = client.connect_to_host(SERVER_URL,SERVER_PORT)
 	assert(err==OK)
-	print("Connecting...")
+	
 	while client.get_status() == HTTPClient.STATUS_CONNECTING or client.get_status() == HTTPClient.STATUS_RESOLVING:
 		client.poll()
 		await get_tree().process_frame
@@ -44,7 +44,7 @@ func send_request(client:HTTPClient,url:String,
 	var err = client.request(method,url,headers,query_string)
 	assert(err == OK)
 	
-	print("Requesting to '",url,"'...")
+	
 	while client.get_status() == HTTPClient.STATUS_REQUESTING:
 		# Keep polling for as long as the request is being processed.
 		client.poll()
@@ -63,8 +63,8 @@ func send_request(client:HTTPClient,url:String,
 		else:
 			rb = rb + chunk # Append to read buffer.
 			label_.text = rb.get_string_from_utf8()
-			#print(rb.get_string_from_utf8())
-	print("bytes got: ", rb.size())
+			
+	
 	var text = rb.get_string_from_utf8()
 	return text
 
@@ -85,7 +85,7 @@ func post_message(agentName:String,message:String, label_:Label, type:String="ch
 		"message": message, 
 		"participant": participant 
 		}
-	print(fields)
+	
 	var query_string = JSON.stringify(fields)
 	
 	var text = await send_request(client,"/"+type,query_string,label_)
@@ -98,13 +98,12 @@ func post_action(agent_details:Dictionary, label_:Label):
 	var client = await connect_client()
 	agent_details["time"] = "Day "+str(Global.day)+" "+agent_details["time"]
 	
-	print(agent_details)
 	
 	
 	var query_string = JSON.stringify(agent_details)
 	
 	var text = await send_request(client,"/action",query_string,label_)
-	print(text)
+	
 	
 
 #Sends a request to decrement the recency of all existing memories for a given agent
@@ -114,4 +113,4 @@ func update_memory_recency(agentName:String) -> void:
 	var query_string = JSON.stringify(agentName)
 	
 	var text = await send_request(client,"/update_recency",query_string)
-	print(text)
+	

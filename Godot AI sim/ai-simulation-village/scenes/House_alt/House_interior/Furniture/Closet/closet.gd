@@ -17,4 +17,3 @@ func change_state(node: Node) -> void:
 				"Nothing"
 			]
 		)
-	print("Interacted with Closet")

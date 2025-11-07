@@ -12,7 +12,6 @@ func change_state(node: Node) -> void:
 		node.in_interaction = true
 		node.curr_interactable = self
 		emit_signal("request_popup", "Would you like to go to sleep?", ["No", "Yes"])
-	print("Interacted with Bed")
 
 func on_choice_made(choice_text: String) -> void:
 	var init_position = player.global_position

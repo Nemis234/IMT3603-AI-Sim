@@ -45,8 +45,6 @@ func _process(delta: float) -> void:
 	dayNightCycle.setDayNightColor(time_per_day)
 
 func _change_state(entity,interactable):
-	#print("signal sent",interactable.is_in_group("house_int"))
-	print(entity," interacts with: ", interactable)
 	if interactable.is_in_group("house_ext"):
 		var house = interactable.get_parent()
 		entity.position = house.exit_area.get_global_position()
@@ -58,7 +56,6 @@ func _change_state(entity,interactable):
 			entity.currentLocation ={"location": house.name , "sub_location": house.name+' exit'} 
 
 	elif interactable.is_in_group("house_int"):
-		print("Changing position")
 		var house = interactable.get_parent()
 		entity.position = house.door_area.get_global_position()
 		
@@ -120,10 +117,8 @@ func _process_time(delta) -> void:
 		Global.partOfDay = "afternoon"
 	else:
 		Global.partOfDay = "evening"
-	
-	#print("In-game time: %02d:%02d" % [hour, minute])
-	#print(partOfDay)
-	
+
+
 ## Relating to pop_menu and chices for certain intercatables ##
 func _on_request_popup(question, choices):
 	player.in_interaction = true #Set player in interaction

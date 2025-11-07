@@ -7,4 +7,3 @@ extends interactable
 #Changes state
 func change_state(node:Node) -> void:
 	state_handler_component.change_state(0,collisionArea)
-	print("Interacted with TV")

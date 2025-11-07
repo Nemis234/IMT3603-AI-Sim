@@ -175,12 +175,12 @@ func _on_interact_area_exited(body):
 func _on_mouse_entered():
 	agent_interact_area.modulate = Color(1, 1, 0.6) # highlight
 	on_mouse = true
-	print("Mouse entered",name)
+
 
 func _on_mouse_exited():
 	agent_interact_area.modulate = Color(1, 1, 1) # remove highlight
 	on_mouse = false
-	print("Mouse exited",name)
+
 
 # On right click initiate chat with agents. Requires Interacting entity (in this case only player to be passed)
 func _on_area_input_event(viewport, event, shape_idx, entity:Player):
