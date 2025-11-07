@@ -25,6 +25,7 @@ func _ready() -> void:
 			node.interactionComponent.interact.connect(_change_state)
 			Global.agent_houses[node.agentName] = node.house #Register name and house
 			agent_list.append(node.agentName)
+	print(Global.agent_houses)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		# chack if interactable has signal before connecting

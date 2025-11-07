@@ -59,17 +59,21 @@ func _got_to_object(action: String) -> void:
 			object = "fridge"
 		"sleep":
 			object = "myownbed"
+		"visit":
+			object = "placehold for now, wait until i know what the data looks like"
 	
 	var interactable_object = agent.actionList.is_object_in_memory(object)
 	if interactable_object:
+		#If agent is in the same building as the object
 		if agent.in_building == interactable_object["building"]:
 			_go_to_target(interactable_object["position"])
-			
+		#If agent is in another building but not in the same as the object
 		elif agent.in_building != interactable_object["building"] and agent.in_building != null:
 			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
 			agent.queued_action = action.to_lower()
+		#If agent is outside
 		else:
 			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
 

@@ -112,4 +112,3 @@ agentBed = NodePath("../House2/house_interior/Bed")
 
 [editable path="House/house_interior"]
 [editable path="House2/house_interior"]
-[editable path="House3/Houseinterior3"]

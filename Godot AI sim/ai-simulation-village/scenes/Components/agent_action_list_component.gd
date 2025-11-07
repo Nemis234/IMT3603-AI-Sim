@@ -15,7 +15,8 @@ var agent_actions: Array = [
 	"leavebuilding", 
 	"read",
 	"eat", 
-	"sleep"
+	"sleep",
+	"visit"
 	]
 
 #Check if agent remembers a specific object
@@ -126,7 +127,8 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 		"agent": str(agentNode.agentName),
 		"location": str(agentNode.currentLocation),
 		"time":hour + ":" + minute,
-		"action_list": str(filtered_action_list)
+		"action_list": str(filtered_action_list),
+		"visit_list": Global.agent_houses # Dicitonary {}
 		}
 	# Send prompt and wait for response
 	#NEW: Set type to action to send request to /action endpoint
