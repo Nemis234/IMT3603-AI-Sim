@@ -102,7 +102,7 @@ func post_action(agent_details:Dictionary, label_:Label):
 	
 	var query_string = JSON.stringify(agent_details)
 	
-	var text = await send_request(client,"/action",query_string,label_)
+	var _text = await send_request(client,"/action",query_string,label_)
 	
 	
 
@@ -112,5 +112,5 @@ func update_memory_recency(agentName:String) -> void:
 	
 	var query_string = JSON.stringify(agentName)
 	
-	var text = await send_request(client,"/update_recency",query_string)
+	var _text = await send_request(client,"/update_recency",query_string)
 	

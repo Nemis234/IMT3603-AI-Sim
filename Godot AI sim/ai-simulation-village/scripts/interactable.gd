@@ -18,10 +18,6 @@ func _ready() -> void:
 	interact_area.input_event.connect(_on_area_input_event)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
 func _on_entered(body):
 	if body.is_in_group("Player"):
 		player_in_area = true 
@@ -30,7 +26,7 @@ func _on_exited(body):
 	if body.is_in_group("Player"):
 		player_in_area = false 
 
-func change_state(node:Node)->void:
+func change_state(_node:Node)->void:
 	pass		
 
 func _on_mouse_entered():
@@ -43,7 +39,7 @@ func _on_mouse_exited():
 	on_mouse = false
 
 
-func _on_area_input_event(viewport, event:InputEvent, shape_idx):
+func _on_area_input_event(_viewport, event:InputEvent, _shape_idx):
 	if event.is_action_pressed("interact") and player_in_area:
 		change_state(player)
 		print("Clicked on area:", name)

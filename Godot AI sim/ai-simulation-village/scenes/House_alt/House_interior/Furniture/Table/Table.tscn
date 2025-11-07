@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bl0rpx6oputde"]
 
-[ext_resource type="Texture2D" uid="uid://c1opdsf575t7k" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_arcf1"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_arcf1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0mtc2"]
 atlas = ExtResource("1_arcf1")

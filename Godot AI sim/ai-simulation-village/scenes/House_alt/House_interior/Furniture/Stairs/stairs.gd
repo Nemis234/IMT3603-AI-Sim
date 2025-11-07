@@ -1,13 +1,14 @@
 extends interactable
 
 signal stair_used(target_floor: String)
+@warning_ignore("unused_signal")
 signal request_popup(question: String, content: Array)
 
 @export var target_stair: NodePath
 @export var target_floor: String
 
 # Stiars interact logic
-func interact(player):
+func interact_(_player):
 	# Set oposite stairs as target
 	var target = get_node_or_null(target_stair)
 	if target:
@@ -20,4 +21,4 @@ func interact(player):
 # To integrate with LevelManager
 func change_state(entity):
 	if entity:
-		interact(entity)
+		interact_(entity)

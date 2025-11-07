@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://g3gulgno0lgb"]
 
-[ext_resource type="Texture2D" uid="uid://bigblp1taodk4" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_i13rp"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_i13rp"]
 [ext_resource type="Script" uid="uid://dahsc2fqq8dha" path="res://scenes/House_alt/House_interior/Furniture/Door/Open_up/door_up.gd" id="1_vvahc"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_lg3w3"]
 [ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="4_3ty0b"]

@@ -69,12 +69,12 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 	for key in interactable_objects.keys():
 		var objectData = interactable_objects[key]
 		if objectData.has("name"):
-			var name = objectData["name"].to_lower()
-			if name.find("bookshelf") != -1:
+			var object_name = objectData["name"].to_lower()
+			if object_name.find("bookshelf") != -1:
 				has_bookshelf = true
-			if name.find("fridge") != -1:
+			if object_name.find("fridge") != -1:
 				has_fridge = true
-			if name.find("bed") != -1:
+			if object_name.find("bed") != -1:
 				has_bed = true
 
 	# Remove actions when their required object is missing

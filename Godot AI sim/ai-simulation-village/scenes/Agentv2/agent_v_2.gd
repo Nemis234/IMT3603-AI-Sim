@@ -183,7 +183,7 @@ func _on_mouse_exited():
 
 
 # On right click initiate chat with agents. Requires Interacting entity (in this case only player to be passed)
-func _on_area_input_event(viewport, event, shape_idx, entity:Player):
+func _on_area_input_event(_viewport, event, _shape_idx, entity:Player):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT and player_in_area:
 		player.get_node("ChatBox").visible = true
 		player.in_dialogue = true

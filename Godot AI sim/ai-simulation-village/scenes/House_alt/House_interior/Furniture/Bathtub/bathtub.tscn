@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bsobevf513w03"]
 
-[ext_resource type="Texture2D" uid="uid://b0vgics5p3k1w" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
+[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
 [ext_resource type="Script" uid="uid://x08yoq6iwjrs" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.gd" id="1_a5aqc"]
 [ext_resource type="PackedScene" uid="uid://cehfeltlxf112" path="res://scenes/Components/state_handler_component.tscn" id="3_qj85k"]
 

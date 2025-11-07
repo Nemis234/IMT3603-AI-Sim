@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8wxfyhgu5wfj"]
 
 [ext_resource type="Script" uid="uid://bq5peo7b23nf6" path="res://scenes/UI/MainMenu/main_menu.gd" id="1_iy2v4"]
-[ext_resource type="Texture2D" uid="uid://8b67axdpimoa" path="res://assets/serenvillage_2d_art.jpg" id="2_c38wu"]
+[ext_resource type="Texture2D" uid="uid://c5l5oir83fqn7" path="res://assets/serenvillage_2d_art.jpg" id="2_c38wu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yj5a8"]
 

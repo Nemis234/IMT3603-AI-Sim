@@ -1,9 +1,9 @@
 [gd_scene load_steps=58 format=3 uid="uid://cnb82310hrgyw"]
 
-[ext_resource type="Texture2D" uid="uid://clgm3bxqbn282" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
+[ext_resource type="Texture2D" uid="uid://eu4w1ro4me4u" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
 [ext_resource type="Script" uid="uid://3fkc3teo15tn" path="res://scenes/Player/player.gd" id="1_xcisb"]
 [ext_resource type="Script" uid="uid://c51k334lubtr1" path="res://scripts/state_machine.gd" id="2_ky53y"]
-[ext_resource type="Texture2D" uid="uid://yh3n2d0arvld" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
+[ext_resource type="Texture2D" uid="uid://cgdnef61ikc6y" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
 [ext_resource type="Script" uid="uid://c30fjyf3v3ewk" path="res://scripts/Player_States/idle_state.gd" id="5_fxc31"]
 [ext_resource type="Script" uid="uid://cpfhrvy4xavxh" path="res://scripts/Player_States/walk_state.gd" id="6_socpp"]
 

@@ -12,7 +12,7 @@ var agent_list: Array = [] #To store list of agents
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
-	agentTimer.timeout.connect(_on_agent_timer_timeout)
+	#agentTimer.timeout.connect(_on_agent_timer_timeout)
 	$PopupMenu.connect("choice_made", _on_choice_made)
 	
 	for node in get_children():
@@ -44,9 +44,9 @@ func _process(delta: float) -> void:
 	_process_time(delta)
 	dayNightCycle.setDayNightColor(time_per_day)
 
-func _change_state(entity,interactable):
-	if interactable.is_in_group("house_ext"):
-		var house = interactable.get_parent()
+func _change_state(entity,interactable_):
+	if interactable_.is_in_group("house_ext"):
+		var house = interactable_.get_parent()
 		entity.position = house.exit_area.get_global_position()
 		
 		if entity.is_in_group("Player"):
@@ -55,8 +55,8 @@ func _change_state(entity,interactable):
 		if entity.is_in_group("Agent"):
 			entity.currentLocation ={"location": house.name , "sub_location": house.name+' exit'} 
 
-	elif interactable.is_in_group("house_int"):
-		var house = interactable.get_parent()
+	elif interactable_.is_in_group("house_int"):
+		var house = interactable_.get_parent()
 		entity.position = house.door_area.get_global_position()
 		
 		if entity.is_in_group("Player"):
@@ -65,11 +65,11 @@ func _change_state(entity,interactable):
 		if entity.is_in_group("Agent"):
 			entity.currentLocation = {"location": "outside" , "sub_location": "at doorstep of "+ house.name} 
 
-	elif interactable.is_in_group("interactable"):
+	elif interactable_.is_in_group("interactable"):
 		if entity.is_in_group("Agent"):
-			entity.currentLocation["sub_location"] = interactable.name
+			entity.currentLocation["sub_location"] = interactable_.name
 
-		interactable.change_state(entity)
+		interactable_.change_state(entity)
 	
 	
 		
@@ -101,7 +101,7 @@ func _end_dialogue(agent):
 
 	
 ##This functions is used to process ingame time.
-func _process_time(delta) -> void:
+func _process_time(_delta) -> void:
 	Global.totalMinutes = Global.time * 1440.0
 	Global.minute = int(Global.totalMinutes) % 60
 	Global.hour = int(Global.totalMinutes / 60) % 24

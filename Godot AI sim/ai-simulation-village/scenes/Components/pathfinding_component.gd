@@ -19,7 +19,7 @@ func set_target(new_target: Vector2):
 	navigationNode.target_position = new_target
 	_has_emitted = false
 
-func move_along_path(delta: float) -> void:
+func move_along_path(_delta: float) -> void:
 	if !navigationNode.is_target_reached():
 		var direction = agent.to_local(navigationNode.get_next_path_position()).normalized()
 		var new_velocity = direction * movement_speed

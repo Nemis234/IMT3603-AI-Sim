@@ -10,5 +10,5 @@ func _on_button_pressed() -> void:
 	chat_input.emit(text)
 
 
-func _on_line_edit_text_submitted(new_text: String) -> void:
+func _on_line_edit_text_submitted(_new_text: String) -> void:
 	_on_button_pressed()
