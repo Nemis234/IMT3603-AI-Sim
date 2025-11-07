@@ -1,37 +1,37 @@
-[gd_scene format=3 uid="uid://d3k16ikq3jige"]
+[gd_scene load_steps=2 format=3 uid="uid://d3k16ikq3jige"]
 
-[node name="SpeechBubble" type="CanvasLayer"]
+[ext_resource type="Script" uid="uid://cjfhb0fnp5suc" path="res://scenes/Dialogue/speech_bubble.gd" id="1_dbbyb"]
 
-[node name="Control" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 300)
+[node name="SpeechBubble" type="Control"]
 layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_dbbyb")
 
-[node name="PanelContainer" type="PanelContainer" parent="Control"]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -75.0
+offset_right = 100.0
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/ScrollContainer"]
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="Control/PanelContainer/ScrollContainer/MarginContainer"]
-custom_minimum_size = Vector2(1000, 300)
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 12
 text = "
 "
-autowrap_mode = 2
+autowrap_mode = 3

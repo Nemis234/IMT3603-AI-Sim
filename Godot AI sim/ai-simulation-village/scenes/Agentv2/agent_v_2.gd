@@ -18,7 +18,7 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var agentStats: AgentStatComponent
 
 @onready var speechBubble = $SpeechBubble
-@onready var speechLabel = $SpeechBubble/Control/PanelContainer/ScrollContainer/MarginContainer/Label
+@onready var speechLabel = $SpeechBubble/PanelContainer/MarginContainer/Label
 
 #Agent identifications
 @export var agentName: String
@@ -192,9 +192,9 @@ func _on_area_input_event(viewport, event, shape_idx, entity:Player):
 
 func hide_speech():
 	speechBubble.visible = false
-	speechLabel.text = ""
+	speechBubble.get_label().text = ""
 
 func stream_speech(text:String):
 	speechBubble.visible = true
-	ServerConnection.post_message(agentName,text,speechLabel)
+	ServerConnection.post_message(agentName,text,speechBubble.get_label())
 	
