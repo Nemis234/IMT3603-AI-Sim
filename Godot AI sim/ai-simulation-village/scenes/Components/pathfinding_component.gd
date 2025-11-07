@@ -29,8 +29,7 @@ func move_along_path(delta: float) -> void:
 			navigationNode.set_velocity(new_velocity)
 		else:
 			_on_navigation_agent_2d_velocity_computed(new_velocity)
-		
-		agent.move_and_slide()
+		#agent.move_and_slide()
 	else:
 		agent.velocity = Vector2.ZERO
 		if !_has_emitted:

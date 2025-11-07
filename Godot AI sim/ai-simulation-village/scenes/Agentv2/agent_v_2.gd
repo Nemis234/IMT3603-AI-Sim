@@ -69,10 +69,15 @@ func _physics_process(delta: float) -> void:
 	if in_dialogue:
 		movementAnimation.update_animation(Vector2.ZERO)
 		return
-
+	for index in get_slide_collision_count():
+		var collision: KinematicCollision2D = get_slide_collision(index)
+		if collision.get_collider().is_in_group("Player"):
+			velocity = collision.get_normal() * collision.get_collider_velocity().length()
+	
 	pathfindingComponent.move_along_path(delta)
 	movementAnimation.update_animation(velocity)
 	
+	move_and_slide()
 
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:

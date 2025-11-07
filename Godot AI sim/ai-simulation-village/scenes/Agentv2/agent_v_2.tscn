@@ -397,6 +397,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_2krod"]
 
 [node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "actionList", "interactionComponent", "agentStats") groups=["Agent"]]
+motion_mode = 1
 script = ExtResource("1_3fu0x")
 movementAnimation = NodePath("WalkingAnimationComponent")
 pathfindingComponent = NodePath("PathfindingComponent")
