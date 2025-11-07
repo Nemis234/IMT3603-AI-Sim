@@ -16,9 +16,9 @@ func _on_physics_process(_delta : float) -> void:
 	
 	var direction = GameInputEvents.movement_input()
 			
-	if direction == Vector2.UP:
+	if direction.y < 0: #Going up
 		animated_sprite_2D.play("walk_back")
-	elif direction == Vector2.DOWN:
+	elif direction.y > 0: #Going down
 		animated_sprite_2D.play("walk_front")
 	elif direction == Vector2.LEFT:
 		animated_sprite_2D.play("walk_left")

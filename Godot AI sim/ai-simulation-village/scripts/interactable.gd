@@ -36,12 +36,12 @@ func change_state(node:Node)->void:
 func _on_mouse_entered():
 	interact_area.modulate = Color(1, 1, 0.6) # highlight
 	on_mouse = true
-	print("Mouse entered",name)
+	#print("Mouse entered",name)
 
 func _on_mouse_exited():
 	interact_area.modulate = Color(1, 1, 1) # remove highlight
 	on_mouse = false
-	print("Mouse exited",name)
+	#print("Mouse exited",name)
 
 
 func _on_area_input_event(viewport, event:InputEvent, shape_idx):
