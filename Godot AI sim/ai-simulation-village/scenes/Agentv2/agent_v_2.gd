@@ -114,8 +114,8 @@ func new_agent_action():
 		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
-		visiting_agent = str(action_details["visiting"]) #Get the other agent name the agent wants to visit. This will be "" if "visit" is not chosen as the current action
-		
+		var visiting_agent = str(action_details["visiting"]) #Get the other agent name the agent wants to visit. This will be "" if "visit" is not chosen as the current action
+		print("Visiting agent: "+visiting_agent)
 		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 		#duration_action = clamp(randf_range(100,480),100,480)
 	
