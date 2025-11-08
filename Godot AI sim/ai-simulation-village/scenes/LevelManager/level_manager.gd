@@ -3,6 +3,7 @@ extends Node2D
 var save_path = Global.selected_save
 
 @onready var player:Player = $Adam
+@onready var inventory = $PlayerInventory
 
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
@@ -14,8 +15,13 @@ var agent_list: Array = [] #To store list of agents
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
 	#agentTimer.timeout.connect(_on_agent_timer_timeout)
-	
+	#inventory.inventory.append(Item.new("Potion", "Restores 20 HP", 3))
+	#inventory.inventory.append(Item.new("Sword", "A rusty iron sword", 1))
+	#inventory.inventory.append(Item.new("Apple", "Tastes fresh!", 5))
+	#inventory.display_inventory()
 	$PopupMenu.connect("choice_made", _on_choice_made)
+	player.connect("open_inventory", inventory.display_inventory)
+	player.connect("close_inventory", inventory.hide_menu)
 	
 	for node in get_children():
 		if node.is_in_group("Player"):
