@@ -194,10 +194,14 @@ class Agent:
         action_list = agent_details.get("action_list", "")
         time_stamp = agent_details.get("time","")
         location = agent_details.get("location","") #Gets current location
+        visit_list = dict(agent_details.get("visit_list",{})) #Dict of other agents that can be visited
+        #print(visit_list)
         
         #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" This is your current location {location}. Pick an action from this array {action_list}  that you feel like should be done now. Decide a suitable duration it will take for you to perform the action and strictly output the following: action,duration.
-                            Ensure duration is a single number (in minutes)
+        action_prompt = f""" This is your current location: {location}. Pick an action from this array {action_list}  that you feel like should be done now.
+                             Decide a suitable duration it will take for you to perform the action.  If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers
+                             to the name of the agent you feel like you should visit from this list: {list(visit_list.keys())}. Otherwise, strictly output: action,duration,"".
+                             Ensure duration is a single number (in minutes)
                             """
         
         
@@ -209,13 +213,13 @@ class Agent:
 
         response = self.generate_content(input_message)
 
-        action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1]} #Dict {action: , duration: }
+        action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1], "visiting":response.text.split(',')[2]} #Dict {action: , duration: }
         
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")
-        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes")
+        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes. Visiting: {action_dict["visiting"]}")
 
 
         action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
