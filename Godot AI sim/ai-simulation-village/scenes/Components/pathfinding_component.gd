@@ -29,7 +29,6 @@ func move_along_path(_delta: float) -> void:
 			navigationNode.set_velocity(new_velocity)
 		else:
 			_on_navigation_agent_2d_velocity_computed(new_velocity)
-		#agent.move_and_slide()
 	else:
 		agent.velocity = Vector2.ZERO
 		if !_has_emitted:
@@ -42,8 +41,34 @@ func get_target_reached() -> bool:
 ##Helper function to set target desitnation and set the agent_action_done to false.
 ##This is used for simple "go to this point"-actions.
 ##target is the end-destination in vector.
-func _go_to_target(target: Vector2i)-> void:
-	set_target(target)
+##action is used for when action requires agent to go somewhere but not interact with objects, for now "visit" is the only action
+func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
+	match action:
+		"visit":
+			#If agent is outside
+			if agent.in_building == null:
+				set_target(target)
+			#Leave building if agent is in another building
+			elif agent.in_building != Global.agent_houses[visitTarget]:
+				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+				agent.new_action = "leavebuilding"
+				agent.current_action = agent.new_action
+				agent.queued_action = action.to_lower()
+			#If agent is already in the building
+			elif agent.in_building == Global.agent_houses[visitTarget]:
+				return
+		"gohome":
+			#If agent is outside
+			if agent.in_building == null:
+				set_target(target)
+			#Leave building if agent is in another building
+			elif agent.in_building != agent.house:
+				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+				agent.new_action = "leavebuilding"
+				agent.current_action = agent.new_action
+				agent.queued_action = action.to_lower()
+		_:
+			set_target(target)
 	agent.agent_action_done = false
 	
 ##Helper function to move agents to objects.
@@ -59,8 +84,6 @@ func _got_to_object(action: String) -> void:
 			object = "fridge"
 		"sleep":
 			object = "myownbed"
-		"visit":
-			object = "placehold for now, wait until i know what the data looks like"
 	
 	var interactable_object = agent.actionList.is_object_in_memory(object)
 	if interactable_object:

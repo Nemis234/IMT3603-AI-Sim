@@ -37,6 +37,7 @@ var duration_action = 1 #To store the duration of agent's current action
 var queued_action = ""
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
+var visiting_agent = "" #Used for action such as visit "which agent to visit?"
 @onready var command_stream = $AICommand
 
 
@@ -85,9 +86,7 @@ func _on_pathfinding_component_target_reached() -> void:
 	match current_action:
 		"wander":
 			agent_action_done = true
-		"gohome":
-				interactionComponent._interact_with_object("","entrance")
-		"leavebuilding":
+		"gohome", "leavebuilding", "visit":
 				interactionComponent._interact_with_object("","entrance")
 		"read": 
 			await interactionComponent._interact_with_object("interactable","bookshelf")
@@ -109,15 +108,19 @@ func new_agent_action():
 	
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
-		
+	
 	if queued_action == "":
 		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
-		var visiting_agent = str(action_details["visiting"]) #Get the other agent name the agent wants to visit. This will be "" if "visit" is not chosen as the current action
-		print("Visiting agent: "+visiting_agent)
+		visiting_agent = str(action_details["visiting"]) #Get the other agent name the agent wants to visit. This will be "" if "visit" is not chosen as the current action
+		
 		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
-		#duration_action = clamp(randf_range(100,480),100,480)
+		#duration_action = clamp(randf_range(50,100),50,100)
+		#if new_action == "visit":
+			#var visitList:Array = Global.agent_houses.keys().duplicate()
+			#visitList.erase(agentName)
+			#visiting_agent = visitList.pick_random()
 	
 	else:
 		new_action = queued_action
@@ -130,9 +133,15 @@ func new_agent_action():
 			elif in_building:
 				pathfindingComponent._go_to_target(randomVectorOnNavigationLayer.get_random_target_in_building(in_building))
 		"gohome":
-			pathfindingComponent._go_to_target(house_entrance.get_global_position())
+			pathfindingComponent._go_to_target(house_entrance.get_global_position(), new_action)
 		"leavebuilding":
 			pathfindingComponent._go_to_target(in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+		"visit":
+			pathfindingComponent._go_to_target(
+				Global.agent_houses[visiting_agent].get_node("house_exterior").get_node("Entrance").get_global_position(),
+				new_action,
+				visiting_agent
+				)
 		"idle": 
 			pass
 		_: pathfindingComponent._got_to_object(new_action) # Agent will go to object, depending on action

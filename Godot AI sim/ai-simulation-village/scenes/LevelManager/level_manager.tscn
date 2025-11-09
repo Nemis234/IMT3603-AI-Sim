@@ -110,5 +110,9 @@ agentBed = NodePath("../House2/house_interior/Bed")
 [connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
 
+[editable path="House/house_exterior"]
+[editable path="House/house_exterior/Entrance"]
 [editable path="House/house_interior"]
+[editable path="House2/house_exterior"]
+[editable path="House2/house_exterior/Entrance"]
 [editable path="House2/house_interior"]

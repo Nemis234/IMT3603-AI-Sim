@@ -9,5 +9,5 @@ var day = 1
 var hour = 0
 var minute = 0
 var partOfDay = ""
-const realSecondsPerIngameDay: float = 60.0 #One in game day is n real time seconds
+const realSecondsPerIngameDay: float = 90.0 #One in game day is n real time seconds
 var agent_houses: Dictionary #Holds every agent and their houses

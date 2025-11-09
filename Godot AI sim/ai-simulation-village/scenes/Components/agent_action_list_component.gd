@@ -42,19 +42,21 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 	var filtered_action_list = agent_actions.duplicate()
 	
 	# Day Night Cycle Related filtering and stat priority based filtering
-	#TODO clean this part up later
-	if Global.partOfDay.to_lower() != "night":
-		for key in stats.keys():
-			var stat = stats[key]
-			if stat > 30:
-				match key:
-					"mood": filtered_action_list.erase("read")
-					"hunger":filtered_action_list.erase("eat")
-					"tiredness":filtered_action_list.erase("sleep")
-					_:
-						pass
-	elif Global.partOfDay.to_lower() == "night":
-		filtered_action_list = ["gohome", "sleep"]
+	match Global.partOfDay.to_lower():
+		"morning":
+			filtered_action_list = ["eat"]
+		"night":
+			filtered_action_list = ["gohome", "sleep"]
+		_:
+			#Filtering actions based on stats
+			for key in stats.keys():
+				var stat = stats[key]
+				if stat > 30:
+					match key:
+						"mood": filtered_action_list.erase("read")
+						"hunger": filtered_action_list.erase("eat")
+						"tiredness": filtered_action_list.erase("sleep")
+
 		
 	# Building-related filtering
 	if in_building == home:
@@ -102,13 +104,6 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 ##command_stream is the output of the request
 func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,command_stream: Label) -> Dictionary:
 	var filtered_action_list = _filter_action_list(home, in_building, stats)
-
-	
-	if in_building == home:
-		filtered_action_list.erase("gohome")
-	elif in_building == null:
-		filtered_action_list.erase("leavebuilding")
-	
 	
 	#var text_prompt = str(filtered_action_list)
 
@@ -150,11 +145,5 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 #This is the old logic, randomly picking actions, this is mainly for debugging/testing
 func pick_random_action(home: Node2D,in_building: Node2D, stats: Dictionary) -> String:
 	var filtered_action_list = _filter_action_list(home, in_building, stats)
-
-
-	if in_building == home:
-		filtered_action_list.erase("gohome")
-	elif in_building == null:
-		filtered_action_list.erase("leavebuilding")
 
 	return filtered_action_list.pick_random()
