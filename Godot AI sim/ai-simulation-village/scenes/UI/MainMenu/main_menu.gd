@@ -1,5 +1,5 @@
 extends Control
-const LEVEL_MANAGER = preload("uid://t6oxthatfx7e")
+const CHARACTER_MENU = preload("res://scenes/UI/CharacterMenu/character_menu.tscn")
 
 #Quits game upon press
 func _on_quit_pressed() -> void:
@@ -7,4 +7,4 @@ func _on_quit_pressed() -> void:
 
 #Change scene to active game
 func _on_start_game_pressed() -> void:
-	get_tree().change_scene_to_packed(LEVEL_MANAGER)
+	get_tree().change_scene_to_packed(CHARACTER_MENU)

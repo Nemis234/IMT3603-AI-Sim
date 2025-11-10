@@ -1,0 +1,496 @@
+[gd_scene load_steps=18 format=3 uid="uid://coevfijk50m0k"]
+
+[ext_resource type="Script" uid="uid://csk3b7kfgadb6" path="res://scenes/UI/CharacterMenu/character_menu.gd" id="1_qp1v0"]
+[ext_resource type="Texture2D" uid="uid://8b67axdpimoa" path="res://assets/serenvillage_2d_art.jpg" id="1_wesr5"]
+[ext_resource type="Texture2D" uid="uid://dg86dx4g5omns" path="res://assets/havenport_characters/menu/adrian_vale_menu.png" id="2_qp1v0"]
+[ext_resource type="Texture2D" uid="uid://cv3undtqk6bhu" path="res://assets/havenport_characters/menu/clara_montrose_menu.png" id="3_5dkak"]
+[ext_resource type="Texture2D" uid="uid://dsyv7r0fnks1a" path="res://assets/havenport_characters/menu/eleanor_havelock_menu.png" id="4_8o48w"]
+[ext_resource type="Texture2D" uid="uid://b8bl6t8vye16t" path="res://assets/havenport_characters/menu/ethan_morrel_menu.png" id="5_c5b05"]
+[ext_resource type="Texture2D" uid="uid://coc6lcigbuxw1" path="res://assets/havenport_characters/menu/gregory_vale_menu.png" id="6_sxqlm"]
+[ext_resource type="Texture2D" uid="uid://cjq3fslibposj" path="res://assets/havenport_characters/menu/harold_havelock_menu.png" id="7_m7ycw"]
+[ext_resource type="Texture2D" uid="uid://c8jju8eqbmmal" path="res://assets/havenport_characters/menu/isabella_cruz_menu.png" id="8_h0vge"]
+[ext_resource type="Texture2D" uid="uid://bd1a74wuf12kt" path="res://assets/havenport_characters/menu/marcus_havelock_menu.png" id="9_n4ldg"]
+[ext_resource type="Texture2D" uid="uid://do0rouxsngvkv" path="res://assets/havenport_characters/menu/marianne_vale_menu.png" id="10_m4div"]
+[ext_resource type="Texture2D" uid="uid://ho52mpvp0k4t" path="res://assets/havenport_characters/menu/martha_montrose_menu.png" id="11_d30nx"]
+[ext_resource type="Texture2D" uid="uid://dfle8nvsvxgky" path="res://assets/havenport_characters/menu/rafael_cruz_menu.png" id="12_hirks"]
+[ext_resource type="Texture2D" uid="uid://tk4ec5guc3a6" path="res://assets/havenport_characters/menu/richard_montrose_menu.png" id="13_5ndhb"]
+[ext_resource type="Texture2D" uid="uid://c7n7m0vcj7cfu" path="res://assets/havenport_characters/menu/thomas_morrel_menu.png" id="14_lbjkv"]
+[ext_resource type="Texture2D" uid="uid://b0mkfvqf7l8mj" path="res://assets/havenport_characters/menu/valentina_cruz_menu.png" id="15_psiiv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_woohb"]
+bg_color = Color(0.454902, 0.67451, 0.262745, 0.854902)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.454902, 0.67451, 0.262745, 0.854902)
+corner_radius_top_left = 24
+corner_radius_top_right = 24
+corner_radius_bottom_right = 24
+corner_radius_bottom_left = 24
+
+[node name="CharacterMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qp1v0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_wesr5")
+expand_mode = 2
+stretch_mode = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 17.0
+offset_top = 5.0
+offset_right = 17.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 120
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 120
+theme_override_constants/margin_bottom = 70
+
+[node name="Title" type="Label" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Choose Your Character"
+horizontal_alignment = 1
+
+[node name="AdrianButton" type="Button" parent="CanvasLayer"]
+offset_left = 52.0
+offset_top = 218.0
+offset_right = 162.0
+offset_bottom = 388.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/AdrianButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("2_qp1v0")
+
+[node name="Name" type="Label" parent="CanvasLayer/AdrianButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Adrian
+Vale"
+horizontal_alignment = 1
+
+[node name="ClaraButton" type="Button" parent="CanvasLayer"]
+offset_left = 205.0
+offset_top = 218.0
+offset_right = 315.0
+offset_bottom = 388.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ClaraButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("3_5dkak")
+
+[node name="Name" type="Label" parent="CanvasLayer/ClaraButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Clara
+Montrose"
+horizontal_alignment = 1
+
+[node name="EleanorButton" type="Button" parent="CanvasLayer"]
+offset_left = 370.0
+offset_top = 217.0
+offset_right = 480.0
+offset_bottom = 387.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EleanorButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("4_8o48w")
+
+[node name="Name" type="Label" parent="CanvasLayer/EleanorButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Eleanor
+Havelock"
+horizontal_alignment = 1
+
+[node name="EthanButton" type="Button" parent="CanvasLayer"]
+offset_left = 528.0
+offset_top = 216.0
+offset_right = 638.0
+offset_bottom = 386.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EthanButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("5_c5b05")
+
+[node name="Name" type="Label" parent="CanvasLayer/EthanButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Ethan
+Morrel"
+horizontal_alignment = 1
+
+[node name="GregoryButton" type="Button" parent="CanvasLayer"]
+offset_left = 689.0
+offset_top = 220.0
+offset_right = 799.0
+offset_bottom = 390.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/GregoryButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("6_sxqlm")
+
+[node name="Name" type="Label" parent="CanvasLayer/GregoryButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Gregory
+Vale"
+horizontal_alignment = 1
+
+[node name="HaroldButton" type="Button" parent="CanvasLayer"]
+offset_left = 845.0
+offset_top = 221.0
+offset_right = 955.0
+offset_bottom = 391.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HaroldButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("7_m7ycw")
+
+[node name="Name" type="Label" parent="CanvasLayer/HaroldButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Harold
+Havelock"
+horizontal_alignment = 1
+
+[node name="IsabellaButton" type="Button" parent="CanvasLayer"]
+offset_left = 992.0
+offset_top = 221.0
+offset_right = 1102.0
+offset_bottom = 391.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/IsabellaButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("8_h0vge")
+
+[node name="Name" type="Label" parent="CanvasLayer/IsabellaButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Isabella
+Cruz"
+horizontal_alignment = 1
+
+[node name="MarcusButton" type="Button" parent="CanvasLayer"]
+offset_left = 53.0
+offset_top = 410.0
+offset_right = 163.0
+offset_bottom = 580.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarcusButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("9_n4ldg")
+
+[node name="Name" type="Label" parent="CanvasLayer/MarcusButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Marcus
+Havelock"
+horizontal_alignment = 1
+
+[node name="MarianneButton" type="Button" parent="CanvasLayer"]
+offset_left = 206.0
+offset_top = 410.0
+offset_right = 316.0
+offset_bottom = 580.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarianneButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("10_m4div")
+
+[node name="Name" type="Label" parent="CanvasLayer/MarianneButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Marianne
+Vale"
+horizontal_alignment = 1
+
+[node name="MarthaButton" type="Button" parent="CanvasLayer"]
+offset_left = 371.0
+offset_top = 409.0
+offset_right = 481.0
+offset_bottom = 579.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarthaButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("11_d30nx")
+
+[node name="Name" type="Label" parent="CanvasLayer/MarthaButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Martha
+Montrose"
+horizontal_alignment = 1
+
+[node name="RafaelButton" type="Button" parent="CanvasLayer"]
+offset_left = 529.0
+offset_top = 408.0
+offset_right = 639.0
+offset_bottom = 578.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RafaelButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("12_hirks")
+
+[node name="Name" type="Label" parent="CanvasLayer/RafaelButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Rafael
+Cruz"
+horizontal_alignment = 1
+
+[node name="RichardButton" type="Button" parent="CanvasLayer"]
+offset_left = 690.0
+offset_top = 412.0
+offset_right = 800.0
+offset_bottom = 582.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RichardButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("13_5ndhb")
+
+[node name="Name" type="Label" parent="CanvasLayer/RichardButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Richard
+Montrose"
+horizontal_alignment = 1
+
+[node name="ThomasButton" type="Button" parent="CanvasLayer"]
+offset_left = 846.0
+offset_top = 413.0
+offset_right = 956.0
+offset_bottom = 583.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ThomasButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("14_lbjkv")
+
+[node name="Name" type="Label" parent="CanvasLayer/ThomasButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Thomas
+Morrel"
+horizontal_alignment = 1
+
+[node name="ValentinaButton" type="Button" parent="CanvasLayer"]
+offset_left = 993.0
+offset_top = 413.0
+offset_right = 1103.0
+offset_bottom = 583.0
+metadata/_edit_group_ = true
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/ValentinaButton"]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 6.0
+offset_right = 40.0
+offset_bottom = 37.0
+scale = Vector2(3, 3)
+texture = ExtResource("15_psiiv")
+
+[node name="Name" type="Label" parent="CanvasLayer/ValentinaButton"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 100.0
+offset_right = 100.0
+offset_bottom = 163.0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
+text = "Valentina
+Cruz"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CanvasLayer/AdrianButton" to="." method="_on_adrian_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ClaraButton" to="." method="_on_clara_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/EleanorButton" to="." method="_on_eleanor_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/EthanButton" to="." method="_on_ethan_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/GregoryButton" to="." method="_on_gregory_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/HaroldButton" to="." method="_on_harold_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/IsabellaButton" to="." method="_on_isabella_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarcusButton" to="." method="_on_marcus_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarianneButton" to="." method="_on_marianne_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarthaButton" to="." method="_on_martha_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/RafaelButton" to="." method="_on_rafael_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/RichardButton" to="." method="_on_richard_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ThomasButton" to="." method="_on_thomas_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ValentinaButton" to="." method="_on_valentina_button_pressed"]
