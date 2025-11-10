@@ -21,6 +21,10 @@ ServerConnection="*res://scripts/Server/server_connection.gd"
 Global="*res://scripts/global.gd"
 AiConversation="*res://scripts/Server/ai_conversation.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"

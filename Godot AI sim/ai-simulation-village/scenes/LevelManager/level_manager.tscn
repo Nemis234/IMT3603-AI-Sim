@@ -97,6 +97,7 @@ position = Vector2(2208, 225)
 agentName = "John"
 house = NodePath("../House")
 agentBed = NodePath("../House/house_interior/Bed")
+character = "marcus"
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
@@ -105,6 +106,7 @@ position = Vector2(3224, -547)
 agentName = "Mei"
 house = NodePath("../House2")
 agentBed = NodePath("../House2/house_interior/Bed")
+character = "adrian"
 
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]

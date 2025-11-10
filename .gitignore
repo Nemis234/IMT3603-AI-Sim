@@ -20,3 +20,9 @@ AI-Server/__pycache__/
 
 .idea
 *.import
+
+*__pycache__/
+AI-Server/__pycache__/
+
+.idea
+*.import

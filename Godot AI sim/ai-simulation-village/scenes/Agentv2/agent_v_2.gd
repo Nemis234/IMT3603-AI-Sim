@@ -38,6 +38,7 @@ var queued_action = ""
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 var visiting_agent = "" #Used for action such as visit "which agent to visit?"
+@export var character = "steve"
 @onready var command_stream = $AICommand
 
 
