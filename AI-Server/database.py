@@ -32,7 +32,7 @@ class Memory:
         #Embedding function that adds recency
         self.embed_fn =  BiasedEmbeddingFunction(base_embed_fn=embedding_functions.DefaultEmbeddingFunction())
     
-    def add(self, role: str, message: str, time_stamp:str = None):
+    def add(self, role: str, message: str, time_stamp:str = 'None'):
         """
         Adds a message (user or assistant) to memory.
         """

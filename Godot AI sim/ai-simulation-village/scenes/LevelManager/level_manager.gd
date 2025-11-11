@@ -13,6 +13,7 @@ var agent_list: Array = [] #To store list of agents
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
 	#agentTimer.timeout.connect(_on_agent_timer_timeout)
+	
 	$PopupMenu.connect("choice_made", _on_choice_made)
 	
 	for node in get_children():
@@ -137,3 +138,8 @@ func _on_choice_made(choice_text:String):
 func _on_agent_timer_timeout():
 	for agent in agent_list:
 		ServerConnection.update_memory_recency(agent) #Update memory recency
+
+
+func _on_refelection_timer_timeout() -> void:
+	for agent in agent_list:
+		ServerConnection.get_reflection(agent) #Get reflections for each agent

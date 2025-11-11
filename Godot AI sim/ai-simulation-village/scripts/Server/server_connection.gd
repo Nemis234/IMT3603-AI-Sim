@@ -114,3 +114,12 @@ func update_memory_recency(agentName:String) -> void:
 	
 	var _text = await send_request(client,"/update_recency",query_string)
 	
+# For sending requests to agents to reflect on all relevant events
+func get_reflection(agentName:String) -> void:
+	var client := await connect_client()
+
+	var query_string = JSON.stringify(agentName)
+	
+	var _text = await send_request(client,"/get_reflections",query_string)
+	
+	

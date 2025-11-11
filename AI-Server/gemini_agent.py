@@ -36,9 +36,12 @@ class Agent:
         self._name = name
         self.action_prompt = system_prompt
         self.chat_prompt = system_prompt
+        self.reflection_prompt = system_prompt
+        
         self.action_model = "gemini-2.5-flash"
         self.chat_model = "gemini-2.5-flash-lite"
-        self.memory_count = 25
+        self.reflection_model = "gemini-2.0-flash"
+        self.memory_count = 50
         self._create_client()
         #self.memory.add(role="model", message=self._system_prompt)
 
@@ -82,6 +85,14 @@ class Agent:
                             contents=input_message,
                             config=types.GenerateContentConfig(
                                 system_instruction=self.action_prompt)) #Generating responses based on system prompts
+        return response
+    
+    def generate_reflection(self, input_message: list[dict]) -> types.GenerateContentResponse:
+        response = client.models.generate_content(
+                            model=self.reflection_model,
+                            contents=input_message,
+                            config=types.GenerateContentConfig(
+                                system_instruction=self.reflection_prompt)) #Generating responses based on system prompts
         return response
 
 
@@ -198,10 +209,7 @@ class Agent:
         #print(visit_list)
         
         #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" This is your current location: {location}. Pick an action from this array {action_list}  that you feel like should be done now.
-                             Decide a suitable duration it will take for you to perform the action.  If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers
-                             to the name of the agent you feel like you should visit from this list: {list(visit_list.keys())}. Otherwise, strictly output: action,duration,"".
-                             Ensure duration is a single number (in minutes)
+        action_prompt = f""" This is your current location: {location}. Pick an action from this array {action_list} that you feel like should be done now. Decide a suitable duration it will take for you to perform the action.  If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers to the name of the agent you feel like you should visit from this list: {list(visit_list.keys())}. Otherwise, strictly output: action,duration,"". Ensure duration is a single number (in minutes)
                             """
         
         
@@ -227,4 +235,17 @@ class Agent:
         
         return action_dict
 
+    async def reflect(self):
+        reflection_prompt = f""" Reflect on your relevant memories, including chats, actions, prior reflections etc. Provide deep insights and summarize key learnings strictly in 2-3 sentences."""
+
+        query_message = {'role':'user', 'parts':[{'text': reflection_prompt}]}
+        history = self.get_memory(reflection_prompt) #Get most relevant entries from db closest to query (message)
+        input_message = [] 
+        input_message.extend(history)
+        input_message.append(query_message)
+
+        reflection = self.generate_reflection(input_message)
+        print(f"{self._name} is reflecting...")
+        print(f"Reflection: {reflection.text}")
         
+        self.memory.add(role="model",message=reflection.text) #Noting reflection to memory

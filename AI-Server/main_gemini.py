@@ -151,3 +151,11 @@ async def recency_endpoint(request: Request):
     agent: Agent = agent_obj_map[str(agent_name)] #Get agent object
     agent.memory.update_recency()
     return Response("Memory Recency Update Successful")
+
+@chat_server.post("/get_reflections")
+async def reflection_endpoint(request: Request):
+    agent_name:str = await request.json()
+    
+    agent: Agent = agent_obj_map[str(agent_name)] #Get agent object
+    await agent.reflect()
+    return Response(f"{agent} had a reflection")
