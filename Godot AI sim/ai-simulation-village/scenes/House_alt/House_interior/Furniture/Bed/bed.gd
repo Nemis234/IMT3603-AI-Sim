@@ -24,4 +24,5 @@ func on_choice_made(choice_text: String) -> void:
 		# move player back to old position
 		player.global_position = init_position
 		player.player_direction = init_direction
-		player.in_interaction = false #Set player out of interaction on making choice
+	
+	player.in_interaction = false #Set player out of interaction on making choice
