@@ -22,15 +22,16 @@ script = ExtResource("1_r2lsa")
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 
 [node name="House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(1173, 1201)
 script = ExtResource("7_mpw1i")
 house_interior = NodePath("house_interior")
 house_exterior = NodePath("house_exterior")
 
 [node name="house_exterior" parent="House" instance=ExtResource("4_xo7uf")]
-position = Vector2(671, 433)
+position = Vector2(-984, -1124)
 
 [node name="house_interior" parent="House" instance=ExtResource("5_ofnrc")]
-position = Vector2(2152, 209)
+position = Vector2(2046, 1615)
 
 [node name="House2" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(494, 255)
@@ -41,7 +42,7 @@ house_exterior = NodePath("house_exterior")
 [node name="house_exterior" parent="House2" instance=ExtResource("7_rlfer")]
 
 [node name="house_interior" parent="House2" instance=ExtResource("8_4jhem")]
-position = Vector2(2626, -992)
+position = Vector2(769, 2405)
 
 [node name="House3" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(912, 200)
@@ -52,7 +53,7 @@ house_exterior = NodePath("house_exterior")
 [node name="house_exterior" parent="House3" instance=ExtResource("10_b1ret")]
 
 [node name="house_interior" parent="House3" instance=ExtResource("11_mpw1i")]
-position = Vector2(2069, 693)
+position = Vector2(3646, 2519)
 
 [node name="Adam" parent="." groups=["Player"] instance=ExtResource("5_byoxf")]
 position = Vector2(1109, 468)
@@ -93,7 +94,7 @@ autostart = true
 script = ExtResource("6_4tw1x")
 
 [node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
-position = Vector2(2208, 225)
+position = Vector2(3275, 2832)
 agentName = "John"
 house = NodePath("../House")
 agentBed = NodePath("../House/house_interior/Bed")
@@ -102,7 +103,7 @@ character = "marcus"
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
 [node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
-position = Vector2(3224, -547)
+position = Vector2(1367, 2850)
 agentName = "Mei"
 house = NodePath("../House2")
 agentBed = NodePath("../House2/house_interior/Bed")
