@@ -4,6 +4,7 @@ from collections.abc import Iterator
 from database import Memory
 import chromadb
 import asyncio
+from pydantic import BaseModel, Field
 
 
 '''
@@ -29,6 +30,12 @@ client = genai.Client()
 #Establishing db client
 db = chromadb.PersistentClient(path=f"./store/")
 
+#Base model for action response
+class ActionDetails(BaseModel):
+    action : str = Field(description="The chosen action")
+    duration: int = Field(description="Duration in minutes")
+    visiting: str = Field(description="Name of the location to visit, if action is visit")
+
 
 class Agent:
     def __init__(self, name:str, system_prompt:str=''):
@@ -38,7 +45,7 @@ class Agent:
         self.chat_prompt = system_prompt
         self.reflection_prompt = system_prompt
         
-        self.action_model = "gemini-2.5-flash"
+        self.action_model = "gemini-2.5-flash-lite"
         self.chat_model = "gemini-2.5-flash-lite"
         self.reflection_model = "gemini-2.0-flash"
         self.memory_count = 50
@@ -84,6 +91,8 @@ class Agent:
                             model=self.action_model,
                             contents=input_message,
                             config=types.GenerateContentConfig(
+                                response_mime_type="application/json",
+                                response_json_schema=ActionDetails.model_json_schema(),
                                 system_instruction=self.action_prompt)) #Generating responses based on system prompts
         return response
     
@@ -205,11 +214,11 @@ class Agent:
         action_list = agent_details.get("action_list", "")
         time_stamp = agent_details.get("time","")
         location = agent_details.get("location","") #Gets current location
-        visit_list = dict(agent_details.get("visit_list",{})) #Dict of other agents that can be visited
-        #print(visit_list)
+        visit_list = dict(agent_details.get("visit_list",{})).keys() #Dict of other agents that can be visited
+       
         
         #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" This is your current location: {location}. Pick an action from this array {action_list} that you feel like should be done now. Decide a suitable duration it will take for you to perform the action.  If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers to the name of the agent you feel like you should visit from this list: {list(visit_list.keys())}. Otherwise, strictly output: action,duration,"". Ensure duration is a single number (in minutes)
+        action_prompt = f""" This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, strictly output: action,duration,"". Ensure duration is a single number (in minutes)
                             """
         
         
@@ -220,17 +229,21 @@ class Agent:
         input_message.append(query_message)
 
         response = self.generate_content(input_message)
-
-        action_dict = {"action": response.text.split(',')[0],"duration": response.text.split(',')[1], "visiting":response.text.split(',')[2]} #Dict {action: , duration: }
         
+        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: }
+
+       
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")
         print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes. Visiting: {action_dict["visiting"]}")
 
-
-        action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
+        if action_dict["action"]=="visit": #If action is "visit", provide custom action message
+            action_message = f"On {time_stamp}, you visited {action_dict["visiting"]}"
+        else: #Otherwise
+            action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
+        
         self.memory.add(role="model",message=action_message,time_stamp=time_stamp) #Noting action to memory
         
         return action_dict

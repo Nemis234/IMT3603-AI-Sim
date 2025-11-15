@@ -28,7 +28,7 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var agentBed: Node2D
 var house_entrance
 @onready var in_building: Node2D = house #Stores the building the agent is in.
-@onready var currentLocation: Dictionary = {"location": house.name , "sub_location": agentBed.name} 
+@onready var currentLocation: Dictionary = {"location": str(house.name), "sub_location": str(agentBed.name)} 
 #Agents action related
 var agent_action_done: bool = true
 var new_action
@@ -114,7 +114,7 @@ func new_agent_action():
 		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
-		visiting_agent = str(action_details["visiting"]) #Get the other agent name the agent wants to visit. This will be "" if "visit" is not chosen as the current action
+		visiting_agent = str(action_details["visiting"]) #Get the name of the building/house the agents wants to visit. This will be "" if "visit" is not chosen as the current action
 		
 		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 		#duration_action = clamp(randf_range(50,100),50,100)

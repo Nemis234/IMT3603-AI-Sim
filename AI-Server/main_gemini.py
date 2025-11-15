@@ -129,7 +129,7 @@ async def action_endpoint(request: Request):
     """
     data: dict = await request.json()
 
-    if not isinstance(data.get("action_list"), str):
+    if not isinstance(data.get("action_list"),list):
         raise HTTPException(status_code=404, detail="Invalid messages format")
 
     agent = data.get("agent", "")  # Get the agent name

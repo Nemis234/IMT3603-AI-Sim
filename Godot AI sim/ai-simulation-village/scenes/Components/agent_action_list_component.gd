@@ -122,7 +122,7 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 		"agent": str(agentNode.agentName),
 		"location": str(agentNode.currentLocation),
 		"time":hour + ":" + minute,
-		"action_list": str(filtered_action_list),
+		"action_list": filtered_action_list,
 		"visit_list": Global.agent_houses # Dicitonary {}
 		}
 	# Send prompt and wait for response
@@ -137,7 +137,7 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	var action_info = JSON.parse_string(command_stream.text) # is a dict = {"action": ..., "duration": ...}
 	#print(action_info)
 	action_info["action"] = action_info["action"].strip_edges().to_lower() #The action 
-	action_info["duration"] = int(action_info["duration"].strip_edges()) #NEW: How long the agent should perform the action
+	action_info["duration"] = int(action_info["duration"]) #NEW: How long the agent should perform the action
 	
 
 	return action_info

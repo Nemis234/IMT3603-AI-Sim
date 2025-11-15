@@ -24,11 +24,11 @@ func _ready() -> void:
 
 		if node.is_in_group("Agent"):
 			node.interactionComponent.interact.connect(_change_state)
-			Global.agent_houses[node.agentName] = node.house #Register name and house
+			Global.agent_houses[str(node.agentName)+"'s House"] = node.house #Register name and house
 			agent_list.append(node.agentName)
 
 	for node in get_tree().get_nodes_in_group("interactable"):
-		# chack if interactable has signal before connecting
+		# check if interactable has signal before connecting
 		if node.has_signal("request_popup"):
 			node.connect("request_popup", _on_request_popup)
 
@@ -54,7 +54,7 @@ func _change_state(entity,interactable_):
 			dayNightCycle.hideDayNightFilter("hide")
 		
 		if entity.is_in_group("Agent"):
-			entity.currentLocation ={"location": house.name , "sub_location": house.name+' exit'} 
+			entity.currentLocation ={"location": str(house.name) , "sub_location": str(house.name) +' exit'} 
 
 	elif interactable_.is_in_group("house_int"):
 		var house = interactable_.get_parent()
@@ -64,11 +64,11 @@ func _change_state(entity,interactable_):
 			dayNightCycle.hideDayNightFilter("unhide")
 		
 		if entity.is_in_group("Agent"):
-			entity.currentLocation = {"location": "outside" , "sub_location": "at doorstep of "+ house.name} 
+			entity.currentLocation = {"location": "outside" , "sub_location": "at doorstep of "+ str(house.name)} 
 
 	elif interactable_.is_in_group("interactable"):
 		if entity.is_in_group("Agent"):
-			entity.currentLocation["sub_location"] = interactable_.name
+			entity.currentLocation["sub_location"] = str(interactable_.name)
 
 		interactable_.change_state(entity)
 	
