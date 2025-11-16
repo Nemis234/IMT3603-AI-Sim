@@ -32,7 +32,7 @@ client = genai.Client()
 class ActionDetails(BaseModel):
     action : str = Field(description="The chosen action")
     duration: int = Field(description="Duration in minutes")
-    visiting: str = Field(description="Name of the location to visit, if action is visit")
+    visiting: str = Field(description="Name of the person to visit or talk to")
 
 
 class Agent:
@@ -213,11 +213,23 @@ class Agent:
         time_stamp = agent_details.get("time","")
         location = agent_details.get("location","") #Gets current location
         visit_list = dict(agent_details.get("visit_list",{})).keys() #Dict of other agents that can be visited
-       
-        
-        #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" Assign values to keys "action", "duration", and "visiting" based on the following prompt: This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly assign the key "visiting" to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, assign "visiting" to "". Ensure duration is a single number (in minutes)
-                            """
+        conversation_list = list(agent_details.get("conversation_list",[])) #Dict of other agents that can be conversed with
+        print(action_list)
+        """ Assign values to keys "action", "duration", and "visiting" based on the following prompt: This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly assign the key "visiting" to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, assign "visiting" to "". Ensure duration is a single number (in minutes)
+        """
+        action_prompt = f""" Assign values to keys "action", "duration", and "visiting" based on the following prompt:
+        This is your current location: {location}. 
+        Choose something that you have not done recently. 
+        Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. 
+        Decide a suitable duration it will take for you to perform the action. 
+        If the decided action is "conversation", strictly output the following: action,duration,visiting; 
+        where "visiting" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
+        Duration should be between 5-30 minutes.
+        If the decided action is "visit", strictly output the following: action,duration,visiting; 
+        where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. 
+        Otherwise, strictly output: action,duration,"". 
+        Ensure duration is a single number (in minutes).
+        """
         
         
         query_message = {'role':'user', 'parts':[{'text': action_prompt}]}
@@ -227,18 +239,21 @@ class Agent:
         input_message.append(query_message)
 
         response = self.generate_content(input_message)
-        
-        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: }
 
+        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: }
        
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
             print(f"{i+1}) {h["parts"][0]["text"]}")
-        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes. Visiting: {action_dict["visiting"]}")
+        if action_dict["action"] not in action_list:
+            print(f"Invalid action chosen: {action_dict['action']}")
+        print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes. Visiting/talking to: {action_dict["visiting"]}.")
 
         if action_dict["action"]=="visit": #If action is "visit", provide custom action message
             action_message = f"On {time_stamp}, you visited {action_dict["visiting"]}"
+        elif action_dict["action"]=="conversation": #If action is "conversation", provide custom action message
+            action_message = f"On {time_stamp}, you had a conversation with {action_dict["visiting"]}"
         else: #Otherwise
             action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
         
