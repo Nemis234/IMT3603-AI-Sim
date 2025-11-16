@@ -104,6 +104,8 @@ func post_action(agent_details:Dictionary, label_:Label):
 	
 	var _text = await send_request(client,"/action",query_string,label_)
 	
+	return _text
+	
 	
 
 #Sends a request to decrement the recency of all existing memories for a given agent
