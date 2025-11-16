@@ -105,6 +105,44 @@ func _got_to_object(action: String) -> void:
 	else:
 		print("No " + object +  " in memory")
 
+
+## Finds and goes to the selected agent[br]
+## Returns true when the agents has found each other[br]
+## Will set the queued action to the callback_action
+func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
+	var go_to_house = _go_to_target.bind(
+		Global.agent_houses[target_agent.agentName].get_node("house_exterior").get_node("Entrance").get_global_position(),
+		"visit",
+		target_agent.agentName
+	)
+	
+	if target_agent.in_building == agent.in_building:
+		print("Agents are in the same house or both are outside")
+		_go_to_target(target_agent.global_position)
+		return true
+	
+	# Convo target is not in a house
+	elif target_agent.in_building == null:
+		print("Convo target not in a house")
+		if agent.in_building:
+			print("Self is in a house")
+			agent.new_action = "leavebuilding"
+			agent.current_action = agent.new_action
+			agent.queued_action.push_back(callback_action)
+			_go_to_target.call( 
+				agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position()
+			)
+		else:
+			print("Both not inside, something went wrong")
+	# Convo target is in a house
+	else:
+		print("Convo target in a house")
+		agent.queued_action.push_back(callback_action)
+		go_to_house.call()
+	
+	return false
+
+
 ##This is related to navigation avoidance
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:
 	agent.velocity = safe_velocity
