@@ -1,11 +1,13 @@
-[gd_scene load_steps=20 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=22 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
 [ext_resource type="PackedScene" uid="uid://1g04myket5x8" path="res://scenes/House_alt/CruzEstate/cruz_estate_exterior.tscn" id="4_b1ret"]
 [ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
 [ext_resource type="PackedScene" uid="uid://dy882bndm7wgk" path="res://scenes/House_alt/School/school_exterior.tscn" id="4_j8lo3"]
+[ext_resource type="PackedScene" uid="uid://cxt0ml3ip8dcl" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_exterior.tscn" id="4_lp04t"]
 [ext_resource type="PackedScene" uid="uid://dnvwrd64upgd2" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="4_xo7uf"]
+[ext_resource type="PackedScene" uid="uid://cfcnq0tl638kg" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_interior.tscn" id="5_5vfp4"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
 [ext_resource type="PackedScene" uid="uid://rxuts6opcq6c" path="res://scenes/House_alt/CruzEstate/cruz_estate_interior.tscn" id="5_mpw1i"]
 [ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House_alt/House_interior/house_interior.tscn" id="5_ofnrc"]
@@ -25,6 +27,18 @@ script = ExtResource("1_r2lsa")
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 position = Vector2(81, -14)
+
+[node name="BeachsideCafe" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("beachside_cafe_interior")
+house_exterior = NodePath("beachside_cafe_exterior")
+
+[node name="beachside_cafe_exterior" parent="BeachsideCafe" instance=ExtResource("4_lp04t")]
+position = Vector2(201, 158)
+
+[node name="beachside_cafe_interior" parent="BeachsideCafe" instance=ExtResource("5_5vfp4")]
+position = Vector2(3983, 1940)
 
 [node name="School" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(494, 255)
@@ -83,7 +97,7 @@ house_interior = NodePath("house_interior")
 house_exterior = NodePath("house_exterior")
 
 [node name="house_exterior" parent="House3" instance=ExtResource("10_b1ret")]
-position = Vector2(-831, -40)
+position = Vector2(11, 2)
 
 [node name="house_interior" parent="House3" instance=ExtResource("11_mpw1i")]
 position = Vector2(3621, 3271)
