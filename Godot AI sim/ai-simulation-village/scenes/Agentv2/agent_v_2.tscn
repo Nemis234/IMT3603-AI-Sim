@@ -1,4 +1,4 @@
-[gd_scene load_steps=410 format=3 uid="uid://cvinojykw1akk"]
+[gd_scene load_steps=412 format=3 uid="uid://cvinojykw1akk"]
 
 [ext_resource type="Script" uid="uid://dm6ow4xxakyap" path="res://scenes/Agentv2/agent_v_2.gd" id="1_3fu0x"]
 [ext_resource type="Texture2D" uid="uid://eu4w1ro4me4u" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="2_s4aav"]
@@ -28,6 +28,8 @@
 [ext_resource type="Texture2D" uid="uid://byqjl0l6f3l1p" path="res://assets/havenport_characters/richard_montrose.png" id="15_8dfii"]
 [ext_resource type="Texture2D" uid="uid://btcklfpj7k6ge" path="res://assets/havenport_characters/thomas_morrel.png" id="18_ehban"]
 [ext_resource type="Texture2D" uid="uid://6ilpx0mljp8b" path="res://assets/havenport_characters/valentina_cruz.png" id="19_0v4fh"]
+[ext_resource type="PackedScene" uid="uid://dgbqx8wtjq8w4" path="res://scenes/Components/conversation_component.tscn" id="28_e61ux"]
+[ext_resource type="Script" uid="uid://c1afub3ku8sui" path="res://scenes/Components/conversation_component.gd" id="29_wgdc6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ky53y"]
 atlas = ExtResource("2_s4aav")
@@ -3317,7 +3319,7 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2krod"]
 
-[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "actionList", "interactionComponent", "agentStats") groups=["Agent"]]
+[node name="AgentV2" type="CharacterBody2D" node_paths=PackedStringArray("movementAnimation", "pathfindingComponent", "randomVectorOnNavigationLayer", "actionList", "interactionComponent", "agentStats", "conversation_component") groups=["Agent"]]
 motion_mode = 1
 script = ExtResource("1_3fu0x")
 movementAnimation = NodePath("WalkingAnimationComponent")
@@ -3326,6 +3328,7 @@ randomVectorOnNavigationLayer = NodePath("RandomVectorOnNavigationLayerComponent
 actionList = NodePath("AgentActionListComponent")
 interactionComponent = NodePath("AgentActionInteractionComponent")
 agentStats = NodePath("AgentStatComponent")
+conversation_component = NodePath("ConversationComponent")
 
 [node name="AICommand" type="Label" parent="."]
 visible = false
@@ -3375,6 +3378,9 @@ agent = NodePath("..")
 [node name="AgentActionInteractionComponent" parent="." instance=ExtResource("8_6gl5l")]
 
 [node name="AgentStatComponent" parent="." instance=ExtResource("8_i2t6t")]
+
+[node name="ConversationComponent" parent="." instance=ExtResource("28_e61ux")]
+script = ExtResource("29_wgdc6")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 visible = false
