@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://1g04myket5x8"]
+
+[ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_et6d2"]
+[ext_resource type="Texture2D" uid="uid://bt1n47t2nnc2a" path="res://assets/havenport_buildings/harvest_moon_villa.png" id="2_8fb3t"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_yeayq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
+size = Vector2(197, 183)
+
+[node name="cruz_estate_exterior" type="StaticBody2D" groups=["house_ext"]]
+script = ExtResource("1_et6d2")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8fb3t")
+region_enabled = true
+region_rect = Rect2(157.42097, 20.419458, 197.61852, 183.95824)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_y4hv5")
+
+[node name="Entrance" parent="." instance=ExtResource("3_yeayq")]
+position = Vector2(1, 77)

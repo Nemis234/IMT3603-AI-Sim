@@ -13,6 +13,7 @@ size = Vector2(43, 41)
 
 [node name="HouseExterior2" type="StaticBody2D" groups=["house_ext"]]
 script = ExtResource("1_ry6l5")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_hiw7m")

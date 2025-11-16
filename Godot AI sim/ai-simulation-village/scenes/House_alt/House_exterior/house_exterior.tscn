@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dluw3ibpx76d7"]
+[gd_scene load_steps=6 format=3 uid="uid://dnvwrd64upgd2"]
 
 [ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_17cmj"]
 [ext_resource type="Texture2D" uid="uid://c6wadxd2s3r6p" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="2_jrt6s"]
@@ -13,6 +13,7 @@ size = Vector2(68, 43)
 
 [node name="house_exterior" type="StaticBody2D" groups=["house_ext"]]
 script = ExtResource("1_17cmj")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_5utur")
