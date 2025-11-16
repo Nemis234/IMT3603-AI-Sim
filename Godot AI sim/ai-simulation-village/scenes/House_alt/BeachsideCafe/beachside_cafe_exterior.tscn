@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxt0ml3ip8dcl"]
+
+[ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_nwgqt"]
+[ext_resource type="Texture2D" uid="uid://i335bko7v3sd" path="res://assets/havenport_buildings/havenport_houses_final.png" id="2_dqtoa"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_mqcoj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
+size = Vector2(101, 81)
+
+[node name="beachside_cafe_exterior" type="StaticBody2D" groups=["house_ext"]]
+script = ExtResource("1_nwgqt")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dqtoa")
+region_enabled = true
+region_rect = Rect2(118.29727, 561.239, 102.00961, 85.52637)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -2.5)
+shape = SubResource("RectangleShape2D_y4hv5")
+
+[node name="Entrance" parent="." instance=ExtResource("3_mqcoj")]
+position = Vector2(-26, 35)

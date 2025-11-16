@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://btjkxtumbtx3g"]
+
+[ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_6rfmg"]
+[ext_resource type="Texture2D" uid="uid://de2g2om5jcfe2" path="res://assets/havenport_buildings/firered_town_hall.png" id="2_30vkm"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_w7u0m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
+size = Vector2(180, 99)
+
+[node name="mayor_office_exterior" type="StaticBody2D" groups=["house_ext"]]
+script = ExtResource("1_6rfmg")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_30vkm")
+region_enabled = true
+region_rect = Rect2(-1.0270615, -0.70698357, 180.97382, 109.47377)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -4.5)
+shape = SubResource("RectangleShape2D_y4hv5")
+
+[node name="Entrance" parent="." instance=ExtResource("3_w7u0m")]
+position = Vector2(0, 44)
