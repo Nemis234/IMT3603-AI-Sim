@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_mqcoj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
-size = Vector2(180, 99)
+size = Vector2(101, 81)
 
 [node name="beachside_cafe_exterior" type="StaticBody2D" groups=["house_ext"]]
 script = ExtResource("1_nwgqt")
