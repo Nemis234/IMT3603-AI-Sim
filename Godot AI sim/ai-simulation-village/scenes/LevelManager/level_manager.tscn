@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=24 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://dy882bndm7wgk" path="res://scenes/House_alt/School/school_exterior.tscn" id="4_j8lo3"]
 [ext_resource type="PackedScene" uid="uid://cxt0ml3ip8dcl" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_exterior.tscn" id="4_lp04t"]
 [ext_resource type="PackedScene" uid="uid://dnvwrd64upgd2" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="4_xo7uf"]
+[ext_resource type="PackedScene" uid="uid://btjkxtumbtx3g" path="res://scenes/House_alt/MayorOffice/mayor_office_exterior.tscn" id="4_ycff6"]
+[ext_resource type="PackedScene" uid="uid://b4snbvr6hqs1p" path="res://scenes/House_alt/MayorOffice/mayor_office_interior.tscn" id="5_4g0sd"]
 [ext_resource type="PackedScene" uid="uid://cfcnq0tl638kg" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_interior.tscn" id="5_5vfp4"]
 [ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
 [ext_resource type="PackedScene" uid="uid://rxuts6opcq6c" path="res://scenes/House_alt/CruzEstate/cruz_estate_interior.tscn" id="5_mpw1i"]
@@ -27,6 +29,18 @@ script = ExtResource("1_r2lsa")
 
 [node name="Map" parent="." instance=ExtResource("2_rl3ic")]
 position = Vector2(81, -14)
+
+[node name="MayorOffice" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("mayor_office_interior")
+house_exterior = NodePath("mayor_office_exterior")
+
+[node name="mayor_office_exterior" parent="MayorOffice" instance=ExtResource("4_ycff6")]
+position = Vector2(716, -222)
+
+[node name="mayor_office_interior" parent="MayorOffice" instance=ExtResource("5_4g0sd")]
+position = Vector2(5054, 1950)
 
 [node name="BeachsideCafe" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(494, 255)
