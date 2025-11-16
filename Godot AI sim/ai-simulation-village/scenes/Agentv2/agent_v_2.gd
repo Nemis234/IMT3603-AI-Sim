@@ -39,7 +39,7 @@ var agent_action_done: bool = true
 var new_action
 var current_action # Stores the agents current action 
 var duration_action = 1 #To store the duration of agent's current action
-var queued_action = ""
+var queued_action: = []
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 var visiting_agent = "" #Used for action such as visit "which agent to visit?"
@@ -124,7 +124,7 @@ func new_agent_action():
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
 	
-	if queued_action == "":
+	if queued_action.is_empty():
 		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
@@ -138,8 +138,9 @@ func new_agent_action():
 			#visiting_agent = visitList.pick_random()
 	
 	else:
-		new_action = queued_action
-		queued_action = ""
+		new_action = queued_action.pop_front()
+	
+	print(agentName, " is taking the action: ", new_action)
 	
 	match new_action:
 		"wander":
