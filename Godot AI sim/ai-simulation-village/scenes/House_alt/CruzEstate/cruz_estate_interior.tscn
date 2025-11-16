@@ -1,8 +1,9 @@
 [gd_scene load_steps=6 format=4 uid="uid://rxuts6opcq6c"]
 
 [ext_resource type="Script" uid="uid://dpcsaeyuqavqs" path="res://scenes/House_alt/House_interior/house_interior.gd" id="1_aak6b"]
-[ext_resource type="Texture2D" uid="uid://btg5ty65j8tbn" path="res://assets/havenport_buildings/harvest_moon_villa_inside.png" id="2_tq28l"]
+[ext_resource type="Texture2D" uid="uid://bt1n47t2nnc2a" path="res://assets/havenport_buildings/harvest_moon_villa.png" id="2_tq28l"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="15_c35i0"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tq28l"]
 texture = ExtResource("2_tq28l")
