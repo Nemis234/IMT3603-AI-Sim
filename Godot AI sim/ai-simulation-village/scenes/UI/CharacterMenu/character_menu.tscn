@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://coevfijk50m0k"]
 
 [ext_resource type="Script" uid="uid://csk3b7kfgadb6" path="res://scenes/UI/CharacterMenu/character_menu.gd" id="1_qp1v0"]
-[ext_resource type="Texture2D" uid="uid://8b67axdpimoa" path="res://assets/serenvillage_2d_art.jpg" id="1_wesr5"]
+[ext_resource type="Texture2D" uid="uid://d3pnys02xkbcv" path="res://assets/serenvillage_2d_art.jpg" id="1_wesr5"]
 [ext_resource type="Texture2D" uid="uid://dg86dx4g5omns" path="res://assets/havenport_characters/menu/adrian_vale_menu.png" id="2_qp1v0"]
 [ext_resource type="Texture2D" uid="uid://cv3undtqk6bhu" path="res://assets/havenport_characters/menu/clara_montrose_menu.png" id="3_5dkak"]
 [ext_resource type="Texture2D" uid="uid://dsyv7r0fnks1a" path="res://assets/havenport_characters/menu/eleanor_havelock_menu.png" id="4_8o48w"]

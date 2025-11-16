@@ -2359,6 +2359,9 @@ tile_set = SubResource("TileSet_mapfg")
 [node name="BedroomWindow" parent="." instance=ExtResource("3_nau6n")]
 position = Vector2(16, -16)
 
+[node name="Carpet" parent="." instance=ExtResource("10_agsex")]
+position = Vector2(56, 24)
+
 [node name="DoorUp" parent="." instance=ExtResource("4_tcr61")]
 position = Vector2(56, 64)
 
@@ -2394,9 +2397,6 @@ position = Vector2(248, 176)
 
 [node name="TV" parent="." instance=ExtResource("12_v6g4m")]
 position = Vector2(248, 128)
-
-[node name="Carpet" parent="." instance=ExtResource("10_agsex")]
-position = Vector2(56, 24)
 
 [node name="Carpet3" parent="." instance=ExtResource("10_agsex")]
 position = Vector2(24, 224)
