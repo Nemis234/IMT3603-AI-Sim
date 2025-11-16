@@ -7,7 +7,7 @@ signal target_reached
 @export var movement_speed: float = 50
 
 #The agent this component is bounded too
-var agent: CharacterBody2D
+var agent: Agent
 
 #Bool to control emits
 var _has_emitted: bool = false
@@ -53,7 +53,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
-				agent.queued_action = action.to_lower()
+				agent.queued_action.push_front(action.to_lower())
 			#If agent is already in the building
 			elif agent.in_building == Global.agent_houses[visitTarget]:
 				return
@@ -66,7 +66,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
-				agent.queued_action = action.to_lower()
+				agent.queued_action.push_front(action.to_lower())
 		_:
 			set_target(target)
 	agent.agent_action_done = false
@@ -97,7 +97,7 @@ func _got_to_object(action: String) -> void:
 			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
-			agent.queued_action = action.to_lower()
+			agent.queued_action.push_front(action.to_lower())
 		#If agent is outside
 		else:
 			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
