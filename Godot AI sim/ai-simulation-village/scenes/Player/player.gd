@@ -42,3 +42,17 @@ func get_opposite_direction()->String:
 		return "left"
 	
 	return ""
+
+#Getter to retrieve player details
+func get_player_details()-> Dictionary:
+	return {
+		"position": self.position,
+		"player_direction": player_direction,
+		"character": character
+	}
+
+#Setter to set agent details (While loading a save)
+func set_player_details(details:Dictionary) -> void:
+	self.position = details["position"]
+	self.player_direction = details["player_direction"]
+	self.character = details["character"]

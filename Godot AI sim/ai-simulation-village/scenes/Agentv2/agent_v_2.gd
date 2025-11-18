@@ -217,6 +217,7 @@ func stream_speech(text:String):
 #Getter to retrieve agent details
 func get_agent_details()-> Dictionary:
 	return {
+		"character": character,
 		"current_location": currentLocation,
 		"position": self.position,
 		"movementAnimation": movementAnimation.get_path(),
@@ -233,6 +234,7 @@ func get_agent_details()-> Dictionary:
 
 #Setter to set agent details (While loading a save)
 func set_agent_details(details:Dictionary) -> void:
+	character = details["character"]
 	currentLocation = details["current_location"]	
 
 	if details["in_building"] != null:

@@ -160,7 +160,7 @@ func _on_refelection_timer_timeout() -> void:
 func _save_game():
 	var save_data = {
 		"time": Global.time,
-		"player_position": player.position,
+		"player_details": player.get_player_details(),
 		"agent_details": Dictionary()
 	}
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
@@ -168,6 +168,8 @@ func _save_game():
 	for node in get_children():
 		if node.is_in_group("Agent"):
 			save_data["agent_details"][str(node.agentName)] = node.get_agent_details() # Ex: {"agent1": {details}, "agent2": {details} }
+		
+
 	
 	file.store_var(save_data)
 	file.close()
@@ -182,7 +184,8 @@ func load_save():
 	file.close()
 
 	Global.time = data["time"]
-	player.position = data["player_position"]
+	player.set_player_details(data["player_details"])
+	
 	for node in get_children():
 		if node.is_in_group("Agent"):
 			if str(node.agentName) in data["agent_details"]:
