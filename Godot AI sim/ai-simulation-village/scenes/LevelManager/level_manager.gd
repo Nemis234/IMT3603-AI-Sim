@@ -1,5 +1,6 @@
 extends Node2D
 
+var save_path = "user://villSim.save"
 
 @onready var player:Player = $Adam
 
@@ -31,6 +32,12 @@ func _ready() -> void:
 		# check if interactable has signal before connecting
 		if node.has_signal("request_popup"):
 			node.connect("request_popup", _on_request_popup)
+		
+		if node.has_signal("save"):
+			node.connect("save", _save_game)
+	
+	#Load basic save
+	load_save()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -64,7 +71,7 @@ func _change_state(entity,interactable_):
 			dayNightCycle.hideDayNightFilter("unhide")
 		
 		if entity.is_in_group("Agent"):
-			entity.currentLocation = {"location": "outside" , "sub_location": "at doorstep of "+ str(house.name)} 
+			entity.currentLocation = {"location": "outside" , "sub_location": "outside"} 
 
 	elif interactable_.is_in_group("interactable"):
 		if entity.is_in_group("Agent"):
@@ -120,7 +127,7 @@ func _process_time(_delta) -> void:
 		Global.partOfDay = "evening"
 
 
-## Relating to pop_menu and chices for certain intercatables ##
+## Relating to pop_menu and chices for certain interactables ##
 func _on_request_popup(question, choices):
 	player.in_interaction = true #Set player in interaction
 	$PopupMenu.show_menu(question, choices)
@@ -134,12 +141,56 @@ func _on_choice_made(choice_text:String):
 
 ###############################################################
 
-
+### Time out to update recency of all memories ###
 func _on_agent_timer_timeout():
 	for agent in agent_list:
 		ServerConnection.update_memory_recency(agent) #Update memory recency
 
+###################################################
 
+
+### Time out to get refelections #####
 func _on_refelection_timer_timeout() -> void:
 	for agent in agent_list:
 		ServerConnection.get_reflection(agent) #Get reflections for each agent
+
+###################################################
+
+##### Saving and Loading ######
+func _save_game():
+	var save_data = {
+		"time": Global.time,
+		"player_position": player.position,
+		"agent_details": Dictionary()
+	}
+	var file = FileAccess.open(save_path, FileAccess.WRITE)
+
+	for node in get_children():
+		if node.is_in_group("Agent"):
+			save_data["agent_details"][str(node.agentName)] = node.get_agent_details() # Ex: {"agent1": {details}, "agent2": {details} }
+	
+	file.store_var(save_data)
+	file.close()
+
+func load_save():
+	if not FileAccess.file_exists(save_path):
+		return
+
+	print("Loading save")
+	var file = FileAccess.open(save_path, FileAccess.READ)
+	var data = file.get_var()
+	file.close()
+
+	Global.time = data["time"]
+	player.position = data["player_position"]
+	for node in get_children():
+		if node.is_in_group("Agent"):
+			if str(node.agentName) in data["agent_details"]:
+				node.set_agent_details(data["agent_details"][str(node.agentName)])
+
+
+func _on_auto_save_timer_timeout() -> void:
+	print("Game has been auto-saved")
+	_save_game()
+
+##################################################

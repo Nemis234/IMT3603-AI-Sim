@@ -218,7 +218,7 @@ class Agent:
        
         
         #Specifying output format and adding it to message (Message would be only plausible action list)
-        action_prompt = f""" This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly output the following: action,duration,visiting; where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, strictly output: action,duration,"". Ensure duration is a single number (in minutes)
+        action_prompt = f""" Assign values to keys "action", "duration", and "visiting" based on the following prompt: This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly assign the key "visiting" to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, assign "visiting" to "". Ensure duration is a single number (in minutes)
                             """
         
         

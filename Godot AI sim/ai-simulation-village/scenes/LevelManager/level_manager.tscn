@@ -175,10 +175,15 @@ character = "adrian"
 wait_time = 100.0
 autostart = true
 
+[node name="AutoSaveTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
 [connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
 [connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]
 [connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
 [connection signal="timeout" from="RefelectionTimer" to="." method="_on_refelection_timer_timeout"]
+[connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]
 
 [editable path="House/house_exterior"]
 [editable path="House/house_exterior/Entrance"]

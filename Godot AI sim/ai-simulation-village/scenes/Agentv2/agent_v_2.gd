@@ -214,3 +214,47 @@ func stream_speech(text:String):
 	speechBubble.visible = true
 	ServerConnection.post_message(agentName,text,speechBubble.get_label())
 	
+#Getter to retrieve agent details
+func get_agent_details()-> Dictionary:
+	return {
+		"current_location": currentLocation,
+		"position": self.position,
+		"movementAnimation": movementAnimation.get_path(),
+		"pathfindingComponent": pathfindingComponent.get_path(),
+		"in_building": in_building.get_path() if in_building else null,
+		"visiting_agent": visiting_agent,
+		"stats": agentStats.stats,
+		#"in_dialogue": in_dialogue,
+		#"agent_action_done": agent_action_done,
+		"current_action": current_action,
+		"is_requesting_action":  is_requesting_action,
+		#"queued_action": queued_action
+	}
+
+#Setter to set agent details (While loading a save)
+func set_agent_details(details:Dictionary) -> void:
+	currentLocation = details["current_location"]	
+
+	if details["in_building"] != null:
+		in_building = get_node(details["in_building"])
+	else:
+		in_building = null
+
+	self.position = details["position"]
+	
+	movementAnimation = get_node(details["movementAnimation"])
+	pathfindingComponent = get_node(details["pathfindingComponent"])
+	visiting_agent = details["visiting_agent"]	
+	agentStats.stats = details["stats"]
+		
+	
+	#Set queued action to the current action that was being performed in the last save
+	current_action = details["current_action"]
+	queued_action = current_action
+	agent_action_done = true #set action done to true so that upon loading, agent can continue the last action
+	
+	is_requesting_action = details["is_requesting_action"]
+	#queued_action = details["queued_action"]
+
+	print("Set details for agent: " + str(agentName))
+	print(details)
