@@ -122,13 +122,17 @@ func get_reflection(agentName:String) -> void:
 	
 	var _text = await send_request(client,"/get_reflections",query_string)
 
-#To get the save slot number
-func send_save_slot(slot:int):
+#To get the save slot number. Modes can be "create" to get/obtain the slot or "delete" to delete the collections associated with that slot
+func send_save_slot(slot:int,mode="create"):
 	var client := await connect_client()
 
 	var query_string = JSON.stringify(str(slot))
 	
-	var _text = await send_request(client,"/get_save_slot",query_string)
-	print("Hi")
+	if mode=="create":
+		var _text = await send_request(client,"/get_save_slot",query_string)
+	elif mode == "delete":
+		var _text = await send_request(client,"/delete_save_slot",query_string)
+	else:
+		assert(false,"Invalid mode. Mode can only be 'create' or 'delete'")
 	
 	

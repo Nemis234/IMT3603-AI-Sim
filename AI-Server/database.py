@@ -7,7 +7,7 @@ import numpy as np
 NUM_SAVES = 3 #Number of save slots
 
 #Map of all saves to collection list
-saves_map = {str(i+1): [] for i in range(NUM_SAVES)}
+saves_map = {str(i+1): set() for i in range(NUM_SAVES)}
 
 #CUSTOM EMBEDDING FUNCTION: appends recency to the standard embedding
 class BiasedEmbeddingFunction(embedding_functions.EmbeddingFunction):
@@ -23,15 +23,16 @@ class BiasedEmbeddingFunction(embedding_functions.EmbeddingFunction):
         return (np.concatenate([base_embeds, bias_component], axis=1)).tolist()
 
 class Memory:
-    def __init__(self,client,collection_name:str,slot='0'):
+    #Intializing db client (shared by all agents)
+    client = chromadb.PersistentClient(path=f"./store/")
+    
+    def __init__(self,collection_name:str,slot='0'):
         self.name = collection_name
-        self.client = client
-        self.collection = client.get_or_create_collection(name=f"{collection_name}_{slot}")
+        self.collection = self.client.get_or_create_collection(name=f"{collection_name}_{slot}")
 
         #Add the collection to saves map if it doesnt exist in saves map already
         if slot in saves_map:
-            if self.collection.name not in saves_map:
-                saves_map[slot].append(self.collection.name)
+            saves_map[slot].add(self.collection.name)
 
 
         print(self.collection.name,self.collection.get(include=["documents", "metadatas"]))
@@ -145,6 +146,18 @@ class Memory:
                             embeddings = new_embeddings       
             )
 
+    @classmethod
+    #Deletes all collections associated with that save slot
+    def delete_save_slot(cls,slot:str):
+        
+        if slot in saves_map.keys():
+            for name in saves_map[slot]:
+                cls.client.delete_collection(name=name)
+                print("deleted",name)
+        
+            saves_map[slot] = set()
+        print(saves_map)
+        
 
 if __name__=="__main__":
     ##Experiment with chromadb embeddings##

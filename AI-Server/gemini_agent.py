@@ -27,8 +27,6 @@ SYSTEM = 'model'
 #Gemini client
 client = genai.Client()
 
-#Initializing db client
-db = chromadb.PersistentClient(path=f"./store/")
 
 #Base model for action response
 class ActionDetails(BaseModel):
@@ -39,7 +37,7 @@ class ActionDetails(BaseModel):
 
 class Agent:
     def __init__(self, name:str, system_prompt:str='', slot='0'):
-        self.memory = Memory(client=db,collection_name=name, slot=slot)
+        self.memory = Memory(collection_name=name, slot=slot)
         self._name = name
         self.action_prompt = system_prompt
         self.chat_prompt = system_prompt

@@ -19,7 +19,6 @@ chat_server = FastAPI()
 
 #To Store map of agents to its respective object (Initialized after obtaining save slot)
 agent_obj_map = None
-save_ready = asyncio.Event()
 
 def assign_slot(slot:str):
     global agent_obj_map
@@ -34,6 +33,14 @@ async def assign_db(request: Request):
     slot = await request.json()
     assign_slot(str(slot))
     return Response(f"Memories Assigned")
+
+#Delete collections corresponding to a save slot
+@chat_server.post("/delete_save_slot")
+async def assign_db(request: Request):
+    slot = await request.json()
+    Memory.delete_save_slot(str(slot))
+    return Response(f"Memories Deleted")
+
 
 
 @chat_server.get("/agents")
