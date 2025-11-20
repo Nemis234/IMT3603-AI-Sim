@@ -1,6 +1,6 @@
 extends Node2D
 
-var save_path = "user://villSim.save"
+var save_path = Global.selected_save
 
 @onready var player:Player = $Adam
 

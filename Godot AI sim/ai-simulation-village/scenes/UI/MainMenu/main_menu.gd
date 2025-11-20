@@ -1,5 +1,5 @@
 extends Control
-const CHARACTER_MENU = preload("res://scenes/UI/CharacterMenu/character_menu.tscn")
+const CHARACTER_MENU = preload("res://scenes/UI/SaveSelect/save_select.tscn")
 
 #Quits game upon press
 func _on_quit_pressed() -> void:
