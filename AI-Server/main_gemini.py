@@ -4,6 +4,8 @@ from fastapi.responses import StreamingResponse,Response,JSONResponse
 import chromadb
 from agent_map import AGENT_DESC
 from gemini_agent import Agent
+from database import Memory
+import asyncio
 
 
 # Roles
@@ -12,19 +14,26 @@ ASSISTANT = 'assistant'
 SYSTEM = 'model'
 
 
-#Gemini client
-client = genai.Client()
-
-#Establishing db client
-db = chromadb.PersistentClient(path=f"./store/")
-
-
-#Store map of agents to its respective object
-agent_obj_map = { "John": Agent("John",system_prompt=AGENT_DESC["John"]),
-                  "Mei": Agent("Mei",system_prompt=AGENT_DESC["Mei"]),
-                  }      
-
 chat_server = FastAPI()
+
+
+#To Store map of agents to its respective object (Initialized after obtaining save slot)
+agent_obj_map = None
+save_ready = asyncio.Event()
+
+def assign_slot(slot:str):
+    global agent_obj_map
+    agent_obj_map = { "John": Agent("John", system_prompt=AGENT_DESC["John"], slot = slot),
+                    "Mei": Agent("Mei", system_prompt=AGENT_DESC["Mei"], slot = slot),
+                    }      
+
+
+#Assign proper db to corresponding save
+@chat_server.post("/get_save_slot")
+async def assign_db(request: Request):
+    slot = await request.json()
+    assign_slot(str(slot))
+    return Response(f"Memories Assigned")
 
 
 @chat_server.get("/agents")
@@ -159,3 +168,5 @@ async def reflection_endpoint(request: Request):
     agent: Agent = agent_obj_map[str(agent_name)] #Get agent object
     await agent.reflect()
     return Response(f"{agent} had a reflection")
+
+

@@ -121,5 +121,14 @@ func get_reflection(agentName:String) -> void:
 	var query_string = JSON.stringify(agentName)
 	
 	var _text = await send_request(client,"/get_reflections",query_string)
+
+#To get the save slot number
+func send_save_slot(slot:int):
+	var client := await connect_client()
+
+	var query_string = JSON.stringify(str(slot))
+	
+	var _text = await send_request(client,"/get_save_slot",query_string)
+	print("Hi")
 	
 	

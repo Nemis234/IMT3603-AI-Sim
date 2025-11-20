@@ -73,16 +73,21 @@ func delete_slot(slot: int):
 
 func _on_save_1_pressed() -> void:
 	Global.selected_save = "user://villSim_%d.save" % 1
+	ServerConnection.send_save_slot(1)
 	change_to_scene_based_on_save(Global.selected_save)
+	
 
 func _on_save_2_pressed() -> void:
 	Global.selected_save = "user://villSim_%d.save" % 2
+	ServerConnection.send_save_slot(2)
 	change_to_scene_based_on_save(Global.selected_save)
+	
 
 func _on_save_3_pressed() -> void:
 	Global.selected_save = "user://villSim_%d.save" % 3
+	ServerConnection.send_save_slot(3)
 	change_to_scene_based_on_save(Global.selected_save)
-
+	
 
 func _on_delete_pressed(slot) -> void:
 	delete_slot(slot)

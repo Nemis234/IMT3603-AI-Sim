@@ -4,6 +4,11 @@ from chromadb.utils import embedding_functions
 import uuid
 import numpy as np
 
+NUM_SAVES = 3 #Number of save slots
+
+#Map of all saves to collection list
+saves_map = {str(i+1): [] for i in range(NUM_SAVES)}
+
 #CUSTOM EMBEDDING FUNCTION: appends recency to the standard embedding
 class BiasedEmbeddingFunction(embedding_functions.EmbeddingFunction):
     def __init__(self, base_embed_fn, alpha=0):
@@ -18,10 +23,17 @@ class BiasedEmbeddingFunction(embedding_functions.EmbeddingFunction):
         return (np.concatenate([base_embeds, bias_component], axis=1)).tolist()
 
 class Memory:
-    def __init__(self,client,collection_name:str):
+    def __init__(self,client,collection_name:str,slot='0'):
         self.name = collection_name
         self.client = client
-        self.collection = self.client.get_or_create_collection(name=collection_name)
+        self.collection = client.get_or_create_collection(name=f"{collection_name}_{slot}")
+
+        #Add the collection to saves map if it doesnt exist in saves map already
+        if slot in saves_map:
+            if self.collection.name not in saves_map:
+                saves_map[slot].append(self.collection.name)
+
+
         print(self.collection.name,self.collection.get(include=["documents", "metadatas"]))
         print("\n\n\n")
         
