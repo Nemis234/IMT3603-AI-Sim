@@ -3,7 +3,12 @@ extends Node2D
 var save_path = Global.selected_save
 
 @onready var player:Player = $Adam
-@onready var inventory = $PlayerInventory
+@onready var player_inv_ui = $PlayerInventoryUi
+@onready var object_inv_ui = $ObjectInventoryUi
+
+# Variables for tracking inventory context
+var inventory_item: Item = null
+var source_invnetory: Node = null
 
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
@@ -15,13 +20,16 @@ var agent_list: Array = [] #To store list of agents
 func _ready() -> void:
 	# Setting up signals connection/set global variables 
 	#agentTimer.timeout.connect(_on_agent_timer_timeout)
-	#inventory.inventory.append(Item.new("Potion", "Restores 20 HP", 3))
-	#inventory.inventory.append(Item.new("Sword", "A rusty iron sword", 1))
-	#inventory.inventory.append(Item.new("Apple", "Tastes fresh!", 5))
-	#inventory.display_inventory()
+	# Pass PopupMenu reference to both inventory UIs
+	player_inv_ui.set_popup_menu($PopupMenu)
+	object_inv_ui.set_popup_menu($PopupMenu)
 	$PopupMenu.connect("choice_made", _on_choice_made)
-	player.connect("open_inventory", inventory.display_inventory)
-	player.connect("close_inventory", inventory.hide_menu)
+	player_inv_ui.connect("show_info", _on_request_popup)
+	player.connect("open_inventory", player_inv_ui.display_inventory)
+	player.connect("close_inventory", player_inv_ui.hide_menu)
+	object_inv_ui.connect("show_info", _on_request_popup)
+	object_inv_ui.connect("exit_pressed", _exit_object_inventory)
+	
 	
 	for node in get_children():
 		if node.is_in_group("Player"):
@@ -36,6 +44,9 @@ func _ready() -> void:
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		# check if interactable has signal before connecting
+		if node.has_signal("open_inventory"):
+			node.connect("open_inventory", object_inv_ui.display_inventory)
+			node.fill_fridge()
 		if node.has_signal("request_popup"):
 			node.connect("request_popup", _on_request_popup)
 		
@@ -132,18 +143,94 @@ func _process_time(_delta) -> void:
 	else:
 		Global.partOfDay = "evening"
 
+################################################
 
 ## Relating to pop_menu and chices for certain interactables ##
-func _on_request_popup(question, choices):
-	player.in_interaction = true #Set player in interaction
-	$PopupMenu.show_menu(question, choices)
+func _on_request_popup(info_text, choices, item: Item = null, source: Node = null):
+	player.in_interaction = true
+	inventory_item = item
+	source_invnetory = source
+	$PopupMenu.show_menu(info_text, choices)
+
+func _exit_object_inventory():
+	object_inv_ui.hide_menu()
+	player.in_interaction = false
+	inventory_item = null
 	
 func _on_choice_made(choice_text:String):
-	if player.curr_interactable and player.curr_interactable.has_method("on_choice_made"):
+	# Handle inventory-related choices
+	if choice_text == "OK" and !object_inv_ui.is_open:
+		player.in_interaction = false
+	elif choice_text == "Take":
+		_handle_take_item()
+	elif choice_text == "Use":
+		_handle_use_item(source_invnetory)
+	elif choice_text == "Store":
+		_handle_store_item()
+	elif player.curr_interactable and player.curr_interactable.has_method("on_choice_made"):
 		player.curr_interactable.on_choice_made(choice_text)
+	
+func _handle_take_item():
+	if !inventory_item:
+		print("No item selected")
+		return
+	elif !player.curr_interactable:
+		print("No interactable object")
+		return
+	player.curr_interactable.inventory.remove_item(inventory_item.name, 1)
+	player.inventory.add_item(inventory_item.name, 1)
+	# print for testing can be removed
+	print("Took 1x %s from %s" % [inventory_item.name, player.curr_interactable.name])
+	_refrech_inventory_ui()
+	_refrech_object_ui()
+	inventory_item = null
+	source_invnetory = null
+	
+func _handle_use_item(source: Node):
+	if !source:
+		player.curr_interactable.inventory.remove_item(inventory_item.name, 1)
+		_refrech_object_ui()
+		# print for testing can be removed
+		print("Used 1x %s from %s" % [inventory_item.name, player.curr_interactable.name])
 	else:
-		player.in_interaction = false #Set player out of interaction on making choice
-	player.curr_interactable = null
+		player.inventory.remove_item(inventory_item.name, 1)
+		_refrech_inventory_ui()
+		# print for testing can be removed
+		print("Used 1x %s from %s" % [inventory_item.name, "player inventory"])
+	#TODO add further use logic for items
+	if !object_inv_ui.is_open:
+		player.in_interaction = false
+	inventory_item = null
+	source_invnetory = null
+	
+func _handle_store_item():
+	if !inventory_item:
+		print("No item selected")
+		return
+	elif !player.curr_interactable:
+		print("No interactable object")
+		return
+	player.inventory.remove_item(inventory_item.name, 1)
+	player.curr_interactable.inventory.add_item(inventory_item.name, 1)
+	# print for testing can be removed
+	print("Stored 1x %s in %s" % [inventory_item.name, player.curr_interactable.name])
+	_refrech_inventory_ui()
+	_refrech_object_ui()
+	inventory_item = null
+	source_invnetory = null
+
+func _refrech_inventory_ui():
+	player_inv_ui.display_inventory(
+		"Your current inventory",
+		player.inventory.items,
+		player
+	)
+
+func _refrech_object_ui():
+	object_inv_ui.display_inventory(
+		player.curr_interactable.name + " inventory",
+		player.curr_interactable.inventory.items
+	)
 
 ###############################################################
 
