@@ -27,7 +27,10 @@ func _on_exited(body):
 		player_in_area = false 
 
 func change_state(_node:Node)->void:
-	pass		
+	if _node.is_in_group("Player"):
+		_node.in_interaction = true
+		_node.curr_interactable = self
+			
 
 func _on_mouse_entered():
 	interact_area.modulate = Color(1, 1, 0.6) # highlight
@@ -43,3 +46,7 @@ func _on_area_input_event(_viewport, event:InputEvent, _shape_idx):
 	if event.is_action_pressed("interact") and player_in_area:
 		change_state(player)
 		print("Clicked on area:", name)
+
+
+func on_choice_made(choice_text: String) -> void:
+	player.in_interaction = false #Set player out of interaction on making choice

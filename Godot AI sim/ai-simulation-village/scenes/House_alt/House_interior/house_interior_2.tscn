@@ -1,8 +1,8 @@
 [gd_scene load_steps=27 format=4 uid="uid://hqbdxosl7ecw"]
 
-[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="1_uqro1"]
+[ext_resource type="Texture2D" uid="uid://ynbn4owixylw" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="1_uqro1"]
 [ext_resource type="Script" uid="uid://dpcsaeyuqavqs" path="res://scenes/House_alt/House_interior/house_interior.gd" id="1_w58eb"]
-[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="2_w58eb"]
+[ext_resource type="Texture2D" uid="uid://bigblp1taodk4" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="2_w58eb"]
 [ext_resource type="PackedScene" uid="uid://cv1y8cix8lcgd" path="res://scenes/House_alt/House_interior/Furniture/Carpet/Carpet.tscn" id="3_5qeyo"]
 [ext_resource type="PackedScene" uid="uid://co3mecjygtwqc" path="res://scenes/House_alt/House_interior/Furniture/Window/Kitchen/kitchen_window.tscn" id="4_gfiek"]
 [ext_resource type="PackedScene" uid="uid://dppt6jagq4nmy" path="res://scenes/House_alt/House_interior/Furniture/Window/Bedroom/bedroom_window.tscn" id="5_04mis"]
@@ -2273,7 +2273,7 @@ position = Vector2(325, -13)
 position = Vector2(296, 328)
 
 [node name="DoorRight2" parent="." instance=ExtResource("6_v8i6n")]
-position = Vector2(296, 185)
+position = Vector2(290, 185)
 
 [node name="DoorRight3" parent="." instance=ExtResource("6_v8i6n")]
 position = Vector2(296, 40)

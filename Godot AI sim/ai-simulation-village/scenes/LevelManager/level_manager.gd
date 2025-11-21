@@ -13,8 +13,9 @@ var source_invnetory: Node = null
 #Day and night cycle, related
 @onready var dayNightCycle:Node2D = $DayNightCycle
 @onready var agentTimer: Timer = $AgentTimer
-var agent_list: Array = [] #To store list of agents
-
+var agent_list: Dictionary = {} #To store list of agents
+var all_interactables: Dictionary = {} # Stores list of all intercatables
+var id = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -40,10 +41,12 @@ func _ready() -> void:
 		if node.is_in_group("Agent"):
 			node.interactionComponent.interact.connect(_change_state)
 			Global.agent_houses[str(node.agentName)+"'s House"] = node.house #Register name and house
-			agent_list.append(node.agentName)
+			agent_list[node.agentName] = node
 
 	for node in get_tree().get_nodes_in_group("interactable"):
 		# check if interactable has signal before connecting
+		
+		
 		if node.has_signal("open_inventory"):
 			node.connect("open_inventory", object_inv_ui.display_inventory)
 			node.fill_fridge()
@@ -52,6 +55,13 @@ func _ready() -> void:
 		
 		if node.has_signal("save"):
 			node.connect("save", _save_game)
+		
+		
+		all_interactables[id] = node #Add interactable to array of all
+		id+=1
+
+		#print(all_interactables)
+			
 	
 	#Load basic save
 	load_save()
@@ -169,6 +179,7 @@ func _on_choice_made(choice_text:String):
 		_handle_store_item()
 	elif player.curr_interactable and player.curr_interactable.has_method("on_choice_made"):
 		player.curr_interactable.on_choice_made(choice_text)
+		
 	
 func _handle_take_item():
 	if !inventory_item:
@@ -236,7 +247,7 @@ func _refrech_object_ui():
 
 ### Time out to update recency of all memories ###
 func _on_agent_timer_timeout():
-	for agent in agent_list:
+	for agent in agent_list.keys():
 		ServerConnection.update_memory_recency(agent) #Update memory recency
 
 ###################################################
@@ -244,7 +255,7 @@ func _on_agent_timer_timeout():
 
 ### Time out to get refelections #####
 func _on_refelection_timer_timeout() -> void:
-	for agent in agent_list:
+	for agent in agent_list.keys():
 		ServerConnection.get_reflection(agent) #Get reflections for each agent
 
 ###################################################
@@ -254,13 +265,19 @@ func _save_game():
 	var save_data = {
 		"time": Global.time,
 		"player_details": player.get_player_details(),
-		"agent_details": Dictionary()
+		"agent_details": Dictionary(),
+		"object_states": Dictionary() #Saves certain object states
 	}
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
 
-	for node in get_children():
-		if node.is_in_group("Agent"):
-			save_data["agent_details"][str(node.agentName)] = node.get_agent_details() # Ex: {"agent1": {details}, "agent2": {details} }
+	for node in agent_list.values():
+		save_data["agent_details"][str(node.agentName)] = node.get_agent_details() # Ex: {"agent1": {details}, "agent2": {details} }
+	
+	for node_id in all_interactables.keys():
+		var object = all_interactables[node_id]
+		save_data["object_states"][node_id] = {}
+		if object.has_node("Inventory"):
+			save_data["object_states"][node_id]["inventory"] = object.inventory.get_inventory()
 		
 
 	
@@ -279,10 +296,16 @@ func load_save():
 	Global.time = data["time"]
 	player.set_player_details(data["player_details"])
 	
-	for node in get_children():
-		if node.is_in_group("Agent"):
-			if str(node.agentName) in data["agent_details"]:
-				node.set_agent_details(data["agent_details"][str(node.agentName)])
+	for node in agent_list.values():
+		if str(node.agentName) in data["agent_details"]:
+			node.set_agent_details(data["agent_details"][str(node.agentName)])
+	
+	for node_id in all_interactables.keys():
+		if node_id in data["object_states"]:
+			var object = all_interactables[node_id] #interctabel node
+			if object.has_node("Inventory"):
+				var inventory_details = data["object_states"][node_id]["inventory"]
+				object.inventory.set_inventory(inventory_details)
 
 
 func _on_auto_save_timer_timeout() -> void:
@@ -290,3 +313,5 @@ func _on_auto_save_timer_timeout() -> void:
 	_save_game()
 
 ##################################################
+
+##Helper thta hashes node based on path

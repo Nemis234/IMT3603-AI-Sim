@@ -8,6 +8,7 @@ signal request_popup(question: String, content: Array)
 func change_state(node: Node) -> void:
 	state_handler_component.change_state(0,collisionArea)
 	if node.is_in_group("Player"):
+		node.curr_interactable = self
 		emit_signal("request_popup", "Waht would you like to tak out of the closet?", 
 			[
 				"Jacket", 
