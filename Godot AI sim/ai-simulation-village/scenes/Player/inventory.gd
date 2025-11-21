@@ -27,3 +27,15 @@ func remove_item(item_id: String, amount: int = 1):
 			if item.quantity <= 0:
 				items.erase(item)
 			return
+
+func get_inventory()-> Array:
+	var inventory_details = []
+	for item in items:
+		inventory_details.append(item.get_item_meta_data())
+	
+	return inventory_details
+
+func set_inventory(inventory_details:Array):
+	items = []
+	for item_dict in inventory_details:
+		items.append(Item.new(item_dict["name"],item_dict["description"], item_dict["is_usable"],item_dict["quantity"]))

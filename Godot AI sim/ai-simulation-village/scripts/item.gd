@@ -17,3 +17,11 @@ func add_quantity(amount: int):
 	
 func remove_quantity(amount: int):
 	quantity = max(quantity - amount, 0)
+
+func get_item_meta_data() -> Dictionary:
+	return {
+		"name":self.name ,
+		"description" : self.description,
+		"is_usable" : self.is_usable,
+		"quantity" : self.quantity,
+	}

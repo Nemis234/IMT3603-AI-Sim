@@ -62,7 +62,8 @@ func get_player_details()-> Dictionary:
 	return {
 		"position": self.position,
 		"player_direction": player_direction,
-		"character": character
+		"character": character,
+		"inventory":  inventory.get_inventory()
 	}
 
 #Setter to set agent details (While loading a save)
@@ -70,3 +71,4 @@ func set_player_details(details:Dictionary) -> void:
 	self.position = details["position"]
 	self.player_direction = details["player_direction"]
 	self.character = details["character"]
+	self.inventory.set_inventory(details["inventory"])
