@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c0wtuqyrj21np"]
+[gd_scene load_steps=8 format=3 uid="uid://c0wtuqyrj21np"]
 
 [ext_resource type="Script" uid="uid://bo4fn21ho16s8" path="res://scenes/House_alt/House_interior/Furniture/Fridge/fridge.gd" id="1_lc0vj"]
-[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_agrg1"]
+[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_agrg1"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_skfbg"]
+[ext_resource type="Script" uid="uid://cj4rvyjpxirme" path="res://scenes/Player/inventory.gd" id="4_3x6km"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6bno"]
 atlas = ExtResource("2_agrg1")
@@ -34,3 +35,7 @@ shape = SubResource("RectangleShape2D_o6bno")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, 21.465)
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("4_3x6km")
+metadata/_custom_type_script = "uid://cj4rvyjpxirme"
