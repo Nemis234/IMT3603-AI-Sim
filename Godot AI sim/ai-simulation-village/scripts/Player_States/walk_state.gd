@@ -10,7 +10,7 @@ func _on_process(_delta : float) -> void:
 
 func _on_physics_process(_delta : float) -> void:
 	#Keep player in idle state if in dialogue or interaction
-	if player.in_dialogue or player.in_interaction:
+	if player.in_dialogue or player.in_interaction or player.in_object_inventory:
 		transition.emit("Idle") #Transition to idle state and not accept any movement input if player engaged in dialogue
 		return 
 	
