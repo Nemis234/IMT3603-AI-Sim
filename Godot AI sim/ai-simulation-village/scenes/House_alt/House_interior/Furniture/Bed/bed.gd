@@ -32,5 +32,4 @@ func on_choice_made(choice_text: String) -> void:
 		print("Your game has been saved!")
 	
 	player.in_interaction = false #Set player out of interaction on making choice
-	else: player.in_interaction = false
 	
