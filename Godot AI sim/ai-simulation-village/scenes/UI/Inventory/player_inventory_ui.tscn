@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5w4cq1y685mx"]
 
-[ext_resource type="Script" uid="uid://falj08ee4t4n" path="res://scenes/UI/Inventory/player_inventory.gd" id="1_7y8dl"]
+[ext_resource type="Script" uid="uid://falj08ee4t4n" path="res://scenes/UI/Inventory/player_inventory_ui.gd" id="1_7y8dl"]
 [ext_resource type="Theme" uid="uid://cvnibqmmph3ur" path="res://assets/UI/kenney_ui-pack-adventure/UI-theme.tres" id="1_gbmhw"]
 
-[node name="PlayerInventory" type="CanvasLayer"]
+[node name="PlayerInventoryUi" type="CanvasLayer"]
 script = ExtResource("1_7y8dl")
 
 [node name="Control" type="Control" parent="."]

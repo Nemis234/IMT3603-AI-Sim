@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://c30fjyf3v3ewk" path="res://scripts/Player_States/idle_state.gd" id="5_fxc31"]
 [ext_resource type="Texture2D" uid="uid://dv8mikwott6er" path="res://assets/havenport_characters/isabella_cruz.png" id="6_qt7jd"]
 [ext_resource type="Script" uid="uid://cpfhrvy4xavxh" path="res://scripts/Player_States/walk_state.gd" id="6_socpp"]
+[ext_resource type="Script" uid="uid://cj4rvyjpxirme" path="res://scenes/Player/inventory.gd" id="7_fxc31"]
 [ext_resource type="Texture2D" uid="uid://dnl0br8qk1wp6" path="res://assets/havenport_characters/gregory_vale.png" id="7_dqefj"]
 [ext_resource type="Texture2D" uid="uid://6ilpx0mljp8b" path="res://assets/havenport_characters/valentina_cruz.png" id="7_dqp0f"]
 [ext_resource type="Texture2D" uid="uid://bha4lh1kuqksc" path="res://assets/havenport_characters/rafael_cruz.png" id="7_tl8lu"]
@@ -3342,3 +3343,6 @@ animated_sprite_2D = NodePath("../../AnimatedSprite2D")
 script = ExtResource("6_socpp")
 player = NodePath("../..")
 animated_sprite_2D = NodePath("../../AnimatedSprite2D")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("7_fxc31")
