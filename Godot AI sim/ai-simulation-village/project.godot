@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 ServerConnection="*res://scripts/Server/server_connection.gd"
 Global="*res://scripts/global.gd"
 AiConversation="*res://scripts/Server/ai_conversation.gd"
+ItemDatabase="*res://scripts/item_database.gd"
 
 [display]
 
