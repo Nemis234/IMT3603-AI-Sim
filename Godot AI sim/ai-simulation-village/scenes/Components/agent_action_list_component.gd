@@ -101,7 +101,7 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 	if  random < 0.7: #70% to filter out
 		filtered_action_list.erase("wander")
 		filtered_action_list.erase("idle")
-	if random < 0.5: #% to filter out
+	if random < 0.8: #% to filter out
 		filtered_action_list.erase("conversation")
 	
 	return filtered_action_list

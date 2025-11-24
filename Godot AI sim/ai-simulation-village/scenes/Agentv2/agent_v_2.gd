@@ -16,6 +16,7 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var actionList: AgentActionListComponent
 @export var interactionComponent: AgentActionInteractionComponent
 @export var agentStats: AgentStatComponent
+@export var conversation_component: ConversationComponent
 
 @onready var speechBubble = $SpeechBubble
 @onready var speechLabel = $SpeechBubble/PanelContainer/MarginContainer/Label
@@ -35,6 +36,9 @@ var house_entrance
 @export var workObject: Node2D
 
 #Agents action related
+enum CONVO{none,pending,pending_same_location,in_progress}
+var pending_conversation: CONVO = CONVO.none
+
 var agent_action_done: bool = true
 var new_action
 var current_action # Stores the agents current action 
@@ -43,6 +47,7 @@ var queued_action: = []
 var is_requesting_action:bool = false #Helps with overrequesting actions
 var in_dialogue: bool = false #To check if agent in dialogue
 var visiting_agent = "" #Used for action such as visit "which agent to visit?"
+
 @export var character = "steve"
 @onready var command_stream = $AICommand
 
@@ -109,6 +114,8 @@ func _on_pathfinding_component_target_reached() -> void:
 			await interactionComponent._interact_with_object("interactable","fridge")
 		"sleep":
 			await interactionComponent._interact_with_object("interactable", "bed")
+		"conversation":
+			conversation_component.start_conversation(Global.agent_nodes[visiting_agent])
 		_:
 			pass
 		
@@ -123,20 +130,29 @@ func new_agent_action():
 	
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
+	print(queued_action)
 	
-	if queued_action.is_empty():
+	print("Getting new action for ", agentName)
+	if pending_conversation:
+		if pending_conversation == CONVO.pending:
+			new_action = "wander"
+		elif pending_conversation == CONVO.pending_same_location:
+			new_action = "idle"
+		elif pending_conversation == CONVO.in_progress:
+			new_action = "idle"
+	elif queued_action.is_empty():
 		var action_details = await actionList.prompt_new_action(house,in_building,agentStats.stats,command_stream) # Enable this for AI controlling
 		new_action = action_details["action"]
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		visiting_agent = str(action_details["visiting"]) #Get the name of the building/house the agents wants to visit. This will be "" if "visit" is not chosen as the current action
 		
 		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		##new_action = "conversation"
 		#duration_action = clamp(randf_range(50,100),50,100)
-		#if new_action == "visit":
+		#if new_action in ["visit","conversation"]:
 			#var visitList:Array = Global.agent_houses.keys().duplicate()
 			#visitList.erase(agentName)
 			#visiting_agent = visitList.pick_random()
-	
 	else:
 		new_action = queued_action.pop_front()
 	
@@ -158,8 +174,13 @@ func new_agent_action():
 				new_action,
 				visiting_agent
 				)
+		"conversation":
+			print("Starting conversation")
+			var convo_target:Agent = Global.agent_nodes[visiting_agent]
+			conversation_component.start_convo_pathfinding(convo_target,pathfindingComponent.go_to_agent)
 		"idle": 
-			pass
+			print(queued_action)
+			await interactionComponent._delay_agent_action(10)
 		_: pathfindingComponent._got_to_object(new_action) # Agent will go to object, depending on action
 	
 	is_requesting_action = false
@@ -175,7 +196,7 @@ func _on_interact_area_area_entered(area: Area2D) -> void:
 
 func _on_interact_area_area_exited(area: Area2D) -> void:
 	#Closing doors automatically whenever leaving door area 
-	if area.get_parent().is_in_group("Doors"):
+	if area.get_parent().is_in_group("Doors"): 
 		if area.get_parent().curr_state == 1:
 			area.get_parent().change_state()
 
@@ -225,8 +246,11 @@ func hide_speech():
 	speechBubble.visible = false
 	speechBubble.get_label().text = ""
 
-func stream_speech(text:String):
+func show_speech():
 	speechBubble.visible = true
+
+func stream_speech(text:String):
+	show_speech()
 	ServerConnection.post_message(agentName,text,speechBubble.get_label())
 	
 #Getter to retrieve agent details
