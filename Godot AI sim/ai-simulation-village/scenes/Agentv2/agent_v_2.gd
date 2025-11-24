@@ -103,6 +103,7 @@ func _physics_process(delta: float) -> void:
 #Used upon reaching target destination
 func _on_pathfinding_component_target_reached() -> void:
 	await interactionComponent._delay_agent_action(1)
+	
 	match current_action:
 		"wander":
 			agent_action_done = true
@@ -130,7 +131,6 @@ func new_agent_action():
 	
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
-	print(queued_action)
 	
 	print("Getting new action for ", agentName)
 	if pending_conversation:

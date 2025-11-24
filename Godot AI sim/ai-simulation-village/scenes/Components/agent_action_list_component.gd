@@ -17,7 +17,7 @@ var agent_actions: Array = [
 	"eat", 
 	"sleep",
 	"visit",
-	"work"
+	"work",
 	"conversation"
 	]
 
