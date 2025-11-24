@@ -3,7 +3,7 @@ extends Node
 ##Global variables
 
 #Related to ingame time
-var time: float = 0.0 #0.0 Night, 1.0 Day , used for interpolating
+var time: float = 0.5 #0.0 Night, 1.0 Day , used for interpolating
 var totalMinutes
 var day = 1
 var hour = 0
