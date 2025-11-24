@@ -24,7 +24,6 @@ b = Vector2(13, 14)
 
 [node name="HouseExterior3" type="StaticBody2D" groups=["house_ext"]]
 script = ExtResource("1_k1s84")
-metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("AtlasTexture_rvip5")
@@ -46,4 +45,4 @@ position = Vector2(6, -28)
 shape = SubResource("SegmentShape2D_w55gp")
 
 [node name="Entrance" parent="." instance=ExtResource("2_k1s84")]
-position = Vector2(0, 16)
+position = Vector2(0, 24)

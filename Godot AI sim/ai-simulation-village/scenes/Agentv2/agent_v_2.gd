@@ -29,6 +29,11 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 var house_entrance
 @onready var in_building: Node2D = house #Stores the building the agent is in.
 @onready var currentLocation: Dictionary = {"location": str(house.name), "sub_location": str(agentBed.name)} 
+
+#Agent Work related
+@export var workPlace: Node2D
+@export var workObject: Node2D
+
 #Agents action related
 var agent_action_done: bool = true
 var new_action
@@ -59,6 +64,15 @@ func _ready() -> void:
 	"name": "myownbed"
 	}
 	
+	#Add their workobject
+	actionList.interactable_objects[workObject] = {
+	"building": workPlace, 
+	"position": workObject.get_node("Marker2D").get_global_position(), 
+	"name": "work"
+	}
+
+	print(actionList.interactable_objects)
+	
 func _process(_delta: float) -> void:
 	if agent_action_done and not self.in_dialogue:
 		await interactionComponent._delay_agent_action(duration_action)
@@ -87,7 +101,7 @@ func _on_pathfinding_component_target_reached() -> void:
 	match current_action:
 		"wander":
 			agent_action_done = true
-		"gohome", "leavebuilding", "visit":
+		"gohome", "leavebuilding", "visit", "work":
 				interactionComponent._interact_with_object("","entrance")
 		"read": 
 			await interactionComponent._interact_with_object("interactable","bookshelf")
@@ -167,7 +181,7 @@ func _on_interact_area_area_exited(area: Area2D) -> void:
 
 func _on_object_detection_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
-		if !(area.get_parent() == agentBed):
+		if !(area.get_parent() == agentBed or area.get_parent() == workObject):
 			actionList.interactable_objects[area.get_parent()] = {
 				"building": in_building, 
 				"position": area.get_parent().get_node("Marker2D").get_global_position(), 

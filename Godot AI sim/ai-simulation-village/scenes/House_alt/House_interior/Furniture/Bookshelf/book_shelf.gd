@@ -18,4 +18,3 @@ func change_state(node: Node) -> void:
 				"Nothing"
 			]
 		)
-

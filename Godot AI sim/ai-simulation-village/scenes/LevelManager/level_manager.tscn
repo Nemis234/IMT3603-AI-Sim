@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=26 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -159,25 +159,28 @@ wait_time = 30.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
-[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
 position = Vector2(3250, 3580)
 agentName = "John"
 house = NodePath("../John\'s House")
 agentBed = NodePath("../John\'s House/house_interior/Bed")
+workPlace = NodePath("../House3")
+workObject = NodePath("../House3/house_interior/main_floor/Computer")
 character = "marcus"
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
-[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed") instance=ExtResource("4_hbnk6")]
+[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
 position = Vector2(1363, 3627)
 agentName = "Mei"
 house = NodePath("../Mei\'s House")
 agentBed = NodePath("../Mei\'s House/house_interior/Bed")
+workPlace = NodePath("../House3")
+workObject = NodePath("../House3/house_interior/main_floor/Computer")
 
 [node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
 
 [node name="PlayerInventoryUi" parent="." instance=ExtResource("10_mpw1i")]
-character = "adrian"
 
 [node name="RefelectionTimer" type="Timer" parent="."]
 wait_time = 100.0
@@ -199,3 +202,6 @@ autostart = true
 [editable path="Mei\'s House/house_exterior"]
 [editable path="Mei\'s House/house_exterior/Entrance"]
 [editable path="Mei\'s House/house_interior"]
+[editable path="House3/house_exterior"]
+[editable path="House3/house_exterior/Entrance"]
+[editable path="House3/house_interior"]

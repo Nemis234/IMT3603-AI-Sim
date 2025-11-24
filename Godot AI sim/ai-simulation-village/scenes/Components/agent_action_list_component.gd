@@ -16,7 +16,8 @@ var agent_actions: Array = [
 	"read",
 	"eat", 
 	"sleep",
-	"visit"
+	"visit",
+	"work"
 	]
 
 #Check if agent remembers a specific object
@@ -47,6 +48,11 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 			filtered_action_list = ["eat"]
 		"night":
 			filtered_action_list = ["gohome", "sleep"]
+		"noon","afternoon":
+			if agentNode.in_building != agentNode.workPlace:
+				filtered_action_list = ["work"]
+			else:
+				filtered_action_list = ["work", "eat", "wander", "idle"]
 		_:
 			#Filtering actions based on stats
 			for key in stats.keys():

@@ -84,6 +84,8 @@ func _got_to_object(action: String) -> void:
 			object = "fridge"
 		"sleep":
 			object = "myownbed"
+		"work":
+			object = "work"
 	
 	var interactable_object = agent.actionList.is_object_in_memory(object)
 	if interactable_object:
