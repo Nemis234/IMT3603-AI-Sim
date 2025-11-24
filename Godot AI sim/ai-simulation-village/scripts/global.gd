@@ -11,7 +11,7 @@ var minute = 0
 var partOfDay = ""
 const realSecondsPerIngameDay: float = 180.0 #One in game day is n real time seconds
 var agent_houses: Dictionary #Holds every agent and their houses
-var agent_nodes: Dictionary
+var agent_nodes: Dictionary[String,Agent]
 
 ##Related to saves
 var selected_save: String = ""
