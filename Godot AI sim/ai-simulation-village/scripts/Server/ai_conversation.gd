@@ -57,7 +57,10 @@ func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,o
 		next_output = last_output
 		last_output = temp_output
 		
-		await _wait_on_timer()
+		if timer.is_stopped():
+			continue
+		
+		await timer.timeout
 	
 	response = await ServerConnection.post_message(next_agent,response,next_output,"chat",last_agent)
 	

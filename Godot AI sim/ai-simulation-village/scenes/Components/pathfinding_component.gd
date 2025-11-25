@@ -118,7 +118,14 @@ func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
 	
 	if target_agent.in_building == agent.in_building:
 		print("Agents are in the same house or both are outside")
-		_go_to_target(target_agent.global_position)
+		var target
+		var component = target_agent.pathfindingComponent
+		if component.navigationNode.target_position and not component.get_target_reached():
+			target = component.navigationNode.target_position
+		else:
+			target = target_agent.global_position
+			
+		_go_to_target(target)
 		return true
 	
 	# Convo target is not in a house
@@ -126,12 +133,12 @@ func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
 		print("Convo target not in a house")
 		if agent.in_building:
 			print("Self is in a house")
+			_go_to_target( 
+				agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position()
+			)
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
 			agent.queued_action.push_back(callback_action)
-			_go_to_target.call( 
-				agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position()
-			)
 		else:
 			print("Both not inside, something went wrong")
 	# Convo target is in a house

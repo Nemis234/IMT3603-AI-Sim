@@ -25,6 +25,7 @@ func start_conversation(convo_target:Agent):
 	
 	convo_target.pending_conversation = Agent.CONVO.none
 	agent.pending_conversation = Agent.CONVO.none
+	agent.agent_action_done = true
 	
 	await get_tree().create_timer(5).timeout
 	
