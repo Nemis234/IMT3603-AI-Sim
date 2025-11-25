@@ -132,8 +132,7 @@ func new_agent_action():
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
 	
-	print("Getting new action for ", agentName)
-	if pending_conversation:
+	if pending_conversation != CONVO.none:
 		if pending_conversation == CONVO.pending:
 			new_action = "wander"
 		elif pending_conversation == CONVO.pending_same_location:
@@ -178,9 +177,11 @@ func new_agent_action():
 			print("Starting conversation")
 			var convo_target:Agent = Global.agent_nodes[visiting_agent]
 			conversation_component.start_convo_pathfinding(convo_target,pathfindingComponent.go_to_agent)
-		"idle": 
-			print(queued_action)
-			await interactionComponent._delay_agent_action(10)
+		"idle":
+			agent_action_done = false
+			await get_tree().create_timer(5).timeout
+			agent_action_done = true
+			
 		_: pathfindingComponent._got_to_object(new_action) # Agent will go to object, depending on action
 	
 	is_requesting_action = false
@@ -291,10 +292,10 @@ func set_agent_details(details:Dictionary) -> void:
 	
 	#Set queued action to the current action that was being performed in the last save
 	current_action = details["current_action"]
-	queued_action = current_action
+	queued_action.append(current_action)
 	agent_action_done = true #set action done to true so that upon loading, agent can continue the last action
 	
-	is_requesting_action = details["is_requesting_action"]
+	#is_requesting_action = details["is_requesting_action"]
 	#queued_action = details["queued_action"]
 
 	print("Set details for agent: " + str(agentName))
