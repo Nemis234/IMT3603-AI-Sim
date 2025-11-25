@@ -26,11 +26,11 @@ state_handler_component = NodePath("StateHandlerComponent")
 change_state_sprite = NodePath("ChangeStateSprite")
 
 [node name="ClosedSprite" type="Sprite2D" parent="."]
+visible = false
 rotation = 1.5708
 texture = SubResource("AtlasTexture_eff5l")
 
 [node name="OpenSprite" type="Sprite2D" parent="."]
-visible = false
 position = Vector2(8, -13)
 texture = SubResource("AtlasTexture_jkkko")
 
@@ -50,3 +50,8 @@ script = ExtResource("4_1h5ow")
 [node name="ChangeStateSprite" parent="." node_paths=PackedStringArray("sprite_1", "sprite_2") instance=ExtResource("3_1thpm")]
 sprite_1 = NodePath("../ClosedSprite")
 sprite_2 = NodePath("../OpenSprite")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(-1, 1, 17, 1, 17, -27, -1, -27)
+affect_navigation_mesh = true
+avoidance_enabled = false

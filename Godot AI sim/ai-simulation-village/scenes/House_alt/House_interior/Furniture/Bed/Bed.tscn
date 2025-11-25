@@ -41,3 +41,8 @@ position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_4qapx")
 
 [node name="StateHandlerComponent" parent="." instance=ExtResource("2_bv4ir")]
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(8, 16, 8, -24, -8, -24, -8, 16)
+affect_navigation_mesh = true
+avoidance_enabled = false
