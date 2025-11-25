@@ -47,9 +47,9 @@ func _unhandled_input(event: InputEvent) -> void:
 #Gets the opposite direction of the player direction as a string
 func get_opposite_direction()->String:
 	if player_direction == Vector2.UP:
-		return "down"
+		return "front"
 	elif player_direction == Vector2.DOWN:
-		return "up"
+		return "back"
 	elif player_direction == Vector2.LEFT:
 		return "right"
 	elif player_direction == Vector2.RIGHT:

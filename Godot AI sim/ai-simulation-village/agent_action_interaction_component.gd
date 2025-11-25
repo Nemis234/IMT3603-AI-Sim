@@ -4,7 +4,7 @@ class_name AgentActionInteractionComponent
 signal interact(agent,interactable)
 
 #The agent this component is bounded too
-var agent: CharacterBody2D
+var agent: Agent
 
 func _ready():
 	agent = get_parent() as CharacterBody2D
@@ -54,7 +54,7 @@ func _interact_with_object(group: String, objectName: String) -> void:
 			var door_entrance = get_interactable_object("","Entrance")
 			interact.emit(agent, door_entrance)
 			agent.in_building = door_entrance.get_parent()
-			agent.queued_action = agent.current_action
+			agent.queued_action.push_front(agent.current_action)
 			agent.agent_action_done = true
 			
 ##Function used to delay agent actions. Used to mimic time an agent would use to interact

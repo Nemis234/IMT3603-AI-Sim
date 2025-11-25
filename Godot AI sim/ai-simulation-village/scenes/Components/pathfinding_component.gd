@@ -7,7 +7,7 @@ signal target_reached
 @export var movement_speed: float = 50
 
 #The agent this component is bounded too
-var agent: CharacterBody2D
+var agent: Agent
 
 #Bool to control emits
 var _has_emitted: bool = false
@@ -53,7 +53,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
-				agent.queued_action = action.to_lower()
+				agent.queued_action.push_front(action.to_lower())
 			#If agent is already in the building
 			elif agent.in_building == Global.agent_houses[visitTarget]:
 				return
@@ -66,7 +66,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
-				agent.queued_action = action.to_lower()
+				agent.queued_action.push_front(action.to_lower())
 		_:
 			set_target(target)
 	agent.agent_action_done = false
@@ -97,13 +97,51 @@ func _got_to_object(action: String) -> void:
 			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
-			agent.queued_action = action.to_lower()
+			agent.queued_action.push_front(action.to_lower())
 		#If agent is outside
 		else:
 			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
 
 	else:
 		print("No " + object +  " in memory")
+
+
+## Finds and goes to the selected agent[br]
+## Returns true when the agents has found each other[br]
+## Will set the queued action to the callback_action
+func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
+	var go_to_house = _go_to_target.bind(
+		Global.agent_houses[target_agent.agentName].get_node("house_exterior").get_node("Entrance").get_global_position(),
+		"visit",
+		target_agent.agentName
+	)
+	
+	if target_agent.in_building == agent.in_building:
+		print("Agents are in the same house or both are outside")
+		_go_to_target(target_agent.global_position)
+		return true
+	
+	# Convo target is not in a house
+	elif target_agent.in_building == null:
+		print("Convo target not in a house")
+		if agent.in_building:
+			print("Self is in a house")
+			agent.new_action = "leavebuilding"
+			agent.current_action = agent.new_action
+			agent.queued_action.push_back(callback_action)
+			_go_to_target.call( 
+				agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position()
+			)
+		else:
+			print("Both not inside, something went wrong")
+	# Convo target is in a house
+	else:
+		print("Convo target in a house")
+		agent.queued_action.push_back(callback_action)
+		go_to_house.call()
+	
+	return false
+
 
 ##This is related to navigation avoidance
 func _on_navigation_agent_2d_velocity_computed(safe_velocity: Vector2) -> void:

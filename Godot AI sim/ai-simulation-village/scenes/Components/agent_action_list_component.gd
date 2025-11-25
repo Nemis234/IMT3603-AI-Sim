@@ -17,7 +17,8 @@ var agent_actions: Array = [
 	"eat", 
 	"sleep",
 	"visit",
-	"work"
+	"work",
+	"conversation"
 	]
 
 #Check if agent remembers a specific object
@@ -96,9 +97,12 @@ func _filter_action_list(home: Node2D, in_building: Node2D, stats: Dictionary) -
 		
 	#TODO Maybe use a weight system later
 	#Filtering out low weighted actions
-	if randf() < 0.7: #70% to filter out
+	var random = randf()
+	if  random < 0.7: #70% to filter out
 		filtered_action_list.erase("wander")
 		filtered_action_list.erase("idle")
+	if random < 0.8: #% to filter out
+		filtered_action_list.erase("conversation")
 	
 	return filtered_action_list
 
@@ -123,28 +127,30 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	var hour = "0"+ str(h) if h < 10 else str(h)
 	var m = Global.minute
 	var minute = "0"+str(m) if m < 10 else str(m)
-
+	
+	var agents := Global.agent_nodes.values()
+	## Filters out the original agent
+	var filtered = agents.filter(func(node:Agent): return not (node == agentNode))
+	## Gets the names from the remaining agent nodes
+	var agent_names = filtered.map(func(node:Agent):return node.agentName)
+	
 	var agent_details:Dictionary = {
 		"agent": str(agentNode.agentName),
 		"location": str(agentNode.currentLocation),
 		"time":hour + ":" + minute,
 		"action_list": filtered_action_list,
-		"visit_list": Global.agent_houses # Dicitonary {}
+		"visit_list": Global.agent_houses, # Dicitonary {}
+		"conversation_list": agent_names
 		}
 	# Send prompt and wait for response
 	#NEW: Set type to action to send request to /action endpoint
-	await ServerConnection.post_action(agent_details, command_stream) 
+	var text = await ServerConnection.post_action(agent_details, command_stream)
 	
-	# Make sure response is not empty
-	while command_stream.text == "":
-		await get_tree().process_frame  # wait one frame before checking again
-	
-	#NEW: Response stream for actions now is a json so getting relevant info from others
-	var action_info = JSON.parse_string(command_stream.text) # is a dict = {"action": ..., "duration": ...}
+	#NEW: Response is a json so getting relevant info from others
+	var action_info:Dictionary = JSON.parse_string(text) # is a dict = {"action": ..., "duration": ...}
 	#print(action_info)
 	action_info["action"] = action_info["action"].strip_edges().to_lower() #The action 
 	action_info["duration"] = int(action_info["duration"]) #NEW: How long the agent should perform the action
-	
 
 	return action_info
 
