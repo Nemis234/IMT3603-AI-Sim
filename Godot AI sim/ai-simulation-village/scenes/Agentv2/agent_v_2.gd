@@ -36,7 +36,7 @@ var house_entrance
 @export var workObject: Node2D
 
 #Agents action related
-enum CONVO{none,pending,pending_same_location,in_progress}
+enum CONVO{none,pending_orginial_agent,pending,pending_same_location,in_progress}
 var pending_conversation: CONVO = CONVO.none
 
 var agent_action_done: bool = true
@@ -136,7 +136,7 @@ func new_agent_action():
 	is_requesting_action = true
 	agentStats.hide_progress_bar()
 	
-	if pending_conversation != CONVO.none:
+	if pending_conversation != CONVO.none and pending_conversation != CONVO.pending_orginial_agent:
 		if pending_conversation == CONVO.pending:
 			new_action = "wander"
 		elif pending_conversation == CONVO.pending_same_location:
@@ -185,8 +185,14 @@ func new_agent_action():
 				visiting_building
 				)
 		"conversation":
-			print("Starting conversation")
-			var convo_target:Agent = Global.agent_nodes[visiting_agent]
+			var convo_target:Agent = Global.agent_nodes[conversation_partner]
+			
+			if pending_conversation == CONVO.none:
+				if not convo_target.pending_conversation == CONVO.none:
+					queued_action.push_front("idle")
+					agent_action_done = true
+					return
+			
 			conversation_component.start_convo_pathfinding(convo_target,pathfindingComponent.go_to_agent)
 		"idle":
 			agent_action_done = false
