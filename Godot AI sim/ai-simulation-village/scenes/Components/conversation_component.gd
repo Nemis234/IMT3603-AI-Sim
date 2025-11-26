@@ -15,12 +15,11 @@ func start_convo_pathfinding(convo_target:Agent,go_to_agent:Callable):
 func start_conversation(convo_target:Agent):
 	convo_target.pending_conversation = Agent.CONVO.in_progress
 	agent.pending_conversation = Agent.CONVO.in_progress
-	convo_target.show_speech()
 	agent.show_speech()
 	
 	await AiConversation.init_agent2agent_conversation(agent.agentName,convo_target.agentName,
-	agent.speechBubble.get_label(),
-	convo_target.speechBubble.get_label()
+	agent.speechBubble,
+	convo_target.speechBubble
 	)
 	
 	convo_target.pending_conversation = Agent.CONVO.none

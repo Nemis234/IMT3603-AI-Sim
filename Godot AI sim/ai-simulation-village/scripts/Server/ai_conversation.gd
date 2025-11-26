@@ -19,7 +19,7 @@ var pause_messages: bool = false:
 func _ready() -> void:
 	timer.autostart = false
 	timer.one_shot = true
-	timer.wait_time = 4
+	timer.wait_time = 6
 	timer.timeout.connect(func():
 		pause_messages=false)
 	
@@ -31,12 +31,12 @@ func _wait_on_timer():
 		await get_tree().process_frame
 
 
-func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,output2:Label):
+func init_agent2agent_conversation(agent1:String, agent2:String, output1:SpeechBubble,output2:SpeechBubble):
 	## The starting message
 	var initial_message = "You are starting a whole new conversation with " + agent2 + ". What do you say to them?"
-	
+
 	pause_messages = true
-	var response = await ServerConnection.post_message(agent1,initial_message,output1,"chat/start_ai_chat",agent2)
+	var response = await ServerConnection.post_message(agent1,initial_message,output1.get_label(),"chat/start_ai_chat",agent2)
 	await _wait_on_timer()
 
 	var last_agent = agent1
@@ -46,7 +46,12 @@ func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,o
 	var next_output = output2
 	for x in range(numb_chat_messages-2):
 		pause_messages = true
-		response = await ServerConnection.post_message(next_agent,response,next_output,"chat",last_agent)
+		last_output.visible = false
+		next_output.visible = true
+		
+		last_output.get_label().text = ""
+		
+		response = await ServerConnection.post_message(next_agent,response,next_output.get_label(),"chat",last_agent)
 		
 		# Switches the agents
 		var temp_agent = next_agent
@@ -62,8 +67,11 @@ func init_agent2agent_conversation(agent1:String, agent2:String, output1:Label,o
 		
 		await timer.timeout
 	
-	response = await ServerConnection.post_message(next_agent,response,next_output,"chat",last_agent)
+	last_output.visible = false
+	next_output.visible = true
 	
-	await ServerConnection.post_message(last_agent,response,last_output,"set_memory",next_agent)
+	response = await ServerConnection.post_message(next_agent,response,next_output.get_label(),"chat",last_agent)
+	
+	await ServerConnection.post_message(last_agent,response,last_output.get_label(),"set_memory",next_agent)
 	
 	
