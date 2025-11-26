@@ -134,8 +134,15 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	var agents := Global.agent_nodes.values()
 	## Filters out the original agent
 	var filtered = agents.filter(func(node:Agent): return not (node == agentNode))
+	
+	var new_agents = filtered.filter(func(node):
+		return node.pending_conversation == node.CONVO.none
+		)
+	
 	## Gets the names from the remaining agent nodes
-	var agent_names = filtered.map(func(node:Agent):return node.agentName)
+	var agent_names = new_agents.map(func(node:Agent):return node.agentName)
+	
+	
 	
 	var agent_details:Dictionary = {
 		"agent": str(agentNode.agentName),
