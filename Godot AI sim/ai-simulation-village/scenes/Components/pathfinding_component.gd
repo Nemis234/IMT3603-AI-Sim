@@ -152,14 +152,9 @@ func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
 	# Convo target is in a house
 	else:
 		print("Convo target in a house")
-		_go_to_target(
-		target_agent.in_building.house_exterior.get_node("Entrance").get_global_position(),
-		"visit",
-		target_agent.in_building.name
-		)
-		
+		agent.visiting_building = target_agent.in_building.name
+		agent.queued_action.push_front("visit")
 		agent.queued_action.push_back(callback_action)
-		
 	
 	return false
 
