@@ -75,6 +75,8 @@ func _ready() -> void:
 	"position": workObject.get_node("Marker2D").get_global_position(), 
 	"name": "work"
 	}
+	
+	speechBubble.get_name_label().text = agentName
 
 	
 func _process(_delta: float) -> void:

@@ -3394,6 +3394,7 @@ texture_progress = ExtResource("9_i2t6t")
 
 [node name="SpeechBubble" parent="." instance=ExtResource("12_c7lqd")]
 visible = false
+z_index = 1
 
 [connection signal="area_entered" from="InteractArea" to="." method="_on_interact_area_area_entered"]
 [connection signal="area_exited" from="InteractArea" to="." method="_on_interact_area_area_exited"]
