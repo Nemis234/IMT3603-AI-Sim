@@ -41,7 +41,7 @@ func get_target_reached() -> bool:
 ##Helper function to set target desitnation and set the agent_action_done to false.
 ##This is used for simple "go to this point"-actions.
 ##target is the end-destination in vector.
-##action is used for when action requires agent to go somewhere but not interact with objects, for now "visit" is the only action
+##action is used for when action requires agent to go somewhere but not interact with objects, for now "visit/gohome" is the only action
 func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 	match action:
 		"visit":
