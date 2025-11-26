@@ -159,22 +159,24 @@ wait_time = 30.0
 autostart = true
 script = ExtResource("6_4tw1x")
 
-[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
-position = Vector2(3250, 3580)
+[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(3352, 3768)
 agentName = "John"
 house = NodePath("../John\'s House")
 agentBed = NodePath("../John\'s House/house_interior/Bed")
+in_building = NodePath("../John\'s House")
 workPlace = NodePath("../House3")
 workObject = NodePath("../House3/house_interior/main_floor/Computer")
 character = "marcus"
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
-[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
-position = Vector2(1363, 3627)
+[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(1482, 3756)
 agentName = "Mei"
 house = NodePath("../Mei\'s House")
 agentBed = NodePath("../Mei\'s House/house_interior/Bed")
+in_building = NodePath("../Mei\'s House")
 workPlace = NodePath("../House3")
 workObject = NodePath("../House3/house_interior/main_floor/Computer2")
 
