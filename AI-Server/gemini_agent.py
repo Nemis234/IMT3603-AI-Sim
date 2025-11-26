@@ -223,15 +223,24 @@ class Agent:
         Choose something that you have not done recently. 
         Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. 
         Decide a suitable duration it will take for you to perform the action. 
-        If the decided action is "conversation", strictly output the following: action,duration,"",conversationPartner; 
-        where "conversationPartner" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
-        Duration should be between 5-30 minutes.
-        If the decided action is "visit", strictly output the following: action,duration,visiting,""; 
-        where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. 
-        Otherwise, strictly output: action,duration,"","". 
         Ensure duration is a single number (in minutes).
         """
         
+        if visit_list:
+            action_prompt +=f"""
+            If the decided action is "conversation", strictly output the following: action,duration,"",conversationPartner; 
+            where "conversationPartner" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
+            """
+        
+        if conversation_list:
+            action_prompt +=f"""
+            If the decided action is "visit", strictly output the following: action,duration,visiting,""; 
+            where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. 
+            """
+        
+        action_prompt +="""
+        If nothing else is spesified, strictly output: action,duration,"","". 
+        """
         
         query_message = {'role':'user', 'parts':[{'text': action_prompt}]}
         history = self.get_memory(action_prompt) #Get most relevant entries from db closest to query (message)
