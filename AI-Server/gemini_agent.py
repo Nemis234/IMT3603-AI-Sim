@@ -32,7 +32,8 @@ client = genai.Client()
 class ActionDetails(BaseModel):
     action : str = Field(description="The chosen action")
     duration: int = Field(description="Duration in minutes")
-    visiting: str = Field(description="Name of the person to visit or talk to")
+    visiting: str = Field(description="Building or location to visit")
+    conversationPartner: str = Field(description="Name of the person to have a conversation with")
 
 
 class Agent:
@@ -222,12 +223,12 @@ class Agent:
         Choose something that you have not done recently. 
         Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. 
         Decide a suitable duration it will take for you to perform the action. 
-        If the decided action is "conversation", strictly output the following: action,duration,visiting; 
-        where "visiting" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
+        If the decided action is "conversation", strictly output the following: action,duration,"",conversationPartner; 
+        where "conversationPartner" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
         Duration should be between 5-30 minutes.
-        If the decided action is "visit", strictly output the following: action,duration,visiting; 
+        If the decided action is "visit", strictly output the following: action,duration,visiting,""; 
         where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. 
-        Otherwise, strictly output: action,duration,"". 
+        Otherwise, strictly output: action,duration,"","". 
         Ensure duration is a single number (in minutes).
         """
         
@@ -240,7 +241,7 @@ class Agent:
 
         response = self.generate_content(input_message)
 
-        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: }
+        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: , conversationPartner: }
        
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
@@ -253,7 +254,7 @@ class Agent:
         if action_dict["action"]=="visit": #If action is "visit", provide custom action message
             action_message = f"On {time_stamp}, you visited {action_dict["visiting"]}"
         elif action_dict["action"]=="conversation": #If action is "conversation", provide custom action message
-            action_message = f"On {time_stamp}, you had a conversation with {action_dict["visiting"]}"
+            action_message = f"On {time_stamp}, you had a conversation with {action_dict["conversationPartner"]}"
         else: #Otherwise
             action_message = f"On {time_stamp}, you performed the following action: {action_dict["action"]}"
         
