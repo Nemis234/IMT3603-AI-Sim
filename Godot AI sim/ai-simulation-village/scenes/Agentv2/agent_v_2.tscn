@@ -3357,9 +3357,9 @@ shape = SubResource("CircleShape2D_2krod")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 5.0
-path_max_distance = 20.0
+path_max_distance = 10.0
 path_postprocessing = 1
-simplify_path = true
+avoidance_enabled = true
 debug_enabled = true
 
 [node name="PathfindingComponent" parent="." node_paths=PackedStringArray("navigationNode") instance=ExtResource("4_uwfto")]

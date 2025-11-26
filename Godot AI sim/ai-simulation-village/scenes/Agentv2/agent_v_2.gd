@@ -28,7 +28,7 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var house: Node2D
 @export var agentBed: Node2D
 var house_entrance
-@onready var in_building: Node2D = house #Stores the building the agent is in.
+@export var in_building: Node2D = null #house #Stores the building the agent is in.
 @onready var currentLocation: Dictionary = {"location": str(house.name), "sub_location": str(agentBed.name)} 
 
 #Agent Work related
