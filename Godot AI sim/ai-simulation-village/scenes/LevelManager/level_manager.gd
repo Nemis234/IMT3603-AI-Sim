@@ -40,7 +40,7 @@ func _ready() -> void:
 
 		if node.is_in_group("Agent"):
 			node.interactionComponent.interact.connect(_change_state)
-			Global.agent_houses[str(node.agentName)+"'s House"] = node.house #Register name and house
+			Global.agent_houses[node.agentName] = node.house #Register name and house
 			Global.agent_nodes[node.agentName] = node
 			agent_list[node.agentName] = node
 			#agent_list.append(node.agentName)
