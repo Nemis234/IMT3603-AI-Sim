@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dq4atcaco87c6" path="res://scenes/House_alt/House_interior/Furniture/Toilet/toilet.tscn" id="8_wmqv2"]
 [ext_resource type="PackedScene" uid="uid://dxaap0uepvube" path="res://scenes/House_alt/House_interior/Furniture/Sinks/Bathroom/bathroom_sink.tscn" id="9_frcds"]
 [ext_resource type="PackedScene" uid="uid://co3mecjygtwqc" path="res://scenes/House_alt/House_interior/Furniture/Window/Kitchen/kitchen_window.tscn" id="10_bipdu"]
-[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House_alt/House_interior/Furniture/TV/tv.tscn" id="12_l8hp0"]
 [ext_resource type="PackedScene" uid="uid://sdt4uupylmv4" path="res://scenes/House_alt/House_interior/Furniture/Stove/stove.tscn" id="13_lm4j8"]
 [ext_resource type="PackedScene" uid="uid://b1pt8cmc0e236" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs_top.tscn" id="14_xrqkn"]
@@ -2546,6 +2546,9 @@ position = Vector2(292, 337)
 
 [node name="Computer" parent="main_floor" instance=ExtResource("16_05116")]
 position = Vector2(152, 309)
+
+[node name="Computer2" parent="main_floor" instance=ExtResource("16_05116")]
+position = Vector2(184, 310)
 
 [node name="second_floor" type="Node2D" parent="."]
 position = Vector2(1000, 0)
