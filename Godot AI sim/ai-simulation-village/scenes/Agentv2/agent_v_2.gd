@@ -53,7 +53,7 @@ var visiting_agent = "" #Used for action such as visit "which agent to visit?"
 
 
 func _ready() -> void:
-	house_entrance = house.get_node("house_exterior").get_node("Entrance")
+	house_entrance = house.house_exterior.get_node("Entrance")
 	
 	agent_interact_area.body_entered.connect(_on_interact_area_entered)
 	agent_interact_area.body_exited.connect(_on_interact_area_exited)
@@ -166,10 +166,10 @@ func new_agent_action():
 		"gohome":
 			pathfindingComponent._go_to_target(house_entrance.get_global_position(), new_action)
 		"leavebuilding":
-			pathfindingComponent._go_to_target(in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+			pathfindingComponent._go_to_target(in_building.house_interior.get_node("Entrance").get_global_position())
 		"visit":
 			pathfindingComponent._go_to_target(
-				Global.agent_houses[visiting_agent].get_node("house_exterior").get_node("Entrance").get_global_position(),
+				Global.agent_houses[visiting_agent].house_exterior.get_node("Entrance").get_global_position(),
 				new_action,
 				visiting_agent
 				)
@@ -269,7 +269,7 @@ func get_agent_details()-> Dictionary:
 		#"agent_action_done": agent_action_done,
 		"current_action": current_action,
 		"is_requesting_action":  is_requesting_action,
-		#"queued_action": queued_action
+		"queued_action": queued_action
 	}
 
 #Setter to set agent details (While loading a save)
@@ -288,7 +288,7 @@ func set_agent_details(details:Dictionary) -> void:
 	pathfindingComponent = get_node(details["pathfindingComponent"])
 	visiting_agent = details["visiting_agent"]	
 	agentStats.stats = details["stats"]
-		
+	queued_action = details["queued_action"]	
 	
 	#Set queued action to the current action that was being performed in the last save
 	current_action = details["current_action"]

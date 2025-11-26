@@ -50,7 +50,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				set_target(target)
 			#Leave building if agent is in another building
 			elif agent.in_building != Global.agent_houses[visitTarget]:
-				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+				_go_to_target(agent.in_building.house_interior.get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
 				agent.queued_action.push_front(action.to_lower())
@@ -63,7 +63,7 @@ func _go_to_target(target: Vector2i, action = null, visitTarget = null)-> void:
 				set_target(target)
 			#Leave building if agent is in another building
 			elif agent.in_building != agent.house:
-				_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+				_go_to_target(agent.in_building.house_interior.get_node("Entrance").get_global_position())
 				agent.new_action = "leavebuilding"
 				agent.current_action = agent.new_action
 				agent.queued_action.push_front(action.to_lower())
@@ -94,13 +94,13 @@ func _got_to_object(action: String) -> void:
 			_go_to_target(interactable_object["position"])
 		#If agent is in another building but not in the same as the object
 		elif agent.in_building != interactable_object["building"] and agent.in_building != null:
-			_go_to_target(agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position())
+			_go_to_target(agent.in_building.house_interior.get_node("Entrance").get_global_position())
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
 			agent.queued_action.push_front(action.to_lower())
 		#If agent is outside
 		else:
-			_go_to_target(interactable_object["building"].get_node("house_exterior").get_node("Entrance").get_global_position())
+			_go_to_target(interactable_object["building"].house_exterior.get_node("Entrance").get_global_position())
 
 	else:
 		print("No " + object +  " in memory")
@@ -110,11 +110,19 @@ func _got_to_object(action: String) -> void:
 ## Returns true when the agents has found each other[br]
 ## Will set the queued action to the callback_action
 func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
+	'''
 	var go_to_house = _go_to_target.bind(
 		Global.agent_houses[target_agent.agentName].get_node("house_exterior").get_node("Entrance").get_global_position(),
 		"visit",
 		target_agent.agentName
 	)
+
+	var go_to_target_agent_building = _go_to_target.bind(
+		target_agent.in_building.house_exterior.get_node("Entrance").get_global_position(),
+		)
+	'''
+
+	
 	
 	if target_agent.in_building == agent.in_building:
 		print("Agents are in the same house or both are outside")
@@ -134,7 +142,7 @@ func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
 		if agent.in_building:
 			print("Self is in a house")
 			_go_to_target( 
-				agent.in_building.get_node("house_interior").get_node("Entrance").get_global_position()
+				agent.in_building.house_interior.get_node("Entrance").get_global_position()
 			)
 			agent.new_action = "leavebuilding"
 			agent.current_action = agent.new_action
@@ -144,8 +152,14 @@ func go_to_agent(target_agent:Agent,callback_action:String) -> bool:
 	# Convo target is in a house
 	else:
 		print("Convo target in a house")
+		_go_to_target(
+		target_agent.in_building.house_exterior.get_node("Entrance").get_global_position(),
+		"visit",
+		target_agent.in_building.name
+		)
+		
 		agent.queued_action.push_back(callback_action)
-		go_to_house.call()
+		
 	
 	return false
 
