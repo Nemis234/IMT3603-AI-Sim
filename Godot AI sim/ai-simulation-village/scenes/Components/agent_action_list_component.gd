@@ -23,10 +23,7 @@ var agent_actions: Array = [
 
 #Check if agent remembers a specific object
 func is_object_in_memory(objectName: String) -> Dictionary:
-	var reversed_order = interactable_objects.keys()
-	reversed_order.reverse()
-	
-	for key in reversed_order:
+	for key in interactable_objects.keys():
 		var object = interactable_objects[key]
 		if object["name"].to_lower().contains(objectName.to_lower()):
 			#TODO this will always return the first object of its kind

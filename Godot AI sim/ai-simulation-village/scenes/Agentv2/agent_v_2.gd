@@ -76,6 +76,7 @@ func _ready() -> void:
 	"name": "work"
 	}
 
+	print(actionList.interactable_objects)
 	
 func _process(_delta: float) -> void:
 	if agent_action_done and not self.in_dialogue:
@@ -106,7 +107,7 @@ func _on_pathfinding_component_target_reached() -> void:
 	match current_action:
 		"wander":
 			agent_action_done = true
-		"gohome", "leavebuilding", "visit":
+		"gohome", "leavebuilding", "visit", "work":
 				interactionComponent._interact_with_object("","entrance")
 		"read": 
 			await interactionComponent._interact_with_object("interactable","bookshelf")
@@ -114,8 +115,6 @@ func _on_pathfinding_component_target_reached() -> void:
 			await interactionComponent._interact_with_object("interactable","fridge")
 		"sleep":
 			await interactionComponent._interact_with_object("interactable", "bed")
-		"work":
-			await interactionComponent._interact_with_object("interactable", workObject.name.to_lower())
 		"conversation":
 			conversation_component.start_conversation(Global.agent_nodes[visiting_agent])
 		_:
@@ -203,15 +202,9 @@ func _on_interact_area_area_exited(area: Area2D) -> void:
 			area.get_parent().change_state()
 
 
-## Adds object to memory, also deletes and re-inserts if object exists.
-## Reinsertion is needed for agents to use the recently added object.
 func _on_object_detection_area_entered(area: Area2D) -> void:
 	if area.get_parent().is_in_group("interactable") and not area.get_parent().is_in_group("Doors"):
 		if !(area.get_parent() == agentBed or area.get_parent() == workObject):
-			
-			if actionList.interactable_objects.has(area.get_parent()):
-				actionList.interactable_objects.erase(area.get_parent())
-			
 			actionList.interactable_objects[area.get_parent()] = {
 				"building": in_building, 
 				"position": area.get_parent().get_node("Marker2D").get_global_position(), 

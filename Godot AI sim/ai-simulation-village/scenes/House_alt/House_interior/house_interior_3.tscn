@@ -2547,9 +2547,6 @@ position = Vector2(292, 337)
 [node name="Computer" parent="main_floor" instance=ExtResource("16_05116")]
 position = Vector2(152, 309)
 
-[node name="Computer2" parent="main_floor" instance=ExtResource("16_05116")]
-position = Vector2(182, 309)
-
 [node name="second_floor" type="Node2D" parent="."]
 position = Vector2(1000, 0)
 

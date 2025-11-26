@@ -176,7 +176,7 @@ agentName = "Mei"
 house = NodePath("../Mei\'s House")
 agentBed = NodePath("../Mei\'s House/house_interior/Bed")
 workPlace = NodePath("../House3")
-workObject = NodePath("../House3/house_interior/main_floor/Computer2")
+workObject = NodePath("../House3/house_interior/main_floor/Computer")
 
 [node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
 
