@@ -81,28 +81,28 @@ position = Vector2(208, -234)
 position = Vector2(790, 1868)
 metadata/_edit_group_ = true
 
-[node name="John\'s House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+[node name="Rafael\'s House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(1173, 1201)
 script = ExtResource("7_mpw1i")
 house_interior = NodePath("house_interior")
 house_exterior = NodePath("house_exterior")
 
-[node name="house_exterior" parent="John\'s House" instance=ExtResource("4_xo7uf")]
+[node name="house_exterior" parent="Rafael\'s House" instance=ExtResource("4_xo7uf")]
 position = Vector2(-984, -1124)
 
-[node name="house_interior" parent="John\'s House" instance=ExtResource("5_ofnrc")]
+[node name="house_interior" parent="Rafael\'s House" instance=ExtResource("5_ofnrc")]
 position = Vector2(2021, 2363)
 metadata/_edit_group_ = true
 
-[node name="Mei\'s House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+[node name="Lin Family House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
 position = Vector2(494, 255)
 script = ExtResource("7_mpw1i")
 house_interior = NodePath("house_interior")
 house_exterior = NodePath("house_exterior")
 
-[node name="house_exterior" parent="Mei\'s House" instance=ExtResource("7_rlfer")]
+[node name="house_exterior" parent="Lin Family House" instance=ExtResource("7_rlfer")]
 
-[node name="house_interior" parent="Mei\'s House" instance=ExtResource("8_4jhem")]
+[node name="house_interior" parent="Lin Family House" instance=ExtResource("8_4jhem")]
 position = Vector2(765, 3182)
 metadata/_edit_group_ = true
 
@@ -160,11 +160,11 @@ autostart = true
 script = ExtResource("6_4tw1x")
 
 [node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
-position = Vector2(3352, 3768)
+position = Vector2(1612, 3641)
 agentName = "John"
-house = NodePath("../John\'s House")
-agentBed = NodePath("../John\'s House/house_interior/Bed")
-in_building = NodePath("../John\'s House")
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed2")
+in_building = NodePath("../Lin Family House")
 workPlace = NodePath("../House3")
 workObject = NodePath("../House3/house_interior/main_floor/Computer")
 character = "marcus"
@@ -172,13 +172,22 @@ character = "marcus"
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
 
 [node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
-position = Vector2(1482, 3756)
+position = Vector2(1595, 3508)
 agentName = "Mei"
-house = NodePath("../Mei\'s House")
-agentBed = NodePath("../Mei\'s House/house_interior/Bed")
-in_building = NodePath("../Mei\'s House")
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed")
+in_building = NodePath("../Lin Family House")
 workPlace = NodePath("../House3")
 workObject = NodePath("../House3/house_interior/main_floor/Computer2")
+
+[node name="AgentV3" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(3221, 3681)
+agentName = "Rafael"
+house = NodePath("../Rafael\'s House")
+agentBed = NodePath("../Rafael\'s House/house_interior/Bed")
+in_building = NodePath("../Rafael\'s House")
+workPlace = NodePath("../MayorOffice")
+workObject = NodePath("../MayorOffice/mayor_office_interior/Computer")
 
 [node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
 
@@ -198,12 +207,13 @@ autostart = true
 [connection signal="timeout" from="RefelectionTimer" to="." method="_on_refelection_timer_timeout"]
 [connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]
 
-[editable path="John\'s House/house_exterior"]
-[editable path="John\'s House/house_exterior/Entrance"]
-[editable path="John\'s House/house_interior"]
-[editable path="Mei\'s House/house_exterior"]
-[editable path="Mei\'s House/house_exterior/Entrance"]
-[editable path="Mei\'s House/house_interior"]
+[editable path="MayorOffice/mayor_office_interior"]
+[editable path="Rafael\'s House/house_exterior"]
+[editable path="Rafael\'s House/house_exterior/Entrance"]
+[editable path="Rafael\'s House/house_interior"]
+[editable path="Lin Family House/house_exterior"]
+[editable path="Lin Family House/house_exterior/Entrance"]
+[editable path="Lin Family House/house_interior"]
 [editable path="House3/house_exterior"]
 [editable path="House3/house_exterior/Entrance"]
 [editable path="House3/house_interior"]

@@ -33,12 +33,15 @@ func change_state(_node:Node)->void:
 			
 
 func _on_mouse_entered():
-	interact_area.modulate = Color(1, 1, 0.6) # highlight
+	if player_in_area:
+		self.modulate = Color(1, 1, 0.6) # highlight
+		Input.set_custom_mouse_cursor(Global.hand_cursor, Input.CURSOR_ARROW, Vector2(16, 16))
 	on_mouse = true
 
 
 func _on_mouse_exited():
-	interact_area.modulate = Color(1, 1, 1) # remove highlight
+	self.modulate = Color(1, 1, 1) # remove highlight
+	Input.set_custom_mouse_cursor(null)
 	on_mouse = false
 
 

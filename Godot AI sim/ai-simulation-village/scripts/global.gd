@@ -1,6 +1,8 @@
 extends Node
 
 ##Global variables
+#Hand cursor
+var hand_cursor = preload("res://assets/hand_open.png")
 
 #Related to ingame time
 var time: float = 0.25 #0.0 Night, 1.0 Day , used for interpolating

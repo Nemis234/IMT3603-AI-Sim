@@ -244,11 +244,15 @@ func _on_interact_area_exited(body):
 		player_in_area = false
 
 func _on_mouse_entered():
-	agent_interact_area.modulate = Color(1, 1, 0.6) # highlight
+	if player_in_area:
+		self.modulate = Color(1, 1, 0.6) # highlight
+		Input.set_custom_mouse_cursor(Global.hand_cursor, Input.CURSOR_ARROW, Vector2(16, 16))
 	on_mouse = true
 
 
 func _on_mouse_exited():
+	self.modulate = Color(1, 1, 1) # remove highlight
+	Input.set_custom_mouse_cursor(null)
 	agent_interact_area.modulate = Color(1, 1, 1) # remove highlight
 	on_mouse = false
 
