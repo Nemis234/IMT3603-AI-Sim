@@ -216,9 +216,9 @@ class Agent:
         visit_list = dict(agent_details.get("visit_list",{})).keys() #Dict of other agents that can be visited
         conversation_list = list(agent_details.get("conversation_list",[])) #Dict of other agents that can be conversed with
         print(action_list)
-        """ Assign values to keys "action", "duration", and "visiting" based on the following prompt: This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly assign the key "visiting" to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, assign "visiting" to "". Ensure duration is a single number (in minutes)
+        """ Assign values to keys "action", "duration", "visiting" based on the following prompt: This is your current location: {location}. Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. Decide a suitable duration it will take for you to perform the action. If the decided action is "visit", strictly assign the key "visiting" to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. Otherwise, assign "visiting" to "". Ensure duration is a single number (in minutes)
         """
-        action_prompt = f""" Assign values to keys "action", "duration", and "visiting" based on the following prompt:
+        action_prompt = f""" Assign values to keys "action", "duration", "visiting", and "conversationPartner based on the following prompt:
         This is your current location: {location}. 
         Choose something that you have not done recently. 
         Pick an action strictly from this array [{', '.join(action_list)}] that you feel like should be done now. 
