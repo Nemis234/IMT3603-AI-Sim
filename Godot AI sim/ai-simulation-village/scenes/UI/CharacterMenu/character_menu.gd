@@ -1,6 +1,6 @@
 extends Control
 
-const LEVEL_MANAGER := preload("res://scenes/LevelManager/level_manager.tscn")
+#const LEVEL_MANAGER := preload("res://scenes/LevelManager/level_manager.tscn")
 
 var player: Player
 var agent1: Agent
@@ -25,12 +25,14 @@ func init_agent_characters() -> void:
 	remove_character(agent2_character)
 
 func change_to_level_manager() -> void:
+	print("Adding levelmanager")
 	# Create and set the new scene without destroying this node yet
-	var lm := LEVEL_MANAGER.instantiate()
+	var LEVEL_MANAGER = load("res://scenes/LevelManager/level_manager.tscn")
+	var lm = LEVEL_MANAGER.instantiate()
 	get_tree().root.add_child(lm)
 	get_tree().current_scene = lm
 
-	# Now it's safe to fetch nodes and assign
+	 #Now it's safe to fetch nodes and assign
 	player = lm.get_node("Adam") as Player
 	agent1 = lm.get_node("Agent1") as Agent
 	agent2 = lm.get_node("AgentV2") as Agent
@@ -39,7 +41,7 @@ func change_to_level_manager() -> void:
 	agent1.character = agent1_character
 	agent2.character = agent2_character
 
-	# Remove the old (character select) scene
+	 #Remove the old (character select) scene
 	queue_free()
 
 func _on_character_pressed(character_name: String) -> void:

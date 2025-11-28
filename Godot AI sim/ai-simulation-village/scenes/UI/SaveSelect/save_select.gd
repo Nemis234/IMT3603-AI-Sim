@@ -22,6 +22,7 @@ func convert_time(time) -> String:
 	var totalMinutes = time * 1440.0
 	var minute = int(totalMinutes) % 60
 	var hour = int(totalMinutes / 60) % 24
+	@warning_ignore("integer_division")
 	var day = int(int(totalMinutes / 60) / 24) + 1 
 
 	return "Day %s Time: %s:%s" % [day,hour,minute]

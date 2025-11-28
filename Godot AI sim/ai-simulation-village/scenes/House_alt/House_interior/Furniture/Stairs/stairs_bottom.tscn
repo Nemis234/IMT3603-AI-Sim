@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmyvbth8j1f07"]
 
 [ext_resource type="Script" uid="uid://dmi8dvwugn83l" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs.gd" id="1_cgtq4"]
-[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_i6kgi"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_i6kgi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_njjr8"]
 atlas = ExtResource("2_i6kgi")

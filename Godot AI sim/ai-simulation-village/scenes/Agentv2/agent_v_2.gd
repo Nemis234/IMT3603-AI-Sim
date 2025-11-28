@@ -19,7 +19,6 @@ var player_in_area: bool = false # Toggle to cehck if player is in its interact 
 @export var conversation_component: ConversationComponent
 
 @onready var speechBubble = $SpeechBubble
-@onready var speechLabel = $SpeechBubble/PanelContainer/MarginContainer/Label
 
 #Agent identifications
 @export var agentName: String
@@ -149,9 +148,9 @@ func new_agent_action():
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		visiting_building = str(action_details["visiting"]) #Get the name of the building/house the agents wants to visit. This will be "" if "visit" is not chosen as the current action
 		conversation_partner = str(action_details["conversationPartner"])
-		##new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 		#new_action = "conversation"
-		
+		##
 		#new_action = ["visit","conversation"].pick_random()
 		#
 		#duration_action = clamp(randf_range(50,100),50,100)
@@ -187,13 +186,11 @@ func new_agent_action():
 		"conversation":
 			var convo_target:Agent = Global.agent_nodes[conversation_partner]
 			
-			if pending_conversation == CONVO.none:
-				if not convo_target.pending_conversation == CONVO.none:
+			if pending_conversation == CONVO.none and not convo_target.pending_conversation == CONVO.none:
 					queued_action.push_front("idle")
 					agent_action_done = true
-					return
-			
-			conversation_component.start_convo_pathfinding(convo_target,pathfindingComponent.go_to_agent)
+			else:
+				conversation_component.start_convo_pathfinding(convo_target,pathfindingComponent.go_to_agent)
 		"idle":
 			agent_action_done = false
 			await get_tree().create_timer(5).timeout
@@ -283,6 +280,7 @@ func stream_speech(text:String):
 	
 #Getter to retrieve agent details
 func get_agent_details()-> Dictionary:
+	@warning_ignore("incompatible_ternary")
 	return {
 		"character": character,
 		"current_location": currentLocation,

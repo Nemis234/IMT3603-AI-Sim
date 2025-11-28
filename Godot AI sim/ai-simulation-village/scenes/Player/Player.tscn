@@ -1,9 +1,9 @@
 [gd_scene load_steps=403 format=3 uid="uid://cnb82310hrgyw"]
 
-[ext_resource type="Texture2D" uid="uid://clgm3bxqbn282" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
+[ext_resource type="Texture2D" uid="uid://eu4w1ro4me4u" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
 [ext_resource type="Script" uid="uid://3fkc3teo15tn" path="res://scenes/Player/player.gd" id="1_xcisb"]
 [ext_resource type="Script" uid="uid://c51k334lubtr1" path="res://scripts/state_machine.gd" id="2_ky53y"]
-[ext_resource type="Texture2D" uid="uid://yh3n2d0arvld" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
+[ext_resource type="Texture2D" uid="uid://cgdnef61ikc6y" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_run_16x16.png" id="3_socpp"]
 [ext_resource type="Texture2D" uid="uid://b8rbtisbucwgv" path="res://assets/havenport_characters/marcus_havelock.png" id="4_fxc31"]
 [ext_resource type="Texture2D" uid="uid://co4lu41k4prjb" path="res://assets/havenport_characters/adrian_vale.png" id="4_lbts4"]
 [ext_resource type="Texture2D" uid="uid://b5el2vtvjj0bs" path="res://assets/havenport_characters/eleanor_havelock.png" id="4_mmokv"]
@@ -21,8 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://dgvldc1ff16dc" path="res://assets/havenport_characters/marianne_vale.png" id="11_5gcuk"]
 [ext_resource type="Texture2D" uid="uid://cex6wb2jmnshs" path="res://assets/havenport_characters/martha_montrose.png" id="13_2aixn"]
 [ext_resource type="Texture2D" uid="uid://byqjl0l6f3l1p" path="res://assets/havenport_characters/richard_montrose.png" id="14_3nxk0"]
-[ext_resource type="Texture2D" uid="uid://bikcam0141ish" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="16_m1hey"]
-[ext_resource type="Texture2D" uid="uid://b7dswqgfsslrf" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_run_16x16.png" id="17_5tklm"]
+[ext_resource type="Texture2D" uid="uid://717j3fac87vn" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_idle_anim_16x16.png" id="16_m1hey"]
+[ext_resource type="Texture2D" uid="uid://c4lx2k7okdgi7" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Bob_run_16x16.png" id="17_5tklm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ky53y"]
 atlas = ExtResource("1_h00vy")

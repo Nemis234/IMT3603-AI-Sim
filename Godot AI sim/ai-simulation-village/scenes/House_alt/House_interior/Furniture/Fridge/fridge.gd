@@ -18,5 +18,5 @@ func change_state(node: Node) -> void:
 		node.curr_interactable = self
 		emit_signal("open_inventory", "Fridge inventory", inventory.items)
 
-func on_choice_made(choice_text: String) -> void:
+func on_choice_made(_choice_text: String) -> void:
 	pass

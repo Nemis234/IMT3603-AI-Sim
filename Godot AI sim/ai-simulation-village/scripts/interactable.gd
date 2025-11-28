@@ -51,5 +51,5 @@ func _on_area_input_event(_viewport, event:InputEvent, _shape_idx):
 		print("Clicked on area:", name)
 
 
-func on_choice_made(choice_text: String) -> void:
+func on_choice_made(_choice_text: String) -> void:
 	player.in_interaction = false #Set player out of interaction on making choice

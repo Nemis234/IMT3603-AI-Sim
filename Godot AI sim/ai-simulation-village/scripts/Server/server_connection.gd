@@ -136,5 +136,3 @@ func send_save_slot(slot:int,mode="create"):
 		var _text = await send_request(client,"/delete_save_slot",query_string)
 	else:
 		assert(false,"Invalid mode. Mode can only be 'create' or 'delete'")
-	
-	
