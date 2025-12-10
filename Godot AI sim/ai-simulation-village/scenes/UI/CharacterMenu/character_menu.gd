@@ -5,10 +5,12 @@ extends Control
 var player: Player
 var agent1: Agent
 var agent2: Agent
+var agent3: Agent
 
 var player_character := ""
-var agent1_character := ""
-var agent2_character := ""
+var agent1_character := "john"
+var agent2_character := "mei"
+var agent3_character := "rafael"
 
 var available_characters := [
 	"adrian","clara","eleanor","ethan","gregory","harold","isabella",
@@ -35,11 +37,13 @@ func change_to_level_manager() -> void:
 	 #Now it's safe to fetch nodes and assign
 	player = lm.get_node("Adam") as Player
 	agent1 = lm.get_node("Agent1") as Agent
-	agent2 = lm.get_node("AgentV2") as Agent
-
+	agent2 = lm.get_node("AgentV2") as Agent	
+	agent3 = lm.get_node("AgentV3") as Agent
+	
 	player.character = player_character
 	agent1.character = agent1_character
 	agent2.character = agent2_character
+	agent3.character = agent3_character
 
 	 #Remove the old (character select) scene
 	queue_free()
@@ -47,7 +51,7 @@ func change_to_level_manager() -> void:
 func _on_character_pressed(character_name: String) -> void:
 	player_character = character_name
 	remove_character(player_character)
-	init_agent_characters()
+	#init_agent_characters()
 	change_to_level_manager()
 
 # Button handlers:
@@ -61,7 +65,7 @@ func _on_isabella_button_pressed() -> void:  _on_character_pressed("isabella")
 func _on_marcus_button_pressed() -> void:    _on_character_pressed("marcus")
 func _on_marianne_button_pressed() -> void:  _on_character_pressed("marianne")
 func _on_martha_button_pressed() -> void:    _on_character_pressed("martha")
-func _on_rafael_button_pressed() -> void:    _on_character_pressed("rafael")
+#func _on_rafael_button_pressed() -> void:    _on_character_pressed("rafael")
 func _on_richard_button_pressed() -> void:   _on_character_pressed("richard")
 func _on_thomas_button_pressed() -> void:    _on_character_pressed("thomas")
 func _on_valentina_button_pressed() -> void: _on_character_pressed("valentina")

@@ -44,8 +44,8 @@ class Agent:
         self.chat_prompt = system_prompt
         self.reflection_prompt = system_prompt
         
-        self.action_model = "gemini-2.5-flash-lite"
-        self.chat_model = "gemini-2.5-flash-lite"
+        self.action_model = "gemini-2.5-flash"
+        self.chat_model = "gemini-2.5-flash"
         self.reflection_model = "gemini-2.0-flash"
         self.memory_count = 50
         self._create_client()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://coevfijk50m0k"]
+[gd_scene load_steps=17 format=3 uid="uid://coevfijk50m0k"]
 
 [ext_resource type="Script" uid="uid://csk3b7kfgadb6" path="res://scenes/UI/CharacterMenu/character_menu.gd" id="1_qp1v0"]
 [ext_resource type="Texture2D" uid="uid://c5l5oir83fqn7" path="res://assets/serenvillage_2d_art.jpg" id="1_wesr5"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://bd1a74wuf12kt" path="res://assets/havenport_characters/menu/marcus_havelock_menu.png" id="9_n4ldg"]
 [ext_resource type="Texture2D" uid="uid://do0rouxsngvkv" path="res://assets/havenport_characters/menu/marianne_vale_menu.png" id="10_m4div"]
 [ext_resource type="Texture2D" uid="uid://ho52mpvp0k4t" path="res://assets/havenport_characters/menu/martha_montrose_menu.png" id="11_d30nx"]
-[ext_resource type="Texture2D" uid="uid://dfle8nvsvxgky" path="res://assets/havenport_characters/menu/rafael_cruz_menu.png" id="12_hirks"]
 [ext_resource type="Texture2D" uid="uid://tk4ec5guc3a6" path="res://assets/havenport_characters/menu/richard_montrose_menu.png" id="13_5ndhb"]
 [ext_resource type="Texture2D" uid="uid://c7n7m0vcj7cfu" path="res://assets/havenport_characters/menu/thomas_morrel_menu.png" id="14_lbjkv"]
 [ext_resource type="Texture2D" uid="uid://b0mkfvqf7l8mj" path="res://assets/havenport_characters/menu/valentina_cruz_menu.png" id="15_psiiv"]
@@ -364,35 +363,6 @@ text = "Martha
 Montrose"
 horizontal_alignment = 1
 
-[node name="RafaelButton" type="Button" parent="CanvasLayer"]
-offset_left = 529.0
-offset_top = 408.0
-offset_right = 639.0
-offset_bottom = 578.0
-metadata/_edit_group_ = true
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/RafaelButton"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 6.0
-offset_right = 40.0
-offset_bottom = 37.0
-scale = Vector2(3, 3)
-texture = ExtResource("12_hirks")
-
-[node name="Name" type="Label" parent="CanvasLayer/RafaelButton"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 100.0
-offset_right = 100.0
-offset_bottom = 163.0
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
-text = "Rafael
-Cruz"
-horizontal_alignment = 1
-
 [node name="RichardButton" type="Button" parent="CanvasLayer"]
 offset_left = 690.0
 offset_top = 412.0
@@ -490,7 +460,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="CanvasLayer/MarcusButton" to="." method="_on_marcus_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarianneButton" to="." method="_on_marianne_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarthaButton" to="." method="_on_martha_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/RafaelButton" to="." method="_on_rafael_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/RichardButton" to="." method="_on_richard_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ThomasButton" to="." method="_on_thomas_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ValentinaButton" to="." method="_on_valentina_button_pressed"]
