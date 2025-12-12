@@ -1,33 +1,27 @@
-[gd_scene load_steps=8 format=3 uid="uid://bopwtunhj8d6u"]
+[gd_scene load_steps=7 format=3 uid="uid://bopwtunhj8d6u"]
 
-[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4qapx"]
 [ext_resource type="Script" uid="uid://bipncg2lqccks" path="res://scenes/House_alt/House_interior/Furniture/Bed/bed.gd" id="1_5tc4r"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="2_bv4ir"]
+[ext_resource type="Texture2D" uid="uid://bppa005b02y2l" path="res://assets/bedroom/beds_BR.png" id="4_mk17x"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4qapx"]
-atlas = ExtResource("1_4qapx")
-region = Rect2(81.2968, 1185.89, 13.5287, 24.7249)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bv4ir"]
-atlas = ExtResource("1_4qapx")
-region = Rect2(81.1226, 1156.37, 13.8897, 13.3826)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3magf"]
+atlas = ExtResource("4_mk17x")
+region = Rect2(16, 24, 32, 56)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qapx"]
-radius = 8.086076
+radius = 8.846155
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qapx"]
-size = Vector2(16, 40)
+size = Vector2(22, 40)
 
 [node name="Bed" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component") groups=["interactable"]]
 script = ExtResource("1_5tc4r")
 state_handler_component = NodePath("StateHandlerComponent")
 
-[node name="LowerHalf" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_4qapx")
-
-[node name="UpperHalf" type="Sprite2D" parent="."]
-position = Vector2(0, -16)
-texture = SubResource("AtlasTexture_bv4ir")
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_3magf")
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -43,6 +37,6 @@ shape = SubResource("RectangleShape2D_4qapx")
 [node name="StateHandlerComponent" parent="." instance=ExtResource("2_bv4ir")]
 
 [node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
-vertices = PackedVector2Array(8, 16, 8, -24, -8, -24, -8, 16)
+vertices = PackedVector2Array(11, 16, 11, -24, -11, -24, -11, 16)
 affect_navigation_mesh = true
 avoidance_enabled = false

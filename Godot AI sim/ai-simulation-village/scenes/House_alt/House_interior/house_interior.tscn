@@ -2381,10 +2381,10 @@ position = Vector2(128, -16)
 position = Vector2(112, 136)
 
 [node name="Bed" parent="." instance=ExtResource("8_ln2mg")]
-position = Vector2(8, 16)
+position = Vector2(11, 14)
 
 [node name="Marker2D" type="Marker2D" parent="Bed"]
-position = Vector2(16, 0)
+position = Vector2(18, 0)
 
 [node name="Fridge" parent="." instance=ExtResource("9_h0hgi")]
 position = Vector2(184, 0)

@@ -2288,22 +2288,22 @@ position = Vector2(217, 39)
 position = Vector2(73, 290)
 
 [node name="Bed" parent="." instance=ExtResource("8_504t6")]
-position = Vector2(410, 96)
+position = Vector2(406, 96)
 
 [node name="Marker2D" type="Marker2D" parent="Bed"]
-position = Vector2(-16, -3)
+position = Vector2(-19, -3)
 
 [node name="Bed2" parent="." instance=ExtResource("8_504t6")]
-position = Vector2(410, 208)
+position = Vector2(406, 208)
 
 [node name="Marker2D" type="Marker2D" parent="Bed2"]
-position = Vector2(-17, -2)
+position = Vector2(-19, -2)
 
 [node name="Bed3" parent="." instance=ExtResource("8_504t6")]
-position = Vector2(410, 368)
+position = Vector2(406, 368)
 
 [node name="Marker2D" type="Marker2D" parent="Bed3"]
-position = Vector2(-18, -4)
+position = Vector2(-20, -4)
 
 [node name="Closet" parent="." instance=ExtResource("9_hr057")]
 position = Vector2(319, 256)
