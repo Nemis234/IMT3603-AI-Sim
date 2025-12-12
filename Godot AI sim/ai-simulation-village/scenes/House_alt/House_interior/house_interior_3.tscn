@@ -1,8 +1,8 @@
-[gd_scene load_steps=30 format=4 uid="uid://seswxf154idw"]
+[gd_scene load_steps=33 format=4 uid="uid://seswxf154idw"]
 
 [ext_resource type="Script" uid="uid://dpcsaeyuqavqs" path="res://scenes/House_alt/House_interior/house_interior.gd" id="1_s2sl4"]
-[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
-[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
+[ext_resource type="Texture2D" uid="uid://ynbn4owixylw" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_05116"]
+[ext_resource type="Texture2D" uid="uid://bigblp1taodk4" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="3_nnbgt"]
 [ext_resource type="PackedScene" uid="uid://bsobevf513w03" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.tscn" id="4_2mlr6"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="5_3d3a0"]
 [ext_resource type="PackedScene" uid="uid://byb115aoflo4m" path="res://scenes/House_alt/House_interior/Furniture/Door/Open_right/door_right.tscn" id="6_eji6b"]
@@ -10,12 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://dq4atcaco87c6" path="res://scenes/House_alt/House_interior/Furniture/Toilet/toilet.tscn" id="8_wmqv2"]
 [ext_resource type="PackedScene" uid="uid://dxaap0uepvube" path="res://scenes/House_alt/House_interior/Furniture/Sinks/Bathroom/bathroom_sink.tscn" id="9_frcds"]
 [ext_resource type="PackedScene" uid="uid://co3mecjygtwqc" path="res://scenes/House_alt/House_interior/Furniture/Window/Kitchen/kitchen_window.tscn" id="10_bipdu"]
-[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
+[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="11_xqc0f"]
 [ext_resource type="PackedScene" uid="uid://b0l3uyf8sm2cu" path="res://scenes/House_alt/House_interior/Furniture/TV/tv.tscn" id="12_l8hp0"]
 [ext_resource type="PackedScene" uid="uid://sdt4uupylmv4" path="res://scenes/House_alt/House_interior/Furniture/Stove/stove.tscn" id="13_lm4j8"]
 [ext_resource type="PackedScene" uid="uid://b1pt8cmc0e236" path="res://scenes/House_alt/House_interior/Furniture/Stairs/stairs_top.tscn" id="14_xrqkn"]
 [ext_resource type="PackedScene" uid="uid://c0wtuqyrj21np" path="res://scenes/House_alt/House_interior/Furniture/Fridge/Fridge.tscn" id="15_sdiy6"]
 [ext_resource type="PackedScene" uid="uid://c8l1mcyd1tjja" path="res://scenes/House_alt/House_interior/Furniture/Work/computer.tscn" id="16_05116"]
+[ext_resource type="PackedScene" uid="uid://bopwtunhj8d6u" path="res://scenes/House_alt/House_interior/Furniture/Bed/Bed.tscn" id="17_3d3a0"]
+[ext_resource type="PackedScene" uid="uid://cdcb75dc601v" path="res://scenes/House_alt/House_interior/Furniture/Bookshelf/book_shelf.tscn" id="18_eji6b"]
+[ext_resource type="PackedScene" uid="uid://rc5bi8fv2m2l" path="res://scenes/House_alt/House_interior/Furniture/Closet/Closet.tscn" id="19_igbls"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_s2sl4"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
@@ -2569,3 +2572,12 @@ tile_set = SubResource("TileSet_k71r2")
 position = Vector2(304, 29)
 target_stair = NodePath("../../main_floor/StairsBottom")
 target_floor = "main_floor"
+
+[node name="Bed" parent="second_floor" instance=ExtResource("17_3d3a0")]
+position = Vector2(22, 86)
+
+[node name="BookShelf" parent="second_floor" instance=ExtResource("18_eji6b")]
+position = Vector2(114, 4)
+
+[node name="Closet" parent="." instance=ExtResource("19_igbls")]
+position = Vector2(1034, 6)

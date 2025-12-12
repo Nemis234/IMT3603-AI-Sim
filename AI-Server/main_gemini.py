@@ -24,7 +24,8 @@ def assign_slot(slot:str):
     global agent_obj_map
     agent_obj_map = { "John": Agent("John", system_prompt=AGENT_DESC["John"], slot = slot),
                     "Mei": Agent("Mei", system_prompt=AGENT_DESC["Mei"], slot = slot),
-                    "Rafael" : Agent("Rafael", system_prompt=AGENT_DESC["Rafael"], slot = slot)
+                    "Rafael" : Agent("Rafael", system_prompt=AGENT_DESC["Rafael"], slot = slot),
+                    "Ethan" : Agent("Ethan", system_prompt=AGENT_DESC["Ethan"], slot = slot)
                     }      
 
 

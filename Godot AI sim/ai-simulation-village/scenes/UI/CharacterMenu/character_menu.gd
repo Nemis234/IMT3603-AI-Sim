@@ -6,11 +6,14 @@ var player: Player
 var agent1: Agent
 var agent2: Agent
 var agent3: Agent
+var agent4: Agent
+
 
 var player_character := ""
 var agent1_character := "john"
 var agent2_character := "mei"
 var agent3_character := "rafael"
+var agent4_character := "ethan"
 
 var available_characters := [
 	"adrian","clara","eleanor","ethan","gregory","harold","isabella",
@@ -39,11 +42,13 @@ func change_to_level_manager() -> void:
 	agent1 = lm.get_node("Agent1") as Agent
 	agent2 = lm.get_node("AgentV2") as Agent	
 	agent3 = lm.get_node("AgentV3") as Agent
+	agent4 = lm.get_node("AgentV4") as Agent
 	
 	player.character = player_character
 	agent1.character = agent1_character
 	agent2.character = agent2_character
 	agent3.character = agent3_character
+	agent4.character = agent4_character
 
 	 #Remove the old (character select) scene
 	queue_free()
@@ -58,7 +63,7 @@ func _on_character_pressed(character_name: String) -> void:
 func _on_adrian_button_pressed() -> void:    _on_character_pressed("adrian")
 func _on_clara_button_pressed() -> void:     _on_character_pressed("clara")
 func _on_eleanor_button_pressed() -> void:   _on_character_pressed("eleanor")
-func _on_ethan_button_pressed() -> void:     _on_character_pressed("ethan")
+#func _on_ethan_button_pressed() -> void:     _on_character_pressed("ethan")
 func _on_gregory_button_pressed() -> void:   _on_character_pressed("gregory")
 func _on_harold_button_pressed() -> void:    _on_character_pressed("harold")
 func _on_isabella_button_pressed() -> void:  _on_character_pressed("isabella")

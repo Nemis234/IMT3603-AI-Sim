@@ -122,7 +122,7 @@ metadata/_edit_group_ = true
 [node name="PlayerInventory" parent="." instance=ExtResource("10_mpw1i")]
 
 [node name="Adam" parent="." instance=ExtResource("5_byoxf")]
-position = Vector2(1330, 3619)
+position = Vector2(1065, 463)
 
 [node name="Camera2D" type="Camera2D" parent="Adam"]
 zoom = Vector2(2, 2)
@@ -177,8 +177,8 @@ agentName = "Mei"
 house = NodePath("../Lin Family House")
 agentBed = NodePath("../Lin Family House/house_interior/Bed")
 in_building = NodePath("../Lin Family House")
-workPlace = NodePath("../House3")
-workObject = NodePath("../House3/house_interior/main_floor/Computer2")
+workPlace = NodePath("../School")
+workObject = NodePath("../School/school_interior/Computer")
 
 [node name="AgentV3" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
 position = Vector2(3221, 3681)
@@ -188,6 +188,15 @@ agentBed = NodePath("../Rafael\'s House/house_interior/Bed")
 in_building = NodePath("../Rafael\'s House")
 workPlace = NodePath("../MayorOffice")
 workObject = NodePath("../MayorOffice/mayor_office_interior/Computer")
+
+[node name="AgentV4" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(1610, 3756)
+agentName = "Ethan"
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed3")
+in_building = NodePath("../Lin Family House")
+workPlace = NodePath("../BeachsideCafe")
+workObject = NodePath("../BeachsideCafe/beachside_cafe_interior/Fridge")
 
 [node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
 
@@ -208,6 +217,8 @@ autostart = true
 [connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]
 
 [editable path="MayorOffice/mayor_office_interior"]
+[editable path="BeachsideCafe/beachside_cafe_interior"]
+[editable path="School/school_interior"]
 [editable path="Rafael\'s House/house_exterior"]
 [editable path="Rafael\'s House/house_exterior/Entrance"]
 [editable path="Rafael\'s House/house_interior"]

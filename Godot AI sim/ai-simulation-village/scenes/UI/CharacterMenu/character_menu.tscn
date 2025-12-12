@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://coevfijk50m0k"]
+[gd_scene load_steps=16 format=3 uid="uid://coevfijk50m0k"]
 
 [ext_resource type="Script" uid="uid://csk3b7kfgadb6" path="res://scenes/UI/CharacterMenu/character_menu.gd" id="1_qp1v0"]
 [ext_resource type="Texture2D" uid="uid://c5l5oir83fqn7" path="res://assets/serenvillage_2d_art.jpg" id="1_wesr5"]
 [ext_resource type="Texture2D" uid="uid://dg86dx4g5omns" path="res://assets/havenport_characters/menu/adrian_vale_menu.png" id="2_qp1v0"]
 [ext_resource type="Texture2D" uid="uid://cv3undtqk6bhu" path="res://assets/havenport_characters/menu/clara_montrose_menu.png" id="3_5dkak"]
 [ext_resource type="Texture2D" uid="uid://dsyv7r0fnks1a" path="res://assets/havenport_characters/menu/eleanor_havelock_menu.png" id="4_8o48w"]
-[ext_resource type="Texture2D" uid="uid://b8bl6t8vye16t" path="res://assets/havenport_characters/menu/ethan_morrel_menu.png" id="5_c5b05"]
 [ext_resource type="Texture2D" uid="uid://coc6lcigbuxw1" path="res://assets/havenport_characters/menu/gregory_vale_menu.png" id="6_sxqlm"]
 [ext_resource type="Texture2D" uid="uid://cjq3fslibposj" path="res://assets/havenport_characters/menu/harold_havelock_menu.png" id="7_m7ycw"]
 [ext_resource type="Texture2D" uid="uid://c8jju8eqbmmal" path="res://assets/havenport_characters/menu/isabella_cruz_menu.png" id="8_h0vge"]
@@ -158,35 +157,6 @@ theme_override_font_sizes/font_size = 15
 theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
 text = "Eleanor
 Havelock"
-horizontal_alignment = 1
-
-[node name="EthanButton" type="Button" parent="CanvasLayer"]
-offset_left = 528.0
-offset_top = 216.0
-offset_right = 638.0
-offset_bottom = 386.0
-metadata/_edit_group_ = true
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/EthanButton"]
-layout_mode = 0
-offset_left = 14.0
-offset_top = 6.0
-offset_right = 40.0
-offset_bottom = 37.0
-scale = Vector2(3, 3)
-texture = ExtResource("5_c5b05")
-
-[node name="Name" type="Label" parent="CanvasLayer/EthanButton"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 100.0
-offset_right = 100.0
-offset_bottom = 163.0
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 15
-theme_override_styles/normal = SubResource("StyleBoxFlat_woohb")
-text = "Ethan
-Morrel"
 horizontal_alignment = 1
 
 [node name="GregoryButton" type="Button" parent="CanvasLayer"]
@@ -453,7 +423,6 @@ horizontal_alignment = 1
 [connection signal="pressed" from="CanvasLayer/AdrianButton" to="." method="_on_adrian_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/ClaraButton" to="." method="_on_clara_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/EleanorButton" to="." method="_on_eleanor_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/EthanButton" to="." method="_on_ethan_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/GregoryButton" to="." method="_on_gregory_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/HaroldButton" to="." method="_on_harold_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/IsabellaButton" to="." method="_on_isabella_button_pressed"]
