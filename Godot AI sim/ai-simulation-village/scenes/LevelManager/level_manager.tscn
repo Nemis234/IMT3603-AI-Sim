@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://t6oxthatfx7e"]
+[gd_scene load_steps=28 format=3 uid="uid://t6oxthatfx7e"]
 
 [ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
 [ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
@@ -24,6 +24,8 @@
 [ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/chat_connection.gd" id="14_j8lo3"]
 [ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
 [ext_resource type="PackedScene" uid="uid://bw6mjknlbmuw5" path="res://scenes/UI/Inventory/object_inventory_ui.tscn" id="16_mpw1i"]
+[ext_resource type="PackedScene" uid="uid://babmox7yphah1" path="res://scenes/House_alt/Pharmacy/pharmacy_exterior.tscn" id="18_c8pmj"]
+[ext_resource type="PackedScene" uid="uid://c0p2kdhhdaobw" path="res://scenes/House_alt/Pharmacy/pharmacy_interior.tscn" id="19_iwutl"]
 [ext_resource type="PackedScene" uid="uid://b6pbjw861pyrp" path="res://scenes/UI/PopupMenu/popup_menu.tscn" id="19_j8lo3"]
 
 [node name="LevelManager" type="Node2D"]
@@ -119,7 +121,17 @@ position = Vector2(11, 2)
 position = Vector2(3621, 3271)
 metadata/_edit_group_ = true
 
-[node name="PlayerInventory" parent="." instance=ExtResource("10_mpw1i")]
+[node name="Pharmacy" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
+
+[node name="house_exterior" parent="Pharmacy" instance=ExtResource("18_c8pmj")]
+position = Vector2(1056, 351)
+scale = Vector2(0.55, 0.55)
+
+[node name="house_interior" parent="Pharmacy" instance=ExtResource("19_iwutl")]
+position = Vector2(1267, 4552)
 
 [node name="Adam" parent="." instance=ExtResource("5_byoxf")]
 position = Vector2(1065, 463)
@@ -170,6 +182,7 @@ workObject = NodePath("../House3/house_interior/main_floor/Computer")
 character = "marcus"
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
+visible = false
 
 [node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
 position = Vector2(1595, 3508)
@@ -199,8 +212,10 @@ workPlace = NodePath("../BeachsideCafe")
 workObject = NodePath("../BeachsideCafe/beachside_cafe_interior/Fridge")
 
 [node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
+visible = false
 
 [node name="PlayerInventoryUi" parent="." instance=ExtResource("10_mpw1i")]
+visible = false
 
 [node name="RefelectionTimer" type="Timer" parent="."]
 wait_time = 100.0
