@@ -1,4 +1,4 @@
-[gd_scene load_steps=403 format=3 uid="uid://cnb82310hrgyw"]
+[gd_scene load_steps=404 format=3 uid="uid://cnb82310hrgyw"]
 
 [ext_resource type="Texture2D" uid="uid://eu4w1ro4me4u" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="1_h00vy"]
 [ext_resource type="Script" uid="uid://3fkc3teo15tn" path="res://scenes/Player/player.gd" id="1_xcisb"]
@@ -13,9 +13,9 @@
 [ext_resource type="Script" uid="uid://c30fjyf3v3ewk" path="res://scripts/Player_States/idle_state.gd" id="5_fxc31"]
 [ext_resource type="Texture2D" uid="uid://dv8mikwott6er" path="res://assets/havenport_characters/isabella_cruz.png" id="6_qt7jd"]
 [ext_resource type="Script" uid="uid://cpfhrvy4xavxh" path="res://scripts/Player_States/walk_state.gd" id="6_socpp"]
-[ext_resource type="Script" uid="uid://cj4rvyjpxirme" path="res://scenes/Player/inventory.gd" id="7_fxc31"]
 [ext_resource type="Texture2D" uid="uid://dnl0br8qk1wp6" path="res://assets/havenport_characters/gregory_vale.png" id="7_dqefj"]
 [ext_resource type="Texture2D" uid="uid://6ilpx0mljp8b" path="res://assets/havenport_characters/valentina_cruz.png" id="7_dqp0f"]
+[ext_resource type="Script" uid="uid://cj4rvyjpxirme" path="res://scenes/Player/inventory.gd" id="7_fxc31"]
 [ext_resource type="Texture2D" uid="uid://bha4lh1kuqksc" path="res://assets/havenport_characters/rafael_cruz.png" id="7_tl8lu"]
 [ext_resource type="Texture2D" uid="uid://btcklfpj7k6ge" path="res://assets/havenport_characters/thomas_morrel.png" id="10_8djf2"]
 [ext_resource type="Texture2D" uid="uid://dgvldc1ff16dc" path="res://assets/havenport_characters/marianne_vale.png" id="11_5gcuk"]

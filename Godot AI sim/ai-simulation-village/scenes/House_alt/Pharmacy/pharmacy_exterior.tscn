@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://babmox7yphah1"]
 
-[ext_resource type="Texture2D" uid="uid://p5yxgcthq7go" path="res://assets/pharmacy_building.png" id="1_k6bfp"]
+[ext_resource type="Texture2D" uid="uid://ddpso8jf8nspb" path="res://assets/pharmacy_building.png" id="1_k6bfp"]
 [ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_v8nf7"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="2_v8nf7"]
 

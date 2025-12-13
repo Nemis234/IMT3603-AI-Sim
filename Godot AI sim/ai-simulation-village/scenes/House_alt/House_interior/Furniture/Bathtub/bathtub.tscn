@@ -1,6 +1,6 @@
 [gd_scene load_steps=404 format=3 uid="uid://bsobevf513w03"]
 
-[ext_resource type="Texture2D" uid="uid://b0vgics5p3k1w" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
+[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="1_60suo"]
 [ext_resource type="Script" uid="uid://x08yoq6iwjrs" path="res://scenes/House_alt/House_interior/Furniture/Bathtub/bathtub.gd" id="1_a5aqc"]
 [ext_resource type="PackedScene" uid="uid://cehfeltlxf112" path="res://scenes/Components/state_handler_component.tscn" id="3_qj85k"]
 [ext_resource type="Texture2D" uid="uid://eu4w1ro4me4u" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_idle_anim_16x16.png" id="3_woybm"]

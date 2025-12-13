@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhm5e2oqceetu"]
 
-[ext_resource type="Texture2D" uid="uid://hbm6v61d7lkh" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="1_xho70"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="1_xho70"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ok2nl"]
 atlas = ExtResource("1_xho70")

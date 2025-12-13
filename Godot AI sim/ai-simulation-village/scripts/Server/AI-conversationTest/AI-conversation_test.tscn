@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyd3ggphq8boy"]
+[gd_scene load_steps=3 format=3 uid="uid://cyd3ggphq8boy"]
 
 [ext_resource type="Script" uid="uid://cbuw3w77reqmj" path="res://scripts/Server/AI-conversationTest/ai_conversation_test.gd" id="1_b06f1"]
+[ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="2_uuf47"]
 
 [node name="AI-conversation" type="Control"]
 layout_mode = 3
@@ -48,5 +49,14 @@ text = "New conversation"
 layout_mode = 2
 text = "Switch conversation partners"
 
+[node name="SpeechBubble" parent="VBoxContainer" instance=ExtResource("2_uuf47")]
+layout_mode = 2
+
+[node name="SpeechBubble2" parent="VBoxContainer" instance=ExtResource("2_uuf47")]
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+
+[editable path="VBoxContainer/SpeechBubble"]
+[editable path="VBoxContainer/SpeechBubble2"]

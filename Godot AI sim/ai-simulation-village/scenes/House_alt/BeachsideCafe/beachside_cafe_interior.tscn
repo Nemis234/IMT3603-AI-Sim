@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpcsaeyuqavqs" path="res://scenes/House_alt/House_interior/house_interior.gd" id="1_vj55x"]
 [ext_resource type="Texture2D" uid="uid://bbu2eh784gsqv" path="res://assets/havenport_buildings/interiors/havenport_cafe_interior.png" id="2_5or1j"]
-[ext_resource type="Texture2D" uid="uid://ynbn4owixylw" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_5ylov"]
+[ext_resource type="Texture2D" uid="uid://c676x38rhngiq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Room_Builder_free_16x16.png" id="2_5ylov"]
 [ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_5ylov"]
 [ext_resource type="PackedScene" uid="uid://c0wtuqyrj21np" path="res://scenes/House_alt/House_interior/Furniture/Fridge/Fridge.tscn" id="5_5ylov"]
 

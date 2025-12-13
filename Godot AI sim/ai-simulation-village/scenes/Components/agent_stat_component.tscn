@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqeloa0qttsly"]
 
-[ext_resource type="Script" uid="uid://bslc7kudgdrxh" path="res://scenes/Components/agent_stat_component.gd" id="1_pj2e3"]
+[ext_resource type="Script" path="res://scenes/Components/agent_stat_component.gd" id="1_pj2e3"]
 
 [node name="AgentStatComponent" type="Node"]
 script = ExtResource("1_pj2e3")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cdcb75dc601v"]
 
-[ext_resource type="Texture2D" uid="uid://bigblp1taodk4" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4b2nb"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_4b2nb"]
 [ext_resource type="Script" uid="uid://dlw0iyhjec0ge" path="res://scenes/House_alt/House_interior/Furniture/Bookshelf/book_shelf.gd" id="1_jisyy"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_cymtr"]
 

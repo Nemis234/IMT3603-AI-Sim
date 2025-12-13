@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bipncg2lqccks" path="res://scenes/House_alt/House_interior/Furniture/Bed/bed.gd" id="1_5tc4r"]
 [ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="2_bv4ir"]
-[ext_resource type="Texture2D" uid="uid://bppa005b02y2l" path="res://assets/bedroom/beds_BR.png" id="4_mk17x"]
+[ext_resource type="Texture2D" uid="uid://bbtmpa54yq2w" path="res://assets/bedroom/beds_BR.png" id="4_mk17x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3magf"]
 atlas = ExtResource("4_mk17x")
