@@ -117,7 +117,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 35
 theme_override_styles/normal = SubResource("StyleBoxFlat_65fln")
 theme_override_styles/hover = SubResource("StyleBoxFlat_sahmk")
-text = "Settings"
+text = "Settings (WIP)"
 
 [node name="CheckButton" type="CheckButton" parent="CanvasLayer/MarginContainer/HBoxContainer/VBoxContainer/MenuOptions"]
 custom_minimum_size = Vector2(200, 0)
