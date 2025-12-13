@@ -1,11 +1,12 @@
 from google import genai
 from google.genai import types
+from google.genai.errors import ClientError
 from collections.abc import Iterator
 from database import Memory
 import chromadb
 import asyncio
 from pydantic import BaseModel, Field
-
+import time
 
 '''
 # The client gets the API key from the environment variable `GEMINI_API_KEY`.
@@ -23,6 +24,15 @@ USER = 'user'
 ASSISTANT = 'assistant'
 SYSTEM = 'model'
 
+DEFAULT_ACTION = {
+                    "action": "wander",
+                    "duration": 60,
+                    "visiting": "",
+                    "conversationPartner": ""
+                }
+
+# Timestamp when the agent is next available
+next_available_time = 0  
 
 #Gemini client
 client = genai.Client()
@@ -248,16 +258,36 @@ class Agent:
         input_message.extend(history)
         input_message.append(query_message)
 
+        print(f"{self._name}")
+
+        if time.time() >= next_available_time:
+            print("Waiting due to rate limit...")
+            print("Avaiable at: ", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_available_time)))
+            
+        
+        global next_available_time
         if not action_list:
-            action_dict = {
-                "action": "idle",
-                "duration": 30,
-                "visiting": "",
-                "conversationPartner": ""
-            }
-        elif len(action_list) != 1 or action_list[0] in ["conversation","visit"]:
-            response = self.generate_content(input_message)
-            action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: , conversationPartner: }
+            print("No actions provided, sending default.")
+            action_dict = DEFAULT_ACTION
+
+        elif (len(action_list) != 1 or action_list[0] in ["conversation","visit"]) and time.time() >= next_available_time:
+            try:
+                response = self.generate_content(input_message)
+                action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: , conversationPartner: }
+            except ClientError as e:
+                print("Error obtaining action from Gemini: ", e.status)
+                print(e)
+
+                error :dict = e.details.get("error",{})
+                details :list[dict] = error.get("details",[{}])
+                retry_delay: str = details[-1].get("retryDelay","60s")  # Default retry time is 60 seconds
+
+                retry_time = int(retry_delay.replace("s",""))
+
+                next_available_time = time.time() + retry_time
+
+                action_dict = DEFAULT_ACTION
+        
         elif action_list[0] == "sleep":
             action_dict = {
                 "action": "sleep",
@@ -268,18 +298,21 @@ class Agent:
         else:
             action_dict = {
                 "action": action_list[0],
-                "duration": 30,
+                "duration": 60,
                 "visiting": "",
                 "conversationPartner": ""
             }
 
+        """ 
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):
-            print(f"{i+1}) {h["parts"][0]["text"]}")
+            print(f"{i+1}) {h["parts"][0]["text"]}") """
         if action_dict["action"] not in action_list:
             print(f"Invalid action chosen: {action_dict['action']}")
+        
         print(f"Action taken: {action_dict["action"]} for {action_dict["duration"]} minutes. Visiting/talking to: {action_dict["visiting"]}.")
+       
 
         if action_dict["action"]=="visit": #If action is "visit", provide custom action message
             action_message = f"On {time_stamp}, you visited {action_dict["visiting"]}"

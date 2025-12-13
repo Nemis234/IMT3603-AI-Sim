@@ -18,7 +18,7 @@ chat_server = FastAPI()
 
 
 #To Store map of agents to its respective object (Initialized after obtaining save slot)
-agent_obj_map = None
+agent_obj_map = {}
 
 def assign_slot(slot:str):
     global agent_obj_map
