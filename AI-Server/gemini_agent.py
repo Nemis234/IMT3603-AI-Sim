@@ -210,7 +210,7 @@ class Agent:
     #Standard function to get a response from an LLM from on a message and adds only response to memory
     async def act(self,agent_details:dict):
         
-        action_list = agent_details.get("action_list", "")
+        action_list: list = agent_details.get("action_list", [])
         time_stamp = agent_details.get("time","")
         location = agent_details.get("location","") #Gets current location
         visit_list = dict(agent_details.get("visit_list",{})).keys() #Dict of other agents that can be visited
@@ -226,13 +226,13 @@ class Agent:
         Ensure duration is a single number (in minutes).
         """
         
-        if visit_list:
+        if "conversation" in action_list:
             action_prompt +=f"""
             If the decided action is "conversation", strictly output the following: action,duration,"",conversationPartner; 
             where "conversationPartner" refers to the name of a person strictly from this list: [{', '.join(conversation_list)}] which you feel like you should talk to. 
             """
         
-        if conversation_list:
+        if "visit" in action_list:
             action_prompt +=f"""
             If the decided action is "visit", strictly output the following: action,duration,visiting,""; 
             where "visiting" refers to the name of a location strictly from this list: [{', '.join(visit_list)}] which you feel like you should visit. 
@@ -248,10 +248,31 @@ class Agent:
         input_message.extend(history)
         input_message.append(query_message)
 
-        response = self.generate_content(input_message)
+        if not action_list:
+            action_dict = {
+                "action": "idle",
+                "duration": 30,
+                "visiting": "",
+                "conversationPartner": ""
+            }
+        elif len(action_list) != 1 or action_list[0] in ["conversation","visit"]:
+            response = self.generate_content(input_message)
+            action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: , conversationPartner: }
+        elif action_list[0] == "sleep":
+            action_dict = {
+                "action": "sleep",
+                "duration": 480,
+                "visiting": "",
+                "conversationPartner": ""
+            }
+        else:
+            action_dict = {
+                "action": action_list[0],
+                "duration": 30,
+                "visiting": "",
+                "conversationPartner": ""
+            }
 
-        action_dict = dict(ActionDetails.model_validate_json(response.text)) #Dict {action: , duration: , visiting: , conversationPartner: }
-       
         print(f"prompt for {self._name}:{action_prompt}")
         print("Top memories relevant to action:")
         for i,h in enumerate(history):

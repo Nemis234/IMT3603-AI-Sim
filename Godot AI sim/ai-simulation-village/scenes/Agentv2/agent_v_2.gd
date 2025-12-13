@@ -148,7 +148,7 @@ func new_agent_action():
 		duration_action = action_details["duration"] #Expected Duration to perform action in minutes
 		visiting_building = str(action_details["visiting"]) #Get the name of the building/house the agents wants to visit. This will be "" if "visit" is not chosen as the current action
 		conversation_partner = str(action_details["conversationPartner"])
-		new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
+		#new_action = actionList.pick_random_action(house, in_building, agentStats.stats) #Enable this to pick randomly without AI
 		#new_action = "conversation"
 		##
 		#new_action = ["visit","conversation"].pick_random()
