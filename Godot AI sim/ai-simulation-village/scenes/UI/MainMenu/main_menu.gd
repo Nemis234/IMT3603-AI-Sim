@@ -8,3 +8,7 @@ func _on_quit_pressed() -> void:
 #Change scene to active game
 func _on_start_game_pressed() -> void:
 	get_tree().change_scene_to_packed(CHARACTER_MENU)
+
+
+func _on_check_button_toggled(toggled_on: bool) -> void:
+	ServerConnection.toggle_current_url(toggled_on)

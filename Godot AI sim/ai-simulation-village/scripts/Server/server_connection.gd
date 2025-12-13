@@ -1,15 +1,18 @@
 extends Node
 
 
-const SERVER_URL = "http://127.0.0.1"
-const SERVER_PORT = 8000
+const SERVER_PORT := 8000
+const SERVER_URL := "http://10.212.168.190"
+const LOCAL_URL := "http://127.0.0.1"
+
+var current_url := SERVER_URL
 
 ## Initialises a new [HTTPClient]
 func connect_client() -> HTTPClient:
 	var client
 	var err = 0
 	client = HTTPClient.new()
-	err = client.connect_to_host(SERVER_URL,SERVER_PORT)
+	err = client.connect_to_host(current_url,SERVER_PORT)
 	assert(err==OK)
 	
 	while client.get_status() == HTTPClient.STATUS_CONNECTING or client.get_status() == HTTPClient.STATUS_RESOLVING:
@@ -136,3 +139,10 @@ func send_save_slot(slot:int,mode="create"):
 		var _text = await send_request(client,"/delete_save_slot",query_string)
 	else:
 		assert(false,"Invalid mode. Mode can only be 'create' or 'delete'")
+
+## If true, use local url
+func toggle_current_url(toggle:bool):
+	if toggle:
+		current_url = LOCAL_URL
+	else:
+		current_url = SERVER_URL
