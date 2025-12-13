@@ -157,8 +157,22 @@ func prompt_new_action(home: Node2D,in_building: Node2D, stats: Dictionary ,comm
 	var text = await ServerConnection.post_action(agent_details, command_stream)
 	
 	#NEW: Response is a json so getting relevant info from others
-	var action_info:Dictionary = JSON.parse_string(text) # is a dict = {"action": ..., "duration": ...}
-	#print(action_info)
+	var parsed_string = JSON.parse_string(text)
+	
+	var action_info:Dictionary
+	
+	if parsed_string:
+		action_info = parsed_string # is a dict = {"action": ..., "duration": ...}
+	else:
+		print("Internal server error, taking default action")
+		# If no response, like a 500 error, take a default action
+		action_info = {
+			"action":"wander",
+			"duration": 90,
+			"visiting":"",
+			"conversationPartner": ""
+		}
+	
 	action_info["action"] = action_info["action"].strip_edges().to_lower() #The action 
 	action_info["duration"] = int(action_info["duration"]) #NEW: How long the agent should perform the action
 
