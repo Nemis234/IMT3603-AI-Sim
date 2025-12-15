@@ -177,8 +177,8 @@ agentName = "John"
 house = NodePath("../Lin Family House")
 agentBed = NodePath("../Lin Family House/house_interior/Bed2")
 in_building = NodePath("../Lin Family House")
-workPlace = NodePath("../House3")
-workObject = NodePath("../House3/house_interior/main_floor/Computer")
+workPlace = NodePath("../Pharmacy")
+workObject = NodePath("../Pharmacy/house_interior/Computer")
 character = "marcus"
 
 [node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
@@ -243,3 +243,4 @@ autostart = true
 [editable path="House3/house_exterior"]
 [editable path="House3/house_exterior/Entrance"]
 [editable path="House3/house_interior"]
+[editable path="Pharmacy/house_interior"]
