@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dh6fjvy7x6bns"]
+
+[ext_resource type="Script" uid="uid://bgs6jq2ij4ecg" path="res://scenes/Components/random_vector_on_navigation_layer_component.gd" id="1_63bvd"]
+
+[node name="RandomVectorOnNavigationLayerComponent" type="Node"]
+script = ExtResource("1_63bvd")

@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6pbjw861pyrp"]
+
+[ext_resource type="Script" uid="uid://cl7wcdsmockw1" path="res://scenes/UI/PopupMenu/popup_menu.gd" id="1_woa1a"]
+[ext_resource type="Theme" uid="uid://cvnibqmmph3ur" path="res://assets/UI/kenney_ui-pack-adventure/UI-theme.tres" id="2_8f5xm"]
+
+[node name="PopupMenu" type="CanvasLayer"]
+script = ExtResource("1_woa1a")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_8f5xm")
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5g4betym4jw2"]
+
+[ext_resource type="Script" uid="uid://wy4y8bwdbus2" path="res://scenes/Components/agent_action_list_component.gd" id="1_u6qcb"]
+
+[node name="AgentActionListComponent" type="Node"]
+script = ExtResource("1_u6qcb")

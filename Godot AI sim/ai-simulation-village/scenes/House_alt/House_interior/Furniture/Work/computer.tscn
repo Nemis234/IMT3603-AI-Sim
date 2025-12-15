@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8l1mcyd1tjja"]
+
+[ext_resource type="Script" uid="uid://bhmjnx115nngl" path="res://scenes/House_alt/House_interior/Furniture/Work/computer.gd" id="1_puhrg"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="2_etpou"]
+[ext_resource type="PackedScene" uid="uid://cehfeltlxf112" path="res://scenes/Components/state_handler_component.tscn" id="3_etpou"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3n7s"]
+atlas = ExtResource("2_etpou")
+region = Rect2(48, 138, 16, 22)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hr7c1"]
+size = Vector2(16, 21)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_etpou"]
+
+[node name="Computer" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component") groups=["interactable"]]
+script = ExtResource("1_puhrg")
+state_handler_component = NodePath("StateHandlerComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_r3n7s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_hr7c1")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -18)
+shape = SubResource("CircleShape2D_etpou")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("3_etpou")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, -18)

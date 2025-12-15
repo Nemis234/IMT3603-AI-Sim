@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bc301jrp4x2he"]
+
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_p64tm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2x2m"]
+atlas = ExtResource("1_p64tm")
+region = Rect2(139, 457, 3, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4n8it"]
+atlas = ExtResource("1_p64tm")
+region = Rect2(114, 457, 3, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tuow"]
+atlas = ExtResource("1_p64tm")
+region = Rect2(117, 457, 22, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jwbny"]
+size = Vector2(50, 22)
+
+[node name="BusinessWindow" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(23, 0)
+texture = SubResource("AtlasTexture_s2x2m")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-23, 0)
+texture = SubResource("AtlasTexture_4n8it")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(-11, 0)
+texture = SubResource("AtlasTexture_3tuow")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(11, 0)
+texture = SubResource("AtlasTexture_3tuow")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jwbny")

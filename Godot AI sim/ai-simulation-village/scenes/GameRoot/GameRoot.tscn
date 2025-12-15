@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfj3ogpugehuu"]
+
+[ext_resource type="Script" uid="uid://7pd2rcyxs0i2" path="res://scenes/GameRoot/game_root.gd" id="1_edqsi"]
+[ext_resource type="PackedScene" uid="uid://b8wxfyhgu5wfj" path="res://scenes/UI/MainMenu/main_menu.tscn" id="1_mj3kt"]
+
+[node name="GameRoot" type="Node2D"]
+script = ExtResource("1_edqsi")
+
+[node name="MainMenu" parent="." instance=ExtResource("1_mj3kt")]

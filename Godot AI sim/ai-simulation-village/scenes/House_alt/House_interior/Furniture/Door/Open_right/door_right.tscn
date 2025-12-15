@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://byb115aoflo4m"]
+
+[ext_resource type="Script" uid="uid://bkel047nl3f2f" path="res://scenes/House_alt/House_interior/Furniture/Door/Open_right/door_right.gd" id="1_1thpm"]
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_eff5l"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="2_h82f3"]
+[ext_resource type="PackedScene" uid="uid://ghrmboylr8js" path="res://scenes/Components/change_state_sprite.tscn" id="3_1thpm"]
+[ext_resource type="Script" uid="uid://cgcfsvtpwo3c2" path="res://scripts/door_state_handler.gd" id="4_1h5ow"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eff5l"]
+atlas = ExtResource("1_eff5l")
+region = Rect2(176, 387, 18, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jkkko"]
+atlas = ExtResource("1_eff5l")
+region = Rect2(176, 387, 17, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eff5l"]
+size = Vector2(4, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eff5l"]
+radius = 16.90962
+
+[node name="DoorRight" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component", "change_state_sprite") groups=["Doors", "interactable"]]
+script = ExtResource("1_1thpm")
+state_handler_component = NodePath("StateHandlerComponent")
+change_state_sprite = NodePath("ChangeStateSprite")
+
+[node name="ClosedSprite" type="Sprite2D" parent="."]
+visible = false
+rotation = 1.5708
+texture = SubResource("AtlasTexture_eff5l")
+
+[node name="OpenSprite" type="Sprite2D" parent="."]
+position = Vector2(8, -13)
+texture = SubResource("AtlasTexture_jkkko")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_eff5l")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.715, 1.715)
+shape = SubResource("CircleShape2D_eff5l")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("2_h82f3")]
+script = ExtResource("4_1h5ow")
+
+[node name="ChangeStateSprite" parent="." node_paths=PackedStringArray("sprite_1", "sprite_2") instance=ExtResource("3_1thpm")]
+sprite_1 = NodePath("../ClosedSprite")
+sprite_2 = NodePath("../OpenSprite")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(-1, 1, 17, 1, 17, -27, -1, -27)
+affect_navigation_mesh = true
+avoidance_enabled = false

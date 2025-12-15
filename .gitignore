@@ -14,3 +14,18 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+*__pycache__/
+AI-Server/__pycache__/
+
+.idea
+*.import
+
+*__pycache__/
+AI-Server/__pycache__/
+
+.idea
+*.import
+
+# Secrets for docker
+.env

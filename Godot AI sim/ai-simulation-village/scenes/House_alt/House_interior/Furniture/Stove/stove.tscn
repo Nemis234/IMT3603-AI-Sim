@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://sdt4uupylmv4"]
+
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="1_2l3gh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfup2"]
+atlas = ExtResource("1_2l3gh")
+region = Rect2(32, 179, 16, 27)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qe7ko"]
+size = Vector2(16, 27)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dic3c"]
+radius = 11.0
+
+[node name="Stove" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_hfup2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qe7ko")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_dic3c")

@@ -1,0 +1,98 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://cvnibqmmph3ur"]
+
+[ext_resource type="Texture2D" uid="uid://b1255sg4dhwg7" path="res://assets/UI/kenney_ui-pack-adventure/Vector/button_grey.svg" id="1_vorkm"]
+[ext_resource type="Texture2D" uid="uid://bewxiswxxtmxd" path="res://assets/UI/kenney_ui-pack-adventure/Vector/panel_brown.svg" id="2_rkdp6"]
+
+[sub_resource type="SystemFont" id="SystemFont_vorkm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pimt"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vorkm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5pimt"]
+texture = ExtResource("1_vorkm")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rkdp6"]
+texture = ExtResource("1_vorkm")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+modulate_color = Color(0.65642846, 0.67543423, 0.67543423, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hxpf4"]
+texture = ExtResource("1_vorkm")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a2iem"]
+texture = ExtResource("1_vorkm")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+modulate_color = Color(0.65642846, 0.67543423, 0.67543423, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bmg5c"]
+texture = ExtResource("2_rkdp6")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 15.0
+
+[resource]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.972549, 1, 1, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.19076231, 0.19076234, 0.19076231, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_outline_color = Color(0.04755766, 0.047557645, 0.047557645, 0.4)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_disabled_color = Color(0.04755766, 0.047557645, 0.047557645, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 16
+Button/fonts/font = SubResource("SystemFont_vorkm")
+Button/styles/disabled = SubResource("StyleBoxFlat_5pimt")
+Button/styles/focus = SubResource("StyleBoxTexture_vorkm")
+Button/styles/hover = SubResource("StyleBoxTexture_5pimt")
+Button/styles/hover_pressed = SubResource("StyleBoxTexture_rkdp6")
+Button/styles/normal = SubResource("StyleBoxTexture_hxpf4")
+Button/styles/pressed = SubResource("StyleBoxTexture_a2iem")
+Label/colors/font_color = Color(0.012617188, 0.012617188, 0.012617188, 1)
+Panel/styles/panel = SubResource("StyleBoxTexture_bmg5c")

@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0wtuqyrj21np"]
+
+[ext_resource type="Script" uid="uid://bo4fn21ho16s8" path="res://scenes/House_alt/House_interior/Furniture/Fridge/fridge.gd" id="1_lc0vj"]
+[ext_resource type="Texture2D" uid="uid://dkdvvnkcxmniq" path="res://assets/kitchen_and_more_tileset/Kitchen and more tileset [16x16]/tileset.png" id="2_agrg1"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="3_skfbg"]
+[ext_resource type="Script" uid="uid://cj4rvyjpxirme" path="res://scenes/Player/inventory.gd" id="4_3x6km"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6bno"]
+atlas = ExtResource("2_agrg1")
+region = Rect2(16, 174, 16, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o6bno"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o6bno"]
+size = Vector2(16, 32)
+
+[node name="Fridge" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component") groups=["interactable"]]
+script = ExtResource("1_lc0vj")
+state_handler_component = NodePath("StateHandlerComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_o6bno")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 16.97)
+scale = Vector2(1.545, 1.545)
+shape = SubResource("CircleShape2D_o6bno")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_o6bno")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("3_skfbg")]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 21.465)
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("4_3x6km")
+metadata/_custom_type_script = "uid://cj4rvyjpxirme"

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://dxaap0uepvube"]
+
+[ext_resource type="Texture2D" uid="uid://duyhkvird60p2" path="res://assets/bathroom/cabinets_BA.png" id="1_lig7o"]
+[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="2_fgq52"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mqk2"]
+atlas = ExtResource("1_lig7o")
+region = Rect2(16, 12, 32, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0v2jm"]
+atlas = ExtResource("2_fgq52")
+region = Rect2(105, 13, 32, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dno21"]
+atlas = ExtResource("2_fgq52")
+region = Rect2(105, 61, 32, 21)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgi7w"]
+size = Vector2(32, 35)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lig7o"]
+radius = 22.022715
+
+[node name="BathroomSink" type="StaticBody2D" groups=["interactable"]]
+
+[node name="sink_cabinet" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_5mqk2")
+
+[node name="sink_empty" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+scale = Vector2(1, 0.97619045)
+texture = SubResource("AtlasTexture_0v2jm")
+
+[node name="sink_water" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -14)
+scale = Vector2(1, 0.97619045)
+texture = SubResource("AtlasTexture_dno21")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_sgi7w")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 12)
+shape = SubResource("CircleShape2D_lig7o")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(0, 19)

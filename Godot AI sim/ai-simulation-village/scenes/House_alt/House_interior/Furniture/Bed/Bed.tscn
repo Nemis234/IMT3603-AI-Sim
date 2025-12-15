@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://bopwtunhj8d6u"]
+
+[ext_resource type="Script" uid="uid://bipncg2lqccks" path="res://scenes/House_alt/House_interior/Furniture/Bed/bed.gd" id="1_5tc4r"]
+[ext_resource type="PackedScene" uid="uid://do3h2kxhg68u4" path="res://scenes/Components/allowed_interaction_component.tscn" id="2_bv4ir"]
+[ext_resource type="Texture2D" uid="uid://bbtmpa54yq2w" path="res://assets/bedroom/beds_BR.png" id="4_mk17x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3magf"]
+atlas = ExtResource("4_mk17x")
+region = Rect2(16, 24, 32, 56)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qapx"]
+radius = 8.846155
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4qapx"]
+size = Vector2(22, 40)
+
+[node name="Bed" type="StaticBody2D" node_paths=PackedStringArray("state_handler_component") groups=["interactable"]]
+script = ExtResource("1_5tc4r")
+state_handler_component = NodePath("StateHandlerComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(0.7, 0.7)
+texture = SubResource("AtlasTexture_3magf")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="EffectArea" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4)
+scale = Vector2(2.6, 2.6)
+shape = SubResource("CircleShape2D_4qapx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_4qapx")
+
+[node name="StateHandlerComponent" parent="." instance=ExtResource("2_bv4ir")]
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+vertices = PackedVector2Array(11, 16, 11, -24, -11, -24, -11, 16)
+affect_navigation_mesh = true
+avoidance_enabled = false

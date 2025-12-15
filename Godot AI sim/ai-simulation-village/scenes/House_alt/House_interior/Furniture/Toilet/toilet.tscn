@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://dq4atcaco87c6"]
+
+[ext_resource type="Texture2D" uid="uid://bk8m5m0drj5vt" path="res://assets/bathroom/fixtures_BA.png" id="1_868ve"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7kfp3"]
+atlas = ExtResource("1_868ve")
+region = Rect2(165, 16, 22, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3cjj"]
+size = Vector2(22, 44)
+
+[node name="Toilet" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_7kfp3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f3cjj")

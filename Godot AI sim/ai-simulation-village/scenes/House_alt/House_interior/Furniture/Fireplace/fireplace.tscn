@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://cnbb345kwm42f"]
+
+[ext_resource type="Texture2D" uid="uid://dhxgrhen7qlfb" path="res://assets/kitchen assets/Fireplace/Fireplace1.png" id="1_dwnvf"]
+[ext_resource type="Texture2D" uid="uid://brf7hslj1ty1p" path="res://assets/kitchen assets/Fireplace/Fireplace4.png" id="2_cmkeo"]
+[ext_resource type="Texture2D" uid="uid://5hgsu0l0wswi" path="res://assets/kitchen assets/Fireplace/Fireplace5.png" id="3_keq3p"]
+[ext_resource type="Texture2D" uid="uid://d0qclp1q5fxty" path="res://assets/kitchen assets/Fireplace/Fireplace6.png" id="4_0nfm8"]
+[ext_resource type="Texture2D" uid="uid://cp4rc1bhdy850" path="res://assets/kitchen assets/Fireplace/Fireplace7.png" id="5_h24lh"]
+[ext_resource type="Texture2D" uid="uid://direyw4mywuho" path="res://assets/kitchen assets/Fireplace/Fireplace8.png" id="6_mmspi"]
+[ext_resource type="Texture2D" uid="uid://doljvhk7x1v2t" path="res://assets/kitchen assets/Fireplace/Fireplace2.png" id="7_4ak0s"]
+[ext_resource type="Texture2D" uid="uid://dk117yv0godxo" path="res://assets/kitchen assets/Fireplace/Fireplace3.png" id="8_63y5i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qay8x"]
+atlas = ExtResource("1_dwnvf")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_duaj3"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cmkeo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_keq3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_0nfm8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_h24lh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mmspi")
+}],
+"loop": true,
+"name": &"idle_on",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_4ak0s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_63y5i")
+}],
+"loop": false,
+"name": &"light_fireplace",
+"speed": 5.0
+}]
+
+[node name="Fireplace" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_qay8x")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_duaj3")
+animation = &"idle_on"
+frame_progress = 0.6859543

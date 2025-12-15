@@ -1,0 +1,246 @@
+[gd_scene load_steps=28 format=3 uid="uid://t6oxthatfx7e"]
+
+[ext_resource type="Script" uid="uid://e6e7ux3bh64w" path="res://scenes/LevelManager/level_manager.gd" id="1_r2lsa"]
+[ext_resource type="PackedScene" uid="uid://46m2xiqgmiwo" path="res://scenes/Map/map.tscn" id="2_rl3ic"]
+[ext_resource type="PackedScene" uid="uid://1g04myket5x8" path="res://scenes/House_alt/CruzEstate/cruz_estate_exterior.tscn" id="4_b1ret"]
+[ext_resource type="PackedScene" uid="uid://cvinojykw1akk" path="res://scenes/Agentv2/agent_v_2.tscn" id="4_hbnk6"]
+[ext_resource type="PackedScene" uid="uid://dy882bndm7wgk" path="res://scenes/House_alt/School/school_exterior.tscn" id="4_j8lo3"]
+[ext_resource type="PackedScene" uid="uid://cxt0ml3ip8dcl" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_exterior.tscn" id="4_lp04t"]
+[ext_resource type="PackedScene" uid="uid://dnvwrd64upgd2" path="res://scenes/House_alt/House_exterior/house_exterior.tscn" id="4_xo7uf"]
+[ext_resource type="PackedScene" uid="uid://btjkxtumbtx3g" path="res://scenes/House_alt/MayorOffice/mayor_office_exterior.tscn" id="4_ycff6"]
+[ext_resource type="PackedScene" uid="uid://b4snbvr6hqs1p" path="res://scenes/House_alt/MayorOffice/mayor_office_interior.tscn" id="5_4g0sd"]
+[ext_resource type="PackedScene" uid="uid://cfcnq0tl638kg" path="res://scenes/House_alt/BeachsideCafe/beachside_cafe_interior.tscn" id="5_5vfp4"]
+[ext_resource type="PackedScene" uid="uid://cnb82310hrgyw" path="res://scenes/Player/Player.tscn" id="5_byoxf"]
+[ext_resource type="PackedScene" uid="uid://rxuts6opcq6c" path="res://scenes/House_alt/CruzEstate/cruz_estate_interior.tscn" id="5_mpw1i"]
+[ext_resource type="PackedScene" uid="uid://dx0maj81n6txs" path="res://scenes/House_alt/House_interior/house_interior.tscn" id="5_ofnrc"]
+[ext_resource type="PackedScene" uid="uid://dycnvhake3b3c" path="res://scenes/House_alt/School/school_interior.tscn" id="5_yeyi6"]
+[ext_resource type="Script" uid="uid://bgl64mmyy1opy" path="res://scenes/LevelManager/agent_timer.gd" id="6_4tw1x"]
+[ext_resource type="Script" uid="uid://pkviwog7eb7w" path="res://scenes/House_alt/House_parent_node/house.gd" id="7_mpw1i"]
+[ext_resource type="PackedScene" uid="uid://covtk3i2t37no" path="res://scenes/House_alt/House_exterior/house_exterior_2.tscn" id="7_rlfer"]
+[ext_resource type="PackedScene" uid="uid://hqbdxosl7ecw" path="res://scenes/House_alt/House_interior/house_interior_2.tscn" id="8_4jhem"]
+[ext_resource type="PackedScene" uid="uid://bi6nab3183nfk" path="res://scenes/House_alt/House_exterior/house_exterior_3.tscn" id="10_b1ret"]
+[ext_resource type="PackedScene" uid="uid://b5w4cq1y685mx" path="res://scenes/UI/Inventory/player_inventory_ui.tscn" id="10_mpw1i"]
+[ext_resource type="PackedScene" uid="uid://seswxf154idw" path="res://scenes/House_alt/House_interior/house_interior_3.tscn" id="11_mpw1i"]
+[ext_resource type="Script" uid="uid://dp76bji1rhv5k" path="res://scripts/Server/chat_connection.gd" id="14_j8lo3"]
+[ext_resource type="PackedScene" uid="uid://cscf5oaiiflo7" path="res://scenes/DayNightCycle/day_night_cycle.tscn" id="15_i07ia"]
+[ext_resource type="PackedScene" uid="uid://bw6mjknlbmuw5" path="res://scenes/UI/Inventory/object_inventory_ui.tscn" id="16_mpw1i"]
+[ext_resource type="PackedScene" uid="uid://babmox7yphah1" path="res://scenes/House_alt/Pharmacy/pharmacy_exterior.tscn" id="18_c8pmj"]
+[ext_resource type="PackedScene" uid="uid://c0p2kdhhdaobw" path="res://scenes/House_alt/Pharmacy/pharmacy_interior.tscn" id="19_iwutl"]
+[ext_resource type="PackedScene" uid="uid://b6pbjw861pyrp" path="res://scenes/UI/PopupMenu/popup_menu.tscn" id="19_j8lo3"]
+
+[node name="LevelManager" type="Node2D"]
+script = ExtResource("1_r2lsa")
+
+[node name="Map" parent="." instance=ExtResource("2_rl3ic")]
+position = Vector2(81, -14)
+
+[node name="MayorOffice" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("mayor_office_interior")
+house_exterior = NodePath("mayor_office_exterior")
+
+[node name="mayor_office_exterior" parent="MayorOffice" instance=ExtResource("4_ycff6")]
+position = Vector2(716, -222)
+
+[node name="mayor_office_interior" parent="MayorOffice" instance=ExtResource("5_4g0sd")]
+position = Vector2(5054, 1950)
+
+[node name="BeachsideCafe" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("beachside_cafe_interior")
+house_exterior = NodePath("beachside_cafe_exterior")
+
+[node name="beachside_cafe_exterior" parent="BeachsideCafe" instance=ExtResource("4_lp04t")]
+position = Vector2(201, 158)
+
+[node name="beachside_cafe_interior" parent="BeachsideCafe" instance=ExtResource("5_5vfp4")]
+position = Vector2(3983, 1940)
+
+[node name="School" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("school_interior")
+house_exterior = NodePath("school_exterior")
+
+[node name="school_exterior" parent="School" instance=ExtResource("4_j8lo3")]
+position = Vector2(-482, 83)
+
+[node name="school_interior" parent="School" instance=ExtResource("5_yeyi6")]
+position = Vector2(2659, 1886)
+
+[node name="CruzEstate" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("cruz_estate_interior")
+house_exterior = NodePath("cruz_estate_exterior")
+
+[node name="cruz_estate_exterior" parent="CruzEstate" instance=ExtResource("4_b1ret")]
+position = Vector2(208, -234)
+
+[node name="cruz_estate_interior" parent="CruzEstate" instance=ExtResource("5_mpw1i")]
+position = Vector2(790, 1868)
+metadata/_edit_group_ = true
+
+[node name="Rafael\'s House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(1173, 1201)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
+
+[node name="house_exterior" parent="Rafael\'s House" instance=ExtResource("4_xo7uf")]
+position = Vector2(-984, -1124)
+
+[node name="house_interior" parent="Rafael\'s House" instance=ExtResource("5_ofnrc")]
+position = Vector2(2021, 2363)
+metadata/_edit_group_ = true
+
+[node name="Lin Family House" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(494, 255)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
+
+[node name="house_exterior" parent="Lin Family House" instance=ExtResource("7_rlfer")]
+
+[node name="house_interior" parent="Lin Family House" instance=ExtResource("8_4jhem")]
+position = Vector2(765, 3182)
+metadata/_edit_group_ = true
+
+[node name="House3" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+position = Vector2(912, 200)
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
+
+[node name="house_exterior" parent="House3" instance=ExtResource("10_b1ret")]
+position = Vector2(11, 2)
+
+[node name="house_interior" parent="House3" instance=ExtResource("11_mpw1i")]
+position = Vector2(3621, 3271)
+metadata/_edit_group_ = true
+
+[node name="Pharmacy" type="Node2D" parent="." node_paths=PackedStringArray("house_interior", "house_exterior") groups=["House"]]
+script = ExtResource("7_mpw1i")
+house_interior = NodePath("house_interior")
+house_exterior = NodePath("house_exterior")
+
+[node name="house_exterior" parent="Pharmacy" instance=ExtResource("18_c8pmj")]
+position = Vector2(1056, 351)
+scale = Vector2(0.55, 0.55)
+
+[node name="house_interior" parent="Pharmacy" instance=ExtResource("19_iwutl")]
+position = Vector2(1267, 4552)
+
+[node name="Adam" parent="." instance=ExtResource("5_byoxf")]
+position = Vector2(1065, 463)
+
+[node name="Camera2D" type="Camera2D" parent="Adam"]
+zoom = Vector2(2, 2)
+
+[node name="ChatBox" type="Control" parent="Adam" node_paths=PackedStringArray("text_input")]
+visible = false
+z_index = 2
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_j8lo3")
+text_input = NodePath("LineEdit")
+
+[node name="Button" type="Button" parent="Adam/ChatBox"]
+layout_mode = 0
+offset_left = -110.0
+offset_top = -159.0
+offset_right = 40.0
+offset_bottom = -128.0
+text = "Post new message"
+
+[node name="LineEdit" type="LineEdit" parent="Adam/ChatBox"]
+layout_mode = 0
+offset_left = -288.0
+offset_top = -161.0
+offset_right = -115.0
+offset_bottom = -130.0
+
+[node name="DayNightCycle" parent="." instance=ExtResource("15_i07ia")]
+
+[node name="AgentTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+script = ExtResource("6_4tw1x")
+
+[node name="Agent1" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(1612, 3641)
+agentName = "John"
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed2")
+in_building = NodePath("../Lin Family House")
+workPlace = NodePath("../Pharmacy")
+workObject = NodePath("../Pharmacy/house_interior/Computer")
+character = "marcus"
+
+[node name="PopupMenu" parent="." instance=ExtResource("19_j8lo3")]
+visible = false
+
+[node name="AgentV2" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(1595, 3508)
+agentName = "Mei"
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed")
+in_building = NodePath("../Lin Family House")
+workPlace = NodePath("../School")
+workObject = NodePath("../School/school_interior/Computer")
+
+[node name="AgentV3" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(3221, 3681)
+agentName = "Rafael"
+house = NodePath("../Rafael\'s House")
+agentBed = NodePath("../Rafael\'s House/house_interior/Bed")
+in_building = NodePath("../Rafael\'s House")
+workPlace = NodePath("../MayorOffice")
+workObject = NodePath("../MayorOffice/mayor_office_interior/Computer")
+
+[node name="AgentV4" parent="." node_paths=PackedStringArray("house", "agentBed", "in_building", "workPlace", "workObject") instance=ExtResource("4_hbnk6")]
+position = Vector2(1610, 3756)
+agentName = "Ethan"
+house = NodePath("../Lin Family House")
+agentBed = NodePath("../Lin Family House/house_interior/Bed3")
+in_building = NodePath("../Lin Family House")
+workPlace = NodePath("../BeachsideCafe")
+workObject = NodePath("../BeachsideCafe/beachside_cafe_interior/Fridge")
+
+[node name="ObjectInventoryUi" parent="." instance=ExtResource("16_mpw1i")]
+visible = false
+
+[node name="PlayerInventoryUi" parent="." instance=ExtResource("10_mpw1i")]
+visible = false
+
+[node name="RefelectionTimer" type="Timer" parent="."]
+wait_time = 100.0
+autostart = true
+
+[node name="AutoSaveTimer" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[connection signal="pressed" from="Adam/ChatBox/Button" to="Adam/ChatBox" method="_on_button_pressed"]
+[connection signal="text_submitted" from="Adam/ChatBox/LineEdit" to="Adam/ChatBox" method="_on_line_edit_text_submitted"]
+[connection signal="timeout" from="AgentTimer" to="." method="_on_agent_timer_timeout"]
+[connection signal="timeout" from="RefelectionTimer" to="." method="_on_refelection_timer_timeout"]
+[connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]
+
+[editable path="MayorOffice/mayor_office_interior"]
+[editable path="BeachsideCafe/beachside_cafe_interior"]
+[editable path="School/school_interior"]
+[editable path="Rafael\'s House/house_exterior"]
+[editable path="Rafael\'s House/house_exterior/Entrance"]
+[editable path="Rafael\'s House/house_interior"]
+[editable path="Lin Family House/house_exterior"]
+[editable path="Lin Family House/house_exterior/Entrance"]
+[editable path="Lin Family House/house_interior"]
+[editable path="House3/house_exterior"]
+[editable path="House3/house_exterior/Entrance"]
+[editable path="House3/house_interior"]
+[editable path="Pharmacy/house_interior"]

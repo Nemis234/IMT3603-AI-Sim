@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd326c0klutaa"]
+
+[ext_resource type="Script" uid="uid://bvs1hxnh0dsbo" path="res://scenes/Components/direction_component.gd" id="1_ejpny"]
+
+[node name="DirectionComponent" type="Node"]
+script = ExtResource("1_ejpny")

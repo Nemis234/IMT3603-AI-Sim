@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://6owlmkwg44o7"]
+
+[ext_resource type="Script" uid="uid://56nxi80pfcmi" path="res://agent_action_interaction_component.gd" id="1_u6ahv"]
+
+[node name="AgentActionInteractionComponent" type="Node"]
+script = ExtResource("1_u6ahv")

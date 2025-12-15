@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://bi6nab3183nfk"]
+
+[ext_resource type="Texture2D" uid="uid://c6wadxd2s3r6p" path="res://assets/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png" id="1_fupv2"]
+[ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_k1s84"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="2_k1s84"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvip5"]
+atlas = ExtResource("1_fupv2")
+region = Rect2(165, 336, 70, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t5gqi"]
+size = Vector2(64, 34)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_oave6"]
+a = Vector2(13, -5)
+b = Vector2(-1, 9)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6h7qp"]
+b = Vector2(12, 0)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_w55gp"]
+a = Vector2(-1, 0)
+b = Vector2(13, 14)
+
+[node name="HouseExterior3" type="StaticBody2D" groups=["house_ext"]]
+script = ExtResource("1_k1s84")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_rvip5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_t5gqi")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(-18, -23)
+shape = SubResource("SegmentShape2D_oave6")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -28)
+shape = SubResource("SegmentShape2D_6h7qp")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="."]
+position = Vector2(6, -28)
+shape = SubResource("SegmentShape2D_w55gp")
+
+[node name="Entrance" parent="." instance=ExtResource("2_k1s84")]
+position = Vector2(0, 24)

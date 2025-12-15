@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://co3mecjygtwqc"]
+
+[ext_resource type="Texture2D" uid="uid://cmj5p76aodqlq" path="res://assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Interiors_free/16x16/Interiors_free_16x16.png" id="1_oov1t"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgi2r"]
+atlas = ExtResource("1_oov1t")
+region = Rect2(115, 391, 25, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgi2r"]
+size = Vector2(26, 20)
+
+[node name="KitchenWindow" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_pgi2r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_pgi2r")

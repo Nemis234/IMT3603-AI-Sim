@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dy882bndm7wgk"]
+
+[ext_resource type="Script" uid="uid://cvn8qug8acuei" path="res://scenes/House_alt/House_exterior/house_exterior.gd" id="1_unyuv"]
+[ext_resource type="Texture2D" uid="uid://b7k6gyy8djf5e" path="res://assets/havenport_buildings/firered_school.png" id="2_iuu2d"]
+[ext_resource type="PackedScene" uid="uid://c172kp7wrv708" path="res://scenes/House_alt/House_interior/Entrance/entrance_area.tscn" id="3_5sij0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4hv5"]
+size = Vector2(163.5, 77)
+
+[node name="school_exterior" type="StaticBody2D" groups=["house_ext"]]
+script = ExtResource("1_unyuv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_iuu2d")
+region_enabled = true
+region_rect = Rect2(2.170742, 2.9320946, 163.50168, 81.34682)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.75, -3.5)
+shape = SubResource("RectangleShape2D_y4hv5")
+
+[node name="Entrance" parent="." instance=ExtResource("3_5sij0")]
+position = Vector2(-24, 35)

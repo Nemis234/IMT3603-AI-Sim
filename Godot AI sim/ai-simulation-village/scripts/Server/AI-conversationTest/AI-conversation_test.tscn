@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyd3ggphq8boy"]
+
+[ext_resource type="Script" uid="uid://cbuw3w77reqmj" path="res://scripts/Server/AI-conversationTest/ai_conversation_test.gd" id="1_b06f1"]
+[ext_resource type="PackedScene" uid="uid://d3k16ikq3jige" path="res://scenes/Dialogue/SpeechBubble.tscn" id="2_uuf47"]
+
+[node name="AI-conversation" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b06f1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 50.0
+grow_horizontal = 2
+
+[node name="ChatBubble1" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Agent_1" type="Label" parent="VBoxContainer/ChatBubble1"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Agent 1: "
+
+[node name="Chat" type="Label" parent="VBoxContainer/ChatBubble1"]
+layout_mode = 2
+
+[node name="ChatBubble2" type="HSplitContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Agent_2" type="Label" parent="VBoxContainer/ChatBubble2"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Agent 2:"
+
+[node name="Chat" type="Label" parent="VBoxContainer/ChatBubble2"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "New conversation"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Switch conversation partners"
+
+[node name="SpeechBubble" parent="VBoxContainer" instance=ExtResource("2_uuf47")]
+layout_mode = 2
+
+[node name="SpeechBubble2" parent="VBoxContainer" instance=ExtResource("2_uuf47")]
+layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+
+[editable path="VBoxContainer/SpeechBubble"]
+[editable path="VBoxContainer/SpeechBubble2"]
