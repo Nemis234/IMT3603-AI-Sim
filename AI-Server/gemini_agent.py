@@ -260,12 +260,14 @@ class Agent:
 
         print(f"{self._name}")
 
+        global next_available_time
+        
         if time.time() >= next_available_time:
             print("Waiting due to rate limit...")
             print("Avaiable at: ", time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(next_available_time)))
             
         
-        global next_available_time
+        
         if not action_list:
             print("No actions provided, sending default.")
             action_dict = DEFAULT_ACTION
