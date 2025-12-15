@@ -9,10 +9,10 @@
 
 
 All the code for the project can be found here in this repository:\
-https://github.com/Nemis234/IMT3603-AI-Sim/tree/Godot-Frontend
+[https://github.com/Nemis234/IMT3603-AI-Sim/tree/Godot-Frontend](https://github.com/Nemis234/IMT3603-AI-Sim)
 
-The link to the video showing off our game: 
-https://youtu.be/Cz0zDeAIzuE\
+The link to the video showing off our game:\
+[https://youtu.be/Cz0zDeAIzuE/](https://youtu.be/Cz0zDeAIzuE/)
 
 
 # Development process
