@@ -1,10 +1,10 @@
 ## For deployment using python
 ### Requirements:
-- ollama (downloaded from https://ollama.com/)
-- mistral (AI model downloaded from ollama. See [setup - local server](#local-server))
+- ollama (downloaded from https://ollama.com/) [Deprecated]
+- mistral (AI model downloaded from ollama. See [setup - local server](#local-server)) [Deprecated]
 - Python 3.13.7 or above (have been tested)
 - Python libraries (see [setup](#setup)): 
-    - ollama-python
+    - ollama-python [Deprecated]
     - fastapi
     - uvicorn (or any other ASGI API host)
     - chromadb
@@ -20,7 +20,7 @@
         - Linux/macOS: ```source ./ai_venv/bin/activate```
 - Install packages from the requirements file:  ```pip install -r requirements```
 
-#### Local server
+#### Local server [Deprecated]
 To start a local server, follow the above steps, and then:
 - Restart or launch your terminal window (editors like VS Code need to be fully closed and reopened)
 - If ollama is downloaded, do ```ollama run mistral```
@@ -53,3 +53,4 @@ Be sure that the Docker engien is running on the device, then in this directory 
 ```bash
 docker compose up -d
 ```
+
